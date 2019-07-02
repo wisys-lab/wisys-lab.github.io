@@ -6,22 +6,23 @@
   <meta name="keywords" content>
   <meta name="description" content="IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta name="description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IoT Book">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/8.4 LoRa低功耗广域网/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta property="og:description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/correlation.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T01:03:47.496Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLPWAN.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLoRaArch.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CChirp.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CloraDecoder.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CloraPkt.png">
+<meta property="og:updated_time" content="2019-07-02T01:16:45.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IoT Book">
-<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/zigzag_processing.png">
+<meta name="twitter:description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLPWAN.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -74,7 +75,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(3)</small></div></li>
+    <li><div class="all active">全部文章<small>(2)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -86,7 +87,7 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="3">
+<input type="hidden" id="yelog_site_posts_number" value="2">
 <input type="hidden" id="yelog_site_word_count" value="5.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -129,14 +130,6 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-02 13:33:36">2019/07/02</span>
-        </a>
-        
-        <a  class=""
            href="/2019/07/02/8.4 LoRa低功耗广域网/"
            data-tag=""
            data-author="" >
@@ -145,11 +138,11 @@
         </a>
         
         <a  class=""
-           href="/2019/07/02/hello-world/"
+           href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="Hello World">Hello World</span>
-            <span class="post-date" title="2019-07-02 12:11:30">2019/07/02</span>
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-07-02 13:33:36">2019/07/02</span>
         </a>
         
     </nav>
