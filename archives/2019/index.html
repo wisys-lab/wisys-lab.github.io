@@ -6,29 +6,31 @@
   <meta name="keywords" content>
   <meta name="description" content="IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
+<meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8.2 网络冲突处理——ZigZag">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
+<meta property="og:title" content="4.2 编码方法及其声音实现">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/4.2 编码方法及其声音实现/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
+<meta property="og:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/correlation.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision1.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T09:51:29.956Z">
+<meta property="og:image" content="http://yoursite.com/images/4.2/1.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/2.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/3.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/4.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/5.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/6.png">
+<meta property="og:updated_time" content="2019-07-02T10:41:31.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8.2 网络冲突处理——ZigZag">
-<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
-<meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
+<meta name="twitter:title" content="4.2 编码方法及其声音实现">
+<meta name="twitter:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
+<meta name="twitter:image" content="http://yoursite.com/images/4.2/1.png">
 
 
 <link rel="icon" href="/img/icon.jpg">
 
 <link href="/css/style.css?v=1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-dark.css?v=1" rel="stylesheet">
+<link href="/css/hl_theme/atom-light.css?v=1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -74,7 +76,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(2)</small></div></li>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -86,8 +88,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="2">
-<input type="hidden" id="yelog_site_word_count" value="5.4k">
+<input type="hidden" id="yelog_site_posts_number" value="10">
+<input type="hidden" id="yelog_site_word_count" value="16.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -128,19 +130,83 @@
     
     <nav id="title-list-nav">
         
-        <a  class=""
-           href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
+        <a id="top" class=""
+           href="/2019/07/02/0.1 android开发基础/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="8.2 网络冲突处理——ZigZag">8.2 网络冲突处理——ZigZag</span>
+            <span class="post-title" title="0.1 安卓开发基础">0.1 安卓开发基础</span>
             <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
         </a>
         
-        <a  class=""
-           href="/2019/07/01/8.4 LoRa低功耗广域网/"
+        <a id="top" class=""
+           href="/2019/07/02/0.2 matlab基础/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="8.4 LoRa低功耗广域网">8.4 LoRa低功耗广域网</span>
+            <span class="post-title" title="0.2 matlab基础">0.2 matlab基础</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.1 无线网络基础概念/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.1 无线网络基础概念">4.1 无线网络基础概念</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.2 编码方法及其声音实现/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.2 编码方法及其声音实现">4.2 编码方法及其声音实现</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.1 基于距离测量的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.1 基于距离测量的定位">7.1 基于距离测量的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.2 基于信号分布特征的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.2 基于信号分布特征的定位">7.2 基于信号分布特征的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.3 基于距离变化量的位置追踪/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.3 基于距离变化量的位置追踪">7.3 基于距离变化量的位置追踪</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/8.1 感知识别——智能手表连接教程/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="8.1 感知识别——智能手表连接教程">8.1 感知识别——智能手表连接教程</span>
+            <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/9.2 网络冲突处理(zigzag)/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.2 网络冲突处理——ZigZag">9.2 网络冲突处理——ZigZag</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/9.4 LoRa低功耗广域网/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.4 LoRa低功耗广域网">9.4 LoRa低功耗广域网</span>
             <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
         </a>
         
@@ -294,7 +360,7 @@
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: ;
+        background-color: #fafafa;
     }
     .pre-numbering.widther {
         width: 35px;

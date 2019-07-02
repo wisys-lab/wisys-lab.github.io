@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>7.1 基于距离测量的定位 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="7.1 基于距离测量的定位 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
@@ -59,7 +59,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -220,12 +220,47 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-7.1 基于距离测量的定位" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
+        <h1 class="article-title">7.1 基于距离测量的定位</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:50:30'>2019-07-02 15:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:785</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        
     
 <style>
     .left-col .switch-btn,
@@ -238,26 +273,125 @@
     }
 </style>
 </div>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
-<ol>
-<li><p>了解物联网的发展历史和出现的原因</p>
-</li>
-<li><p>知道物联网的基本技术</p>
-</li>
-<li><p>熟悉物联网主要的发展方向和国际前沿</p>
-</li>
-<li><p>熟练搭建物联网系统</p>
-</li>
-</ol>
-<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
-<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
-<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
-<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
-<p>致谢：</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基于距离测量是一种基本的定位方法，其原理也非常直观和符合直觉。一种最基本的基于距离测量的定位方法是三边定位。</p>
+<p>三边定位的基本思想是：假设空间中存在三个用于定位的信标。对于待测的定位点，可以测量该定位点到三个信标的距离。从信标处考虑，所有到信标指定距离的点，组成了一个以信标为圆心、半径为制定距离的圆。那么，根据定位点到三个信标的距离，即可分别确定三个定位圆。而这三个定位圆的交点，即为对待定位点的定位结果。</p>
+<p><img src="/images/7.1/Trilateration01.png" alt="图1. 三边定位示意图（理论）" title="三边定位示意图（理论）"></p>
+<p>如图所示，如果三个信标的坐标分别为(0, 0)、(2, 0)和(1, 1.732)。对于定位点，如果定位点到三个信标的距离均为1.155，则以三个信标为圆心分别做圆，三个圆交于一点。则该点即为对定位点的定位结果。</p>
+<p>假设待求的定位点坐标为(x, y)，n个信标中第i个信标的坐标为(x_i,y_i)，定位点到第i个信标的距离为d_i，则根据图1，有如下方程成立：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+    (x-x_1)^2+(y-y_1)^2=d_1^2\\
+    \vdots\\
+    (x-x_n)^2+(y-y_n)^2=d_n^2
+\end{cases}</script><p>求解上式，即可求得定位点的坐标(x, y)。</p>
+<p><img src="/images/7.1/Trilateration02.png" alt title="三边定位示意图（实际）"></p>
+<p>但是通常来说，信标的定位圆并不会刚好交于一点。实际的测量结果通常如图所示。因此，在计算时，我们需要对其进行近似求解。常见方法有加权法、最小二乘法、质心法等。如果我们使用最小二乘法进行计算，需要在前面理论的基础上进一步进行计算。在式1的基础上，我们将前n-1个方程减去第n个方程，得到线性化方程：$AX=b$。其中：</p>
+<script type="math/tex; mode=display">
+A=\left[
+    \begin{matrix}
+        2(x_1-x_n) & 2(y_1-y_n)\\ 
+        2(x_{n-1}-x_n) & 2(y-{n-1}-y_n)
+    \end{matrix}
+\right],</script><script type="math/tex; mode=display">
+b=\left[
+    \begin{matrix}
+        x_1^2-x_n^2+y_1^2-y_n^2+d_n^2-d_1^2\\
+        x_{n-1}^2-x_n^2+y_{n-1}^2-y_n^2+d_n^2-d_{n-1}^2
+    \end{matrix}
+\right]</script><p>则，利用最小二乘法可以解得：</p>
+<script type="math/tex; mode=display">
+X=(A^TA)^{-1}A^Tb</script><p>相关代码如下（./code/trilateration.m）</p>
+<pre><code class="lang-python">nodeNumber = 3;   %#定位信标的数量
+nodeList = [0, 0; 2, 0; 1, 1.732];   %#三个定位信标的坐标
+disList = [1.155, 1.155, 1.155];    %#定位目标点到三个定位信标的距离
 
-        </article>
-        
-        
+A = [];
+B = [];
+xn = nodeList(nodeNumber, 1);
+yn = nodeList(nodeNumber, 2);
+dn = disList(nodeNumber);
+for i=1:nodeNumber-1
+    xi = nodeList(i, 1);
+    yi = nodeList(i, 2);
+    di = disList(i);
+    A = [A; 2 * (xi - xn), 2 * (yi - yn)];
+    B = [B; xi * xi + yi *yi - xn * xn - yn * yn + dn * dn - di * di];
+end    %#计算线性方程组的参数A和B
+
+X = inv(A&#39;*A)*A&#39;*B   %#根据最小二乘法公式计算结果X
+</code></pre>
+<p>代码中，nodeList表示信标的位置坐标，nodeNumber表示信标的数量，disList表示定位点到各信标的距离。则分别求得A和B以后，根据式2即可求得定位点的坐标X。<br>（延伸阅读：<a href="https://github.com/megagao/IndoorPos）" target="_blank" rel="noopener">https://github.com/megagao/IndoorPos）</a></p>
+<p>Some三边定位方法。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>7.1 基于距离测量的定位</p>
+    <p><span>文章字数:</span><span class="post-count">785</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
+    <p><span>最后更新:</span>2019-07-02, 18:50:30</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/02/7.1 基于距离测量的定位/" title="7.1 基于距离测量的定位">http://yoursite.com/2019/07/02/7.1 基于距离测量的定位/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 WiSys Lab</p>

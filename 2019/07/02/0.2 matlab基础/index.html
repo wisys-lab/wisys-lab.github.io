@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>0.2 matlab基础 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="0.2 matlab基础 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
@@ -59,7 +59,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -220,12 +220,47 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-0.2 matlab基础" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
+        <h1 class="article-title">0.2 matlab基础</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:57:56'>2019-07-02 15:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:722</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Matlab-安装"><span class="toc-text">Matlab 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Matlab使用"><span class="toc-text">Matlab使用</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -238,26 +273,92 @@
     }
 </style>
 </div>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
-<ol>
-<li><p>了解物联网的发展历史和出现的原因</p>
-</li>
-<li><p>知道物联网的基本技术</p>
-</li>
-<li><p>熟悉物联网主要的发展方向和国际前沿</p>
-</li>
-<li><p>熟练搭建物联网系统</p>
-</li>
-</ol>
-<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
-<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
-<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
-<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
-<p>致谢：</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Matlab-安装"><a href="#Matlab-安装" class="headerlink" title="Matlab 安装"></a>Matlab 安装</h1><p>请使用学校提供的正版matlab安装教程进行matlab软件的安装和激活</p>
+<h1 id="Matlab使用"><a href="#Matlab使用" class="headerlink" title="Matlab使用"></a>Matlab使用</h1><p>本章节我将以录音文件读取和展示为例为带大家进行简单的matlab操作。安装完成后，打开matlab界面，通过cd命令进入到工作目录。<br><img src="/images/0.2/5.png" alt title=" "><br>由于在命令行中输入命令每次修改都需要重新复制粘贴，为了方便修改和运行代码，我们可以创建”.m”脚本文件来进行代码的实现。点击应用左上方的新建按钮，选择脚本：<br><img src="/images/0.2/6.png" alt title=" "><br>然后编辑器中会出现一个Untitled.m 点击左上方的保存按钮，为这个脚本文件取名并保存在当前工作文件夹中，我将其命名为了“Hello.m”：<br><img src="/images/0.2/7.png" alt title=" "><br>为了方便处理录音文件，我们将在手机上录到的“.wav”文件拷贝到当前的matlab工作目录下。<br>在”Hello.m”中编写文件读取和展示的代码：</p>
+<pre><code class="lang-python">%#从录音文件receive.wav中读取数据和采样频率
+[data, fs] = audioread(&#39;receive.wav&#39;);
+%#把数据展示到figure中
+figure;
+plot(data);
+</code></pre>
+<p>点击上方的运行按钮：<br><img src="/images/0.2/8.png" alt title=" "><br>Matlab绘制出了图形：<br><img src="/images/0.2/9.png" alt title=" "><br>横轴是采样点的序号，纵轴是采样点的值，代表声音的幅度。对局部放大之后如下图：<br><img src="/images/0.2/10.png" alt title=" "><br>我们观察可以发现图中画出的是两条数据，这是因为录音文件中存储的是手机的两个麦克风所录到的两路信号，在工作区中观察变量data会发现其为n*2的矩阵：<br><img src="/images/0.2/11.png" alt title=" "><br>双击其变量名可以在变量工作区中打开它，滚动屏幕就可以观察它的值：<br><img src="/images/0.2/12.png" alt title=" "><br>Matlab除了可以建脚本文件，还可以创建函数文件。点击新建-&gt;函数：<br><img src="/images/0.2/13.png" alt title=" "><br>编辑器中出现一个未命名的m文件，并且带有初始的函数结构。点击保存按钮保存这个文件并为函数取名，保存之后还需要对函数名和文件名进行统一：<br><img src="/images/0.2/14.png" alt title=" "><br>修改函数命名之后编辑器右侧的小方块将变成绿色，表示问题已修复。<br><img src="/images/0.2/15.png" alt title=" "><br> 接下来可以根据自己想要的功能修改函数的输入输出参数以及计算过程：</p>
+<pre><code class="lang-python">function [result] = getMax(a,b)
+%#getMax 此处显示有关此函数的摘要
+%# 输入参数是两个数a和b，返回这两个数中的最大值。
+result= max(a,b);
+end
+</code></pre>
+<p>现在就可以在命令行、脚本或其他函数文件中利用函数名称调用它了：<br><img src="/images/0.2/16.png" alt title=" "><br>有了这些基础，你已经可以进行简单的matlab使用了，更多的操作你可以自行进行学习，我们后续的教程也会在首次使用到某个新操作的时候进行相应的介绍。</p>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>0.2 matlab基础</p>
+    <p><span>文章字数:</span><span class="post-count">722</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
+    <p><span>最后更新:</span>2019-07-02, 18:57:56</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/02/0.2 matlab基础/" title="0.2 matlab基础">http://yoursite.com/2019/07/02/0.2 matlab基础/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 WiSys Lab</p>

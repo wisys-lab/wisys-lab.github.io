@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>4.2 编码方法及其声音实现 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="4.2 编码方法及其声音实现 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
@@ -59,7 +59,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -220,12 +220,47 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-4.2 编码方法及其声音实现" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
+        <h1 class="article-title">4.2 编码方法及其声音实现</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:41:31'>2019-07-02 15:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#编码方法及其声音实现"><span class="toc-text">编码方法及其声音实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#脉冲编码"><span class="toc-text">脉冲编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#幅度编码"><span class="toc-text">幅度编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间编码"><span class="toc-text">时间编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#频率编码"><span class="toc-text">频率编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相位编码"><span class="toc-text">相位编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BPSK-amp-QPSK-编码"><span class="toc-text">BPSK &amp; QPSK 编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OFDM编码"><span class="toc-text">OFDM编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#载波调制"><span class="toc-text">载波调制</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -238,26 +273,195 @@
     }
 </style>
 </div>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
-<ol>
-<li><p>了解物联网的发展历史和出现的原因</p>
-</li>
-<li><p>知道物联网的基本技术</p>
-</li>
-<li><p>熟悉物联网主要的发展方向和国际前沿</p>
-</li>
-<li><p>熟练搭建物联网系统</p>
-</li>
-</ol>
-<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
-<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
-<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
-<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
-<p>致谢：</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="编码方法及其声音实现"><a href="#编码方法及其声音实现" class="headerlink" title="编码方法及其声音实现"></a>编码方法及其声音实现</h1><p>在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。</p>
+<h2 id="脉冲编码"><a href="#脉冲编码" class="headerlink" title="脉冲编码"></a>脉冲编码</h2><p>脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码为“0”或“1”。</p>
+<p><img src="/images/4.2/1.png" alt title=" "> </p>
+<p>脉冲编码由于使用简单的对应规则将“0”和“1”编码为不同长度的间隔，在解码时可以简单的根据信号幅度得到每个脉冲的起始位置来获得间隔的长短，这种编解码方法的优点是计算开销非常小。</p>
+<p>脉冲编码的缺点是编码效率低，每个脉冲之间需要有足够的距离来防止多径效应造成的回声影响到下一个脉冲的判断。想要提高脉冲编码的数据速率，可以从两个方面来考虑。第一个方面是可以缩短编码长度，不仅可以在保证解码正确率的条件下尽可能缩短脉冲之间用于编码数据的时间间隔，还可以通过缩短脉冲信号的持续时间来使得同样时间下传输更多的数据。</p>
+<p><img src="/images/4.2/2.png" alt title=" ">  </p>
+<p>第二个方面，可以通过设置多种编码长度，使一个编码位携带更多的信息。如下图中所示，设置2种编码长度时，每个编码位携带1bit信息；设置4中编码长度时，每个编码位携带2bit信息；设置8种编码长度时，每个编码位携带3bit信息。</p>
+<p><img src="/images/4.2/3.png" alt title=" "> </p>
+<p>当然，我们不能无限的通过增加不同的编码长度来提高编码效率。当不同的编码长度之间的区分度越小，解码时将他们区分开的难度也越大。</p>
+<p>另外，如果不同的编码单位出现的概率不同，我们还可以使用霍夫曼编码的思想来进一步优化脉冲编码的速率。比如说在一个待发送的文件中“0”的个数大于“1”的个数，使用较短的间隔代表“0”，长的间隔代表“1”，可以使总的发送时间更短。</p>
+<p>实现到声音通信上：<br>信号：使用18kHz的声音信号作为脉冲信号，采样频率设置为48kHz。17kHz以上频率的声音信号是大多数成年人都听不到的，选用18kHz可以使人不受干扰。<br>编码设计：脉冲长度设置为100个采样点，由于采样频率为48kHz，脉冲的持续时间是100/48000≈2.1ms。脉冲之间空白的间隔采样点数与编码的对应规则见下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>脉冲间隔（sample）</th>
+<th>编码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50</td>
+<td>00</td>
+</tr>
+<tr>
+<td>100</td>
+<td>01</td>
+</tr>
+<tr>
+<td>150</td>
+<td>10</td>
+</tr>
+<tr>
+<td>200</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>进行声音通信首先是要产生声音信号：</p>
+<pre><code class="lang-python">%%# impulse coding
+fs = 48000;%#设置采样频率
+f = 18000;%#指定声音信号频率
+time = 0.0025;%#指定生成的信号持续时间
+t = 0:1/fs:time;%#设置每个采样点数据对应的时间
+t = t(1:100);%#截取出100个时间上的采样点
+impulse = sin(2*pi*f*t);%#生成频率为f的正弦信号
+</code></pre>
+<p>接下来我们生成用于编码的空白部分：</p>
+<pre><code class="lang-python">delta = 50;
+pause0 = zeros(1,delta);%#编码00
+pause1 = zeros(1,2*delta); %#编码01
+pause2 = zeros(1,3*delta); %#编码10
+pause3 = zeros(1,4*delta); %#编码11
+</code></pre>
+<p>设置待传输的字符串：</p>
+<pre><code class="lang-python">str = &#39;Tsinghua University&#39;;
+</code></pre>
+<p>为了通过信号把字符串传输出去，我们需要将其转为二进制串。实现名为“string2bin”的函数，把字符数组转化为0,1串：</p>
+<pre><code class="lang-python">function [ binary ] = string2bin( str )
+%#   把字符串转换成二进制串
+ascii = abs(str);
+L = length(ascii);
+binary = zeros(L,8);
+for i=1:L
+    binary_str = dec2bin(ascii(i));
+    binary_str_index = length(binary_str);
+    for j = 8:-1:1
+        if binary_str_index &gt;0
+            binary(i,j) = str2num(binary_str(binary_str_index));
+        else
+            binary(i,j) = 0;
+        end
+        binary_str_index = binary_str_index-1;
+    end
+end
+binary = reshape(binary&#39;,[L*8,1]);
+end
+</code></pre>
+<p>调用string2bin函数时传入之前设置的待传输字符串，就可以得到等待传输的二进制串，将其存储在变量“message”中：</p>
+<pre><code class="lang-python">message = string2bin( str )&#39;;%#调用函数把字符串转为二进制串&#39;
+%#因为我们设计的编码是每个码元代表2个bit，这里要把二进制串转为4进制串
+[~,m_Length] = size(message);
+message4 = [];
+for i = 1:m_Length/2
+    %# 把二进制串中的每两位进行结合，得到四进制串
+    message4 = [message4,message(i*2-1)*2+message(i*2)];
+end
+</code></pre>
+<p>生成编码数据：</p>
+<pre><code class="lang-python">output = [];
+%# 根据四进制串中的值，将impulse和对应的空白信号添加到输出信号中
+for i = 1:m_Length/2
+    if message4(i)==0
+        output = [output,impulse,pause0];
+    elseif message4(i)==1
+        output = [output,impulse,pause1];
+    elseif message4(i)==2
+        output = [output,impulse,pause2];
+    else
+        output = [output,impulse,pause3];
+    end  
+end
+%# 在输出信号前加一段空白，避免播放器在信号刚开始的位置出现失真的情况。
+output = [pause3,output,impulse];
+%# 在figure中画出输出的时域信号
+figure(1);
+plot(output);
+axis([-500 17500 -3 3]);
+%# 将输出信号写入到音频文件中，需要指明文件名、数据、和采样频率。
+audiowrite(&#39;message.wav&#39;,data,fs);
+</code></pre>
+<p>最终生成的输出信号时域信号如图所示，横轴代表采样点的序号，纵轴代表幅度：<br><img src="/images/4.2/4.png" alt title=" "> </p>
+<h2 id="幅度编码"><a href="#幅度编码" class="headerlink" title="幅度编码"></a>幅度编码</h2><p>幅度编码是利用为信号设置不同的幅度来实现编码的目的。最简单的幅度编码是ON-OFF Keying (OOK)。OOK使用固定频率的信号代表“1”，没有信号代表“0”，两种码元的长度相同。下面是使用OOK编码的示意图：</p>
+<p><img src="/images/4.2/5.png" alt title=" ">  </p>
+<p>幅度编码的效率提高可以通过设置不同的振幅级别来实现，使得每个码元所携带的信息更多：</p>
+<p><img src="/images/4.2/6.png" alt title=" ">  </p>
+<h2 id="时间编码"><a href="#时间编码" class="headerlink" title="时间编码"></a>时间编码</h2><h2 id="频率编码"><a href="#频率编码" class="headerlink" title="频率编码"></a>频率编码</h2><p>频率编码也就是Frequency shift keying (FSK)，使用的是不同的频率或不同的频率组合来编码不同的数据。</p>
+<h2 id="相位编码"><a href="#相位编码" class="headerlink" title="相位编码"></a>相位编码</h2><h2 id="BPSK-amp-QPSK-编码"><a href="#BPSK-amp-QPSK-编码" class="headerlink" title="BPSK &amp; QPSK 编码"></a>BPSK &amp; QPSK 编码</h2><h2 id="OFDM编码"><a href="#OFDM编码" class="headerlink" title="OFDM编码"></a>OFDM编码</h2><h2 id="载波调制"><a href="#载波调制" class="headerlink" title="载波调制"></a>载波调制</h2><p>上变频 下变频</p>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>4.2 编码方法及其声音实现</p>
+    <p><span>文章字数:</span><span class="post-count">1.6k</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
+    <p><span>最后更新:</span>2019-07-02, 18:41:31</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/02/4.2 编码方法及其声音实现/" title="4.2 编码方法及其声音实现">http://yoursite.com/2019/07/02/4.2 编码方法及其声音实现/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 WiSys Lab</p>

@@ -2,33 +2,35 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>8.4 LoRa低功耗广域网 | IoT Book</title>
+  <title>9.4 LoRa低功耗广域网 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="8.4 LoRa低功耗广域网 | IoT Book">
+  <meta name="description" content="9.4 LoRa低功耗广域网 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
+<meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8.2 网络冲突处理——ZigZag">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
+<meta property="og:title" content="4.2 编码方法及其声音实现">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/4.2 编码方法及其声音实现/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
+<meta property="og:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/correlation.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision1.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T09:51:29.956Z">
+<meta property="og:image" content="http://yoursite.com/images/4.2/1.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/2.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/3.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/4.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/5.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/6.png">
+<meta property="og:updated_time" content="2019-07-02T10:41:31.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8.2 网络冲突处理——ZigZag">
-<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 #include &amp;lt;iostream&amp;gt; using namespace std; int main(){     return 0; }  ZigZag算法的实现基于802.11协议的两点性质：">
-<meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
+<meta name="twitter:title" content="4.2 编码方法及其声音实现">
+<meta name="twitter:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
+<meta name="twitter:image" content="http://yoursite.com/images/4.2/1.png">
 
 
 <link rel="icon" href="/img/icon.jpg">
 
 <link href="/css/style.css?v=1" rel="stylesheet">
 
-<link href="/css/hl_theme/atom-dark.css?v=1" rel="stylesheet">
+<link href="/css/hl_theme/atom-light.css?v=1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -74,7 +76,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(2)</small></div></li>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -86,8 +88,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="2">
-<input type="hidden" id="yelog_site_word_count" value="5.4k">
+<input type="hidden" id="yelog_site_posts_number" value="10">
+<input type="hidden" id="yelog_site_word_count" value="16.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -128,19 +130,83 @@
     
     <nav id="title-list-nav">
         
-        <a  class=""
-           href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
+        <a id="top" class=""
+           href="/2019/07/02/0.1 android开发基础/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="8.2 网络冲突处理——ZigZag">8.2 网络冲突处理——ZigZag</span>
+            <span class="post-title" title="0.1 安卓开发基础">0.1 安卓开发基础</span>
             <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
         </a>
         
-        <a  class=""
-           href="/2019/07/01/8.4 LoRa低功耗广域网/"
+        <a id="top" class=""
+           href="/2019/07/02/0.2 matlab基础/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="8.4 LoRa低功耗广域网">8.4 LoRa低功耗广域网</span>
+            <span class="post-title" title="0.2 matlab基础">0.2 matlab基础</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.1 无线网络基础概念/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.1 无线网络基础概念">4.1 无线网络基础概念</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.2 编码方法及其声音实现/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.2 编码方法及其声音实现">4.2 编码方法及其声音实现</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.1 基于距离测量的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.1 基于距离测量的定位">7.1 基于距离测量的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.2 基于信号分布特征的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.2 基于信号分布特征的定位">7.2 基于信号分布特征的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.3 基于距离变化量的位置追踪/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.3 基于距离变化量的位置追踪">7.3 基于距离变化量的位置追踪</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/8.1 感知识别——智能手表连接教程/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="8.1 感知识别——智能手表连接教程">8.1 感知识别——智能手表连接教程</span>
+            <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/9.2 网络冲突处理(zigzag)/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.2 网络冲突处理——ZigZag">9.2 网络冲突处理——ZigZag</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/9.4 LoRa低功耗广域网/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.4 LoRa低功耗广域网">9.4 LoRa低功耗广域网</span>
             <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
         </a>
         
@@ -156,11 +222,13 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-8.4 LoRa低功耗广域网" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-9.4 LoRa低功耗广域网" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">8.4 LoRa低功耗广域网</h1>
+        <h1 class="article-title">9.4 LoRa低功耗广域网</h1>
     
     <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
         
         
         
@@ -168,7 +236,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-02 16:33:50'>2019-07-01 16:07</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:47:44'>2019-07-01 16:07</time>
         
     </div>
     <div class="article-meta">
@@ -216,10 +284,10 @@
 </ul>
 <p>为了帮助读者建立对LoRa完整的认识，本节剩余部分将从LoRa应用、LoRa系统架构、LoRa物理层调制技术三个方面，自顶向下地对LoRa进行介绍。</p>
 <h1 id="LoRa应用"><a href="#LoRa应用" class="headerlink" title="LoRa应用"></a>LoRa应用</h1><p>LoRa作为目前广泛使用的低功耗广域网技术(LPWAN)，为低功耗物联网设备提供了可靠的连接方案。如图1所示，相比于Wi-Fi、蓝牙、ZigBee等传统无线局域网，LoRa可以实现更远距离的通信，有效扩展了网络的覆盖范围；而相比于移动蜂窝网络，LoRa具有更低的硬件部署成本和更长的节点使用寿命，单个LoRa节点可以在电池供电的情况下连续工作数年。LoRa具有低数据率、远距离和低功耗的性质，因此非常适合与室外的传感器及其他物联网设备进行通信或数据交互。</p>
-<p><img src="/images/8.4/LPWAN.png" alt="图1. LPWAN与其他无线通信技术对比" title="LPWAN与其他无线通信技术对比"></p>
+<p><img src="/images/9.4/LPWAN.png" alt="图1. LPWAN与其他无线通信技术对比" title="LPWAN与其他无线通信技术对比"></p>
 <p>考虑到LoRa在覆盖距离、部署成本等方面的巨大优势，近年来LoRa在全球范围内进行了大量的应用部署，在水质监测、火灾预警、智慧路灯等众多物联网场景中都可以看到LoRa的身影。例如在北美的Apana项目中，工程人员将LoRa通信模块与传统的水质传感器进行连接，从而使用户可以数十公里外远程监控饮用水在输送过程中的水质变化情况。而在荷兰的KPN项目中，工程人员通过广泛部署LoRa网关，实现在荷兰全域范围内的LoRa网络全覆盖，为智慧运输、智能农业、智慧路灯等具体应用提供了通信支持。</p>
 <h1 id="LoRa架构"><a href="#LoRa架构" class="headerlink" title="LoRa架构"></a>LoRa架构</h1><p>LoRa也指一种由节点、网关及服务器所组成的网络系统架构，各部分的关系如图2所示。LoRa节点与网关之间采用单跳直接连接，这一阶段的物理层使用线性扩频调制，MAC层通常使用LoRaWAN协议。网关收到数据包后，对数据包信号进行解码，并将解码结果通过蜂窝或有线网络传输给网络服务器，这一阶段使用传统的TCP/IP进行传输，同时网络服务器与网关之间的交互仍然遵守LoRaWAN协议。网络服务器汇总多个网关的数据，过滤重复的数据包，执行安全检查，并根据内容将数据发送至不同的应用服务器，供用户读取和使用，这一阶段也使用TCP/IP和SSL进行传输和加密。</p>
-<p><img src="/images/8.4/LoRaArch.png" alt="图2. LoRa网络架构" title="LoRa网络架构"></p>
+<p><img src="/images/9.4/LoRaArch.png" alt="图2. LoRa网络架构" title="LoRa网络架构"></p>
 <p>可以看到LoRa网络的系统架构主要由LoRaWAN定义，因此本节剩余部分将详细介绍LoRaWAN协议的内容。</p>
 <h2 id="LoRaWAN"><a href="#LoRaWAN" class="headerlink" title="LoRaWAN"></a>LoRaWAN</h2><p>LoRaWAN是由LoRa联盟在LoRa物理层编码技术的基础上提出的MAC层协议，由LoRa联盟负责维护。LoRaWAN规范1.0版本于2015年6月发布。LoRaWAN协议主要规定了节点与网关、网关与服务器之间的连接规范，确定了LoRa网络的星型拓扑结构。受LoRa节点成本和能耗的限制，现有的LoRaWAN协议基本采用纯ALOHA机制，即节点在发送数据前不进行载波侦听，而是随机选择时间进行发送。一方面，LoRaWAN协议的简单性有助于降低节点能耗，延长节点的使用寿命；但另一方面，过于简单的介质访问控制机制也加剧了LoRa网络的信号冲突问题。</p>
 <p>LoRaWAN定义了网络的通信协议和系统架构，还负责管理所有设备的通信频率，数据速率和功率。<br>在LoRaWAN的控制下，网络中的所有设备可以是异步的，并在只有可用数据时进行传输。<br>针对不同的应用场景，LoRaWAN定义了三种节点运行模式，分别是Class A（ALL）、Class B（Beacon）、Class C（Continuously Listening）：</p>
@@ -229,7 +297,7 @@
 <li>Class C模式提供节点与网关的持续性连接，该模式下节点始终处于唤醒状态，因此能耗最高。<br>三种网络模式中，Class A是所有LoRa网络都必须支持的模式，也是最常用的网络模式。</li>
 </ul>
 <h1 id="LoRa物理层"><a href="#LoRa物理层" class="headerlink" title="LoRa物理层"></a>LoRa物理层</h1><p>LoRa物理层使用线性扩频技术，即通过信号调频，将信号调制为频率随时间线性变化的chirp符号。<br>根据频率随时间变化的趋势不同，chirp符号可以分为up-chirp和down-chirp，如图3所示。up-chirp从最低频率开始，随时间增加逐渐上升至最高频率。而down-chirp则与之相反，从最高频率逐渐下降至最低频率。LoRa定义最高频率和最低频率之间的差值为LoRa带宽，记作$BW$。chirp符号天然具有抗噪声、抗多径和抗多普勒效应等特点，因此LoRa信号可以支持远距离传输，在超低信噪比情况下也能被正常解码。</p>
-<p><img src="/images/8.4/Chirp.png" alt="图3. LoRa Chirp符号时频图，左为up-chirp，右为down-chirp" title="LoRa Chirp符号时频图，左为up-chirp，右为down-chirp"></p>
+<p><img src="/images/9.4/Chirp.png" alt="图3. LoRa Chirp符号时频图，左为up-chirp，右为down-chirp" title="LoRa Chirp符号时频图，左为up-chirp，右为down-chirp"></p>
 <p>LoRa通过对基准up-chirp做循环频移来编码不同的数据。如图3所示，基准up-chirp的最低频率为$-\frac{BW}{2}$，最高频率为$\frac{BW}{2}$，信号长度为$T$。因此其频率可以表示为$f(t)=kt-\frac{BW}{2}$，其中$k=\frac{BW}{T}$表示扫频梯度。由此，基准up-chirp可以表示为：</p>
 <script type="math/tex; mode=display">
 C(t)=e^{j2\pi(-\frac{BW}{2}+kt)\times t}</script><p>当需要编码数据时，LoRa首先令基准up-chirp乘上一个固定频率的偏移分量，偏移后的信号可以表示为$C(t)e^{j2\pi ft}$。随后，LoRa将所有频率高于$\frac{BW}{2}$的信号段循环频移至$-\frac{BW}{2}$频率处，频移后的信号如图\ref{fig:decoder}(e)所示。LoRa定义了N种不同的偏移频率，因此通过对一个基准up-chirp进行循环频移，最多可以编码$SF=log_2N$比特数据。</p>
@@ -238,9 +306,9 @@ C(t)=e^{j2\pi(-\frac{BW}{2}+kt)\times t}</script><p>当需要编码数据时，L
 C^*(t)=e^{j2\pi(\frac{BW}{2}-kt)\times t}</script><p>显然$C^*(t)$是$C(t)$的共轭，因此编码up-chirp与基准down-chirp相乘的结果是一个单频信号，其频率等于编码up-chirp的频率偏移量：</p>
 <script type="math/tex; mode=display">
 C^*(t)\times C(t)e^{j2\pi ft}=e^{j2\pi ft}</script><p>随后，LoRa对式(2.3)得到的单频信号进行傅里叶变换，将时域信号转化为频域波峰，波峰的下标即对应信号编码的数据，LoRa解码流程如图4所示。</p>
-<p><img src="/images/8.4/loraDecoder.png" alt="图4. LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果" title="LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果"></p>
+<p><img src="/images/9.4/loraDecoder.png" alt="图4. LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果" title="LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果"></p>
 <p>LoRa数据包的结构如图5所示，一个典型的LoRa数据包包括4个部分：$S_{pre}$个前导码(Preamble)，2个强制同步字(Mandatory Sync Word, MSW)，2.25个起始帧分界符(Start Frame Delimiter, SFD)和若干编码up-chirp(Data Payload)。<br>前导码由连续的基准up-chirp组成，主要用于数据包的检测和同步；<br>强制同步字编码了数据包的网络号信息，接收端根据该信息判断是否接收当前数据包；<br>起始帧分界符标志着数据段的开始，在分界符之后，就是连续的编码up-chirp。</p>
-<p><img src="/images/8.4/loraPkt.png" alt="图5. LoRa数据包结构" title="LoRa数据包结构"></p>
+<p><img src="/images/9.4/loraPkt.png" alt="图5. LoRa数据包结构" title="LoRa数据包结构"></p>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Martin C. Bor, Utz Roedig, Thiemo Voigt, and Juan M. Alonso. Do lora low-power wide-area networks scale? In Proceedings of ACM MSWiM, 2016.<br>[2] Thiemo Voigt, Martin C. Bor, Utz Roedig, and Juan M. Alonso. Mitigating inter-network interference in lora networks. In Proceedings of ACM EWSN, 2017.<br>[3] Martin C. Bor and Utz Roedig. Lora transmission parameter selection. In Proceedings of IEEE DCOSS, 2017.<br>[4] Erbati Mohammad Mohammadi, Schiele Gregor, and Batke Gerd. Analysis of lorawan technology in an outdoor and an indoor scenario in duisburg-germany. In Proceedings of IEEE ICCCS, 2018.<br>[5] Silvia Demetri, Marco Zúñiga, Gian Pietro Picco, Fernando Kuipers, Lorenzo Bruzzone, and Thomas Telkamp. Automated estimation of link quality for lora: a remote sensing approach. In Proceedings of ACM IPSN, 2019.<br>[6] Juha Petäjäjärvi, Konstantin Mikhaylov, Antti Roivainen, Tuomo Hänninen, and Marko Pettissalo. On the coverage of lpwans: range evaluation and channel attenuation model for lora technology. In Proceedings of IEEE ITST, 2015.<br>[7] Jansen Christian Liando, Amalinda Gamage, Agustinus W. Tengourtius, and Mo Li. Known and unknown facts of lora: Experiences from a large-scale measurement study. ACM Transactions on Sensor Networks (TOSN), 2019.<br>[8] LoRa Alliance. What is lorawan:a technical overview of lora and lorawan. White Paper, 2018.</p>
 
       
@@ -251,12 +319,12 @@ C^*(t)\times C(t)e^{j2\pi ft}=e^{j2\pi ft}</script><p>随后，LoRa对式(2.3)�
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>8.4 LoRa低功耗广域网</p>
+    <p><span>文章标题:</span>9.4 LoRa低功耗广域网</p>
     <p><span>文章字数:</span><span class="post-count">2.5k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-07-01, 16:07:32</p>
-    <p><span>最后更新:</span>2019-07-02, 16:33:50</p>
-    <span>原始链接:</span><a class="post-url" href="/2019/07/01/8.4 LoRa低功耗广域网/" title="8.4 LoRa低功耗广域网">http://yoursite.com/2019/07/01/8.4 LoRa低功耗广域网/</a>
+    <p><span>最后更新:</span>2019-07-02, 18:47:44</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/01/9.4 LoRa低功耗广域网/" title="9.4 LoRa低功耗广域网">http://yoursite.com/2019/07/01/9.4 LoRa低功耗广域网/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
@@ -412,7 +480,7 @@ C^*(t)\times C(t)e^{j2\pi ft}=e^{j2\pi ft}</script><p>随后，LoRa对式(2.3)�
         border-right: 1px solid #C3CCD0;
         text-align: right;
         color: #AAA;
-        background-color: ;
+        background-color: #fafafa;
     }
     .pre-numbering.widther {
         width: 35px;

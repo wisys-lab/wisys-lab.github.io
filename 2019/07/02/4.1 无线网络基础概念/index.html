@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>4.1 无线网络基础概念 | IoT Book</title>
+  <meta name="keywords" content>
+  <meta name="description" content="4.1 无线网络基础概念 | IoT Book">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.2 编码方法及其声音实现">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/4.2 编码方法及其声音实现/index.html">
+<meta property="og:site_name" content="IoT Book">
+<meta property="og:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/4.2/1.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/2.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/3.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/4.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/5.png">
+<meta property="og:image" content="http://yoursite.com/images/4.2/6.png">
+<meta property="og:updated_time" content="2019-07-02T10:41:31.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.2 编码方法及其声音实现">
+<meta name="twitter:description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
+<meta name="twitter:image" content="http://yoursite.com/images/4.2/1.png">
+
+
+<link rel="icon" href="/img/icon.jpg">
+
+<link href="/css/style.css?v=1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>WiSys Lab</span>
+</div>
+
+<div class="icon">
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="10">
+<input type="hidden" id="yelog_site_word_count" value="16.8k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class=""
+           href="/2019/07/02/0.1 android开发基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0.1 安卓开发基础">0.1 安卓开发基础</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/0.2 matlab基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="0.2 matlab基础">0.2 matlab基础</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.1 无线网络基础概念/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.1 无线网络基础概念">4.1 无线网络基础概念</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/4.2 编码方法及其声音实现/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.2 编码方法及其声音实现">4.2 编码方法及其声音实现</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.1 基于距离测量的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.1 基于距离测量的定位">7.1 基于距离测量的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.2 基于信号分布特征的定位/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.2 基于信号分布特征的定位">7.2 基于信号分布特征的定位</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/7.3 基于距离变化量的位置追踪/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7.3 基于距离变化量的位置追踪">7.3 基于距离变化量的位置追踪</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/8.1 感知识别——智能手表连接教程/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="8.1 感知识别——智能手表连接教程">8.1 感知识别——智能手表连接教程</span>
+            <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/02/9.2 网络冲突处理(zigzag)/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.2 网络冲突处理——ZigZag">9.2 网络冲突处理——ZigZag</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/01/9.4 LoRa低功耗广域网/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9.4 LoRa低功耗广域网">9.4 LoRa低功耗广域网</span>
+            <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-4.1 无线网络基础概念" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">4.1 无线网络基础概念</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:38:24'>2019-07-02 15:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.2k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#信道"><span class="toc-text">信道</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#信道冲击响应-Channel-Impulse-Response"><span class="toc-text">信道冲击响应(Channel Impulse Response)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#信噪比"><span class="toc-text">信噪比</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多径效应"><span class="toc-text">多径效应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#信号衰落"><span class="toc-text">信号衰落</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#时间"><span class="toc-text">时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空间"><span class="toc-text">空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#频率"><span class="toc-text">频率</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSI-（Channel-State-Information）"><span class="toc-text">CSI （Channel State Information）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滤波器"><span class="toc-text">滤波器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分类"><span class="toc-text">分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#傅里叶变换"><span class="toc-text">傅里叶变换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#傅里叶变换（FT）"><span class="toc-text">傅里叶变换（FT）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#离散时间傅里叶变换（DTFT）"><span class="toc-text">离散时间傅里叶变换（DTFT）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#离散傅里叶变换（DFT）"><span class="toc-text">离散傅里叶变换（DFT）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速傅里叶变换（FFT）"><span class="toc-text">快速傅里叶变换（FFT）</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="信道"><a href="#信道" class="headerlink" title="信道"></a>信道</h1><p>信道又被称为通道、频道和波道，是信号在通信系统中传输的通道，由信号从发射端传输到接收端所经过的传输媒质所构成。广义的信道定义除了包括传输媒质，还包括传输信号的相关设备。</p>
+<p>狭义信道，按照传输媒质来划分，可以分为有线信道、无线信道和存储信道三类。 </p>
+<p>（在某种意义上，磁带、磁盘等数据存储媒质也可以被看作是一种通信信道。将数据写入存储媒质的过程即等效于发射机将信号传输到信道的过程，将数据从存储媒质读出的过程即等效于接收机从信道接收信号的过程。）</p>
+<p>广义信道，按照其功能进行划分，可以分为调制信道和编码信道两类。</p>
+<p>调制信道是指信号从调制器的输出端传输到解调器的输入端经过的部分。对于调制和解调的研究者来说，信号在调制信道上经过的传输媒质和变换设备都对信号做出了某种形式的变换，研究者只关心这些变换的输入和输出的关系，并不关心实现这一系列变换的具体物理过程。这一系列变换的输入与输出之间的关系，通常用多端口时变网络作为调制信道的数学模型进行描述。</p>
+<p>编码信道是指数字信号由编码器输出端传输到译码器输入端经过的部分。对于编译码的研究者来说，编码器输出的数字序列经过编码信道上的一系列变换之后，在译码器的输入端成为另一组数字序列，研究者只关心这两组数字序列之间的变换关系，而并不关心这一系列变换发生的具体物理过程，甚至并不关心信号在调制信道上的具体变化。编码器输出的数字序列与到译码器输入的数字序列之间的关系，通常用多端口网络的转移概率作为编码信道的数学模型进行描述。</p>
+<p><img src="/images/4.1/cpt_channel.png" width="600px"></p>
+<p><a href="https://zh.wikipedia.org/wiki/信道" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E4%BF%A1%E9%81%93</a></p>
+<h1 id="信道冲击响应-Channel-Impulse-Response"><a href="#信道冲击响应-Channel-Impulse-Response" class="headerlink" title="信道冲击响应(Channel Impulse Response)"></a>信道冲击响应(Channel Impulse Response)</h1><p>TODO 加个图</p>
+<p>通信信道会对经过的信号产生作用（例如减弱，改变频率等），不同的信道作用效果不一样。</p>
+<p>因为任何输入信号都可以分解成单位脉冲信号的线性叠加，研究信道对单位脉冲信号的响应是有意义的。信道冲击响应（Channel Impulse Response，CIR），顾名思义，即当输入一个单位脉冲信号时，信道输出端的响应输出信号。对于一个线性系统，输出信号可以用输出端对单位脉冲信号的响应的线性叠加表示。信道冲击响应反映了信道的基本特性。</p>
+<p><strong>因为物联网的主要通信技术为无线通信，下面介绍一些无线通信相关的基础观念。</strong></p>
+<h1 id="信噪比"><a href="#信噪比" class="headerlink" title="信噪比"></a>信噪比</h1><p>信噪比（Signal-to-noise ratio，SNR or S/N）用于衡量信号强度与背景噪声强度的关系，定义为信号功率与噪声功率之比。</p>
+<script type="math/tex; mode=display">
+SNR = \frac{P_{signal}}{P_{noise}} = \frac{A^2_{signal}}{A^2_{noise}}</script><p>SNR常使用分贝（dB）作为单位。</p>
+<script type="math/tex; mode=display">
+SNR(dB) = 10\log_{10} \left(\frac{P_{signal}}{P_{noise}}\right) = 20\log_{10} \left(\frac{A_{signal}}{A_{noise}}\right)</script><p>其中，$P<em>{signal}$为信号功率，$P</em>{noise}$为噪声功率，$A<em>{signal}$为信号振幅，$A</em>{noise}$为噪声振幅。</p>
+<pre><code class="lang-python">fs = 100; %# sampling frequency
+t = 0:1/fs:1;
+x = sin(2*pi*4*t);
+%# Add white Gaussian noise to signal
+%# snr = 10dB
+y = awgn(x, 10, &#39;measured&#39;);
+plot(t, [x, y]);
+legend(&#39;Original Signal&#39;, &#39;Signal with AWGN&#39;);
+</code></pre>
+<p><img src="/images/4.1/cpt_snr.pdf" alt></p>
+<h1 id="多径效应"><a href="#多径效应" class="headerlink" title="多径效应"></a>多径效应</h1><p>由于电磁信号所处环境的不同，传播过程中出现折射、反射、漫射、衍射等等现象，在接收端收到了来自多条路径的信号，分为视距路径（Line of Sight）和非视距路径（Not Line of Sight）。多径效应对无线系统又很大影响，常用的解决技术有时域均衡、正交频分复用（OFDM）、Rake接收机、分集接收技术等。</p>
+<p><img src="/images/4.1/cpt_multipath.jpg" width="600px"></p>
+<p><a href="https://en.wikipedia.org/wiki/Multipath_propagation#Interference" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Multipath_propagation#Interference</a></p>
+<p>Zheng Yang, Zimu Zhou, and Yunhao Liu. 2013. From RSSI to CSI: Indoor localization via channel response. <em>ACM Comput. Surv.</em> 46, 2, Article 25 (December 2013), 32 pages. DOI: <a href="https://doi.org/10.1145/2543581.2543592" target="_blank" rel="noopener">https://doi.org/10.1145/2543581.2543592</a></p>
+<h1 id="信号衰落"><a href="#信号衰落" class="headerlink" title="信号衰落"></a>信号衰落</h1><p>在无线通信领域，衰落是指由于信道的变化导致接收信号的幅度发生随机变化的现象，即信号衰落。导致信号衰落的信道被称作衰落信道。衰落可按时间、空间、频率，三个角度来分类。 </p>
+<h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>在时间上，分为慢衰落和快衰落。慢衰落描述的是信号幅度的长期变化，是传播环境在较长时间、较大范围内发生变化的结果，因此又被称为长期衰落、大尺度衰落。快衰落则描述了信号幅度的瞬时变化，与多径传播有关，又被称为短期衰落、小尺度衰落。慢衰落是快衰落的中值。 </p>
+<h3 id="空间"><a href="#空间" class="headerlink" title="空间"></a>空间</h3><p>在空间上，分为瑞利衰落和莱斯衰落。瑞利衰落适用于从发射机到接收机不存在直射信号的情况；相反，莱斯衰落适用于发射机到接收机存在直射路径的情况。 </p>
+<h3 id="频率"><a href="#频率" class="headerlink" title="频率"></a>频率</h3><p>在频率上，分为平坦性衰落和选择性衰落。相干带宽是描述时延扩展的指标，是表征多径信道特性的一个重要参数。它是指某一特定的频率范围，在该频率范围内的任意两个频率分量都具有很强的幅度相关性，即在相干带宽范围内，多径信道具有恒定的增益和线性相位。通常，相干带宽近似等于最大多径时延的倒数。从频域看，如果相干带宽小于发送信道的带宽，则该信道特性会导致接收信号波形产生频率选择性衰落，即某些频率成分信号的幅值可以增强，而另外一些频率成分信号的幅值会被削弱。当信号带宽远小于相干带宽时，所有的信号频率呈现出一样的强度衰落，称之为平坦性衰落。</p>
+<p>TODO 加图</p>
+<p><a href="https://baike.baidu.com/item/相干带宽" target="_blank" rel="noopener">https://baike.baidu.com/item/%E7%9B%B8%E5%B9%B2%E5%B8%A6%E5%AE%BD</a></p>
+<p><a href="https://en.wikibooks.org/wiki/Communication_Systems/Fading_Channels#Flat_Fading" target="_blank" rel="noopener">https://en.wikibooks.org/wiki/Communication_Systems/Fading_Channels#Flat_Fading</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/衰落" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E8%A1%B0%E8%90%BD</a></p>
+<h1 id="CSI-（Channel-State-Information）"><a href="#CSI-（Channel-State-Information）" class="headerlink" title="CSI （Channel State Information）"></a>CSI （Channel State Information）</h1><p>在无线通信中，信道状态信息（Channel State Information，CSI）指一个通信链路的已知信道信息。CSI描述了一个信号如何从发送端传播到接收端以及相应影响，如散射、衰落和能量随距离的衰减，即信道估计。运用CSI可以依据当前信道状态实行自适应传输，这对多天线系统中实现高速率的可靠通信十分重要。</p>
+<p>CSI可以分为瞬时CSI（Instantaneous CSI）和统计CSI（Statistical CSI）。瞬时CSI意味着当前信道状态已知，因此可以调整发射信号来优化接收信号以达到空间复用或减少比特错误率。统计CSI意味着信道的统计特性已知，如衰落分布的类型、平均信道增益、空间相关性等，这些信息也能用来进行传输优化。</p>
+<p>在某些快衰落系统中，信道状态在symbol级别都会发生极速的变化，此时只用统计CSI是有意义的。另一方面，在慢衰落系统中，可以在合理精度内得到瞬时CSI估计，在该估计过时前仍可被用来进行传输适应。</p>
+<p>TODO 举例</p>
+<p><a href="https://en.wikipedia.org/wiki/Channel_state_information" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Channel_state_information</a></p>
+<h1 id="滤波器"><a href="#滤波器" class="headerlink" title="滤波器"></a>滤波器</h1><p>在信号处理中，滤波器是去除信号中一些不需要的部分、特性的器件或过程。大多数时候，滤波器用于去除一些频率或频段。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>从不同角度我们可以对滤波器进行各种分类。下面是一些常见的分类。</p>
+<ol>
+<li>按所处理的信号分为模拟滤波器和数字滤波器</li>
+<li>按所通过信号的频段分为低通、高通、带通和带阻滤波器<ul>
+<li>低通滤波器：它允许信号中的低频或直流分量通过，抑制高频分量或干扰和噪声。</li>
+<li>高通滤波器：它允许信号中的高频分量通过，抑制低频或直流分量。</li>
+<li>带通滤波器：它允许一定频段的信号通过，抑制低于或高于该频段的信号、干扰和噪声。</li>
+<li>带阻滤波器：它抑制一定频段内的信号，允许该频段以外的信号通过。</li>
+</ul>
+</li>
+<li>按所采用的元器件分为无源和有源滤波器</li>
+</ol>
+<pre><code class="lang-python">fs = 100; %# sampling frequency
+t = 0:1/fs:1;
+x = sin(2*pi*4*t);
+y = awgn(x, 10, &#39;measured&#39;); %# snr = 10dB
+
+windowSize = 5; 
+b = (1/windowSize)*ones(1,windowSize);
+a = 1;
+z = filter(b,a,y);
+
+plot(t, [y; z]);
+legend(&#39;Input Data&#39;,&#39;Filtered Data&#39;)
+</code></pre>
+<p><img src="/images/4.1/cpt_filter.pdf" alt></p>
+<p><a href="http://www.baike.com/wiki/%E6%BB%A4%E6%B3%A2%E5%99%A8" target="_blank" rel="noopener">http://www.baike.com/wiki/%E6%BB%A4%E6%B3%A2%E5%99%A8</a></p>
+<h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>傅里叶（Fourier，1768～1830）年轻时是一个很出色的数学学者，但他专致于当一个军官。因为他是一个裁缝的儿子而被拒绝任命，他便转谋教士职位。当他曾经就读的军事学校委之以教授职位时他便接受了，同时数学就变成了他终生的爱好。像他同时代的其他科学家一样，傅里叶从事热流动的研究，作为实际问题，在工业上是为了处理金属，作为科学问题，是企图确定地球内部的温度。1822年，傅里叶发表了数学的经典文献之一，《热的解析理论》。在这本书中，他在分离变量法求解热传导方程的过程中发现初始条件的函数可以表示为三角级数。他有些不严谨又富于创造性地断言任意周期函数都可以展开为三角级数，更进一步的，他指出非周期函数的表示——不是成谐波关系的三角函数的加权和，而是不全成谐波关系的三角函数的加权积分，即傅里叶变换（在数学物理方程中，傅里叶变换也是用于求解热传导方程的经典方法）。 </p>
+<h3 id="傅里叶变换（FT）"><a href="#傅里叶变换（FT）" class="headerlink" title="傅里叶变换（FT）"></a>傅里叶变换（FT）</h3><h3 id="离散时间傅里叶变换（DTFT）"><a href="#离散时间傅里叶变换（DTFT）" class="headerlink" title="离散时间傅里叶变换（DTFT）"></a>离散时间傅里叶变换（DTFT）</h3><h3 id="离散傅里叶变换（DFT）"><a href="#离散傅里叶变换（DFT）" class="headerlink" title="离散傅里叶变换（DFT）"></a>离散傅里叶变换（DFT）</h3><h3 id="快速傅里叶变换（FFT）"><a href="#快速傅里叶变换（FFT）" class="headerlink" title="快速傅里叶变换（FFT）"></a>快速傅里叶变换（FFT）</h3><p>在20世纪60年代中期，一种称之为快速傅里叶变换（Fast Fourier Transform, FFT）的算法被引入，它是快速计算序列的离散傅里叶变换（DFT）或其逆变换的方法。这一算法在1965年被库利（Cooley）和图基（Tukey）独立地发现，其实它也有相当长的历史。事实上，这一算法在高斯的手稿中已能找到。之所以使得它成为重要的近代发现是由于FFT被证明是非常适合于高效的数字实现，并且它将计算变换所需要的时间减少了几个数量级。有了这一算法，在利用离散时间傅里叶级数和变换中许多有趣而过去认为不切实际的想法突然变得实际起来，并且使离散时间信号于系统分析技术的发展加速向前迈进。</p>
+<p>傅里叶分析将信号从原始域（通常是时间或空间）转换到頻域的表示或者逆过来转换。FFT会通过把DFT矩阵分解为稀疏（大多为零）因子之积来快速计算此类变换。因此，它能够将计算DFT的复杂度从只用DFT定义计算需要的 $O(n^{2})$，降低到 $O(n\log n)$，其中 $n$ 为数据大小。</p>
+<p>快速傅里叶变换广泛的应用于工程、科学和数学领域。这里的基本思想在1965年才得到普及，但早在1805年就已推导出来。1994年美国数学家吉尔伯特·斯特朗把FFT描述为“我们一生中最重要的数值算法”，它还被IEEE科学与工程计算期刊列入20世纪十大算法。</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2</a></p>
+<p>TODO 代码</p>
+<p>《古今数学思想（第三册）》第28章</p>
+<p>《信号与系统（第二版）》第3、4、5章</p>
+<p><a href="https://en.wikipedia.org/wiki/Fourier_transform" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Fourier_transform</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>4.1 无线网络基础概念</p>
+    <p><span>文章字数:</span><span class="post-count">3.2k</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
+    <p><span>最后更新:</span>2019-07-02, 18:38:24</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/02/4.1 无线网络基础概念/" title="4.1 无线网络基础概念">http://yoursite.com/2019/07/02/4.1 无线网络基础概念/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 WiSys Lab</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.1;
+        background: url("http://img.xiangzhangshugongyi.com/FlSExUGfRSaqxkK5v42CpuI-tXAL.jpg");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+    .post .pjax article :not(pre) > code {
+        color: #24292e;
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        padding: .2em .4em;
+    }
+    
+</style>
+
+
+
+
+
+
+
+</html>

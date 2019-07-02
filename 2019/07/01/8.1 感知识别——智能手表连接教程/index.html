@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>8.1 感知识别——智能手表连接教程 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="8.1 感知识别——智能手表连接教程 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="编码方法及其声音实现在本章节中，我们将介绍几种常用的编码方法，并将这几种编码解码方法实现到声音通信上，实现对声音信号的解码。 脉冲编码脉冲编码是利用相邻两个脉冲信号之间的时间间隔来编码数据。可以指定长度的间隔代表特定的二进制串。最简单的脉冲编码是使用一长一短两种间隔，分别代表“0”和“1”。在解码时只需要识别出每个脉冲信号的起始位置，就可以得到不同脉冲之间的间隔，从而可以根据每个间隔的长短将其解码">
 <meta property="og:type" content="article">
@@ -59,7 +59,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -220,12 +220,47 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-8.1 感知识别——智能手表连接教程" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
+        <h1 class="article-title">8.1 感知识别——智能手表连接教程</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-02 18:48:03'>2019-07-01 16:07</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:923</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#教程目标"><span class="toc-text">教程目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工具准备"><span class="toc-text">工具准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#示例"><span class="toc-text">示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#智能手表连接到手机"><span class="toc-text">智能手表连接到手机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#智能手表连接到电脑"><span class="toc-text">智能手表连接到电脑</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -238,26 +273,111 @@
     }
 </style>
 </div>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="教程目标"><a href="#教程目标" class="headerlink" title="教程目标"></a>教程目标</h1><p>将<strong>非苹果系列智能手表</strong>（例如Moto360，LG Sport，HUAWEI手表等）与<strong>安卓手机</strong>进行配对连接，并通过<strong>adb工具</strong>（Android Debug Bridge，安卓调试桥）进一步与电脑连接，以实现下面两个功能：</p>
 <ol>
-<li><p>了解物联网的发展历史和出现的原因</p>
+<li>从智能手表向电脑传输数据（通过adb工具）</li>
+<li>从电脑向智能手表安装程序（通过Android Studio）</li>
+</ol>
+<h1 id="工具准备"><a href="#工具准备" class="headerlink" title="工具准备"></a>工具准备</h1><ol>
+<li>非苹果系列智能手表</li>
+<li><p>安卓手机，安装软件Wear OS by Google!<img src="/images/8.1/wearOS.png" height="50" width="50">，在应用商店或浏览器中均可搜索到</p>
 </li>
-<li><p>知道物联网的基本技术</p>
-</li>
-<li><p>熟悉物联网主要的发展方向和国际前沿</p>
-</li>
-<li><p>熟练搭建物联网系统</p>
+<li><p>adb工具，见<code>ADB/</code>文件夹，Windows操作系统的adb位于<code>ADB/Win</code>，Mac或Linux系统的adb位于<code>ADB/Mac</code></p>
 </li>
 </ol>
-<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
-<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
-<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
-<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
-<p>致谢：</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>以下连接教程以Moto 360手表连接到小米手机(MI 4LTE)为例</p>
+<h1 id="智能手表连接到手机"><a href="#智能手表连接到手机" class="headerlink" title="智能手表连接到手机"></a>智能手表连接到手机</h1><p>注：智能手表最多只能与一部智能手机连接，如果要与其他手机连接，必须断开与之前手机的连接</p>
+<ol>
+<li>智能手表：如果智能手表之前曾与其他手机连接，则需先断开连接并恢复出厂设置。点击<code>设置(Settings)-&gt;系统(System)-&gt;断开连接并重置(Disconnect &amp; reset)</code>，等待重启完成后，手表会进入匹配手机的页面；如果智能手表之前不曾与其他手机连接，则开机后直接进入匹配手机的页面，如图1</li>
+<li>智能手机：打开WiFi或数据连接以保证能够连接到互联网，打开蓝牙，打开<code>Wear OS</code>应用，（点击左上角）打开<code>添加新手表</code>，在下方出现的列表中选择待匹配手表并点击，完成匹配，如图2。若无法连接成功，可以采用以下几个方案：重新启动<code>Wear OS</code>应用；在手机<code>设置-&gt;蓝牙-&gt;已配对设备</code>中，如果之前曾与该手表进行过配对，则选择该手表并取消配对</li>
+<li>智能手表：点击<code>设置(Settings)-&gt;系统(System)-&gt;关于(About)</code>，连续点击<code>版本号(Build number)</code>7次，则会在<code>设置(Settings)</code>菜单下出现<code>开发者选项(Developer options)</code>，点击<code>开发者选项(Developer options)</code>，打开<code>ADB调试(ADB Debugging)</code>和<code>通过蓝牙调试(Debug over Bluetooth)</code></li>
+<li>智能手机：打开<code>Wear OS</code>应用，（在底部）点击<code>高级设置</code>，打开<code>通过蓝牙调试</code>，此时应该显示<code>主机：未连接；目标：已连接</code>，如图3。如果<code>目标</code>显示<code>未连接</code>，则重新启动<code>Wear OS</code>应用再查看</li>
+</ol>
+<p><img src="/images/8.1/Fig1.png" height="200" width="200">   <img src="/images/8.1/Fig2.png" height="200" width="240">   <img src="/images/8.1/Fig3.png" height="200" width="120"></p>
+<p>​                    图1                                         图2                                       图3</p>
+<h1 id="智能手表连接到电脑"><a href="#智能手表连接到电脑" class="headerlink" title="智能手表连接到电脑"></a>智能手表连接到电脑</h1><ol>
+<li><p>智能手机：通过USB连接线连接到电脑</p>
+</li>
+<li><p>电脑：在电脑上打开命令行或终端，执行<code>./connect</code>命令，此时智能手机<code>高级设置</code>中的<code>主机</code>应显示<code>已连接</code>，若有以下情况，进行对应操作：</p>
+<p> 2.1 若出现<code>error: more than one device/emulator</code>，则执行<code>./adb kill-server</code>关闭已有的连接</p>
+<p> 2.2 若出现<code>device not found</code>，在智能手机上，点击<code>设置-&gt;开发者选项-&gt;选择USB配置-&gt;仅限充电</code>，此时手机弹出在该电脑上的USB调试权限设定，设定权限后再执行<code>./connect</code>命令</p>
+<p> 2.3 若出现<code>This adb server&#39;s $ADB_VENDOR_KEYS is not set</code>，则找到(windows:)<code>C：Users/$Name/.android</code>或(Mac, Linux)<code>~/.android</code>文件夹，将文件夹中的<code>adbkey.pub,adbkey</code>删除，然后再执行<code>./connect</code>命令</p>
+</li>
+<li><p>智能手表：主机连接成功后，手表上会出现’是否允许在该PC上进行调试’，选择’总是允许’</p>
+</li>
+<li>电脑：Android Studio可以找到智能手表并可以安装程序</li>
+<li>智能手表：点击<code>设置(Settings)-&gt;应用(Apps)-&gt;$(安装的应用)-&gt;权限(Permissions)</code>，打开相应的应用权限</li>
+</ol>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>8.1 感知识别——智能手表连接教程</p>
+    <p><span>文章字数:</span><span class="post-count">923</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-01, 16:07:32</p>
+    <p><span>最后更新:</span>2019-07-02, 18:48:03</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/01/8.1 感知识别——智能手表连接教程/" title="8.1 感知识别——智能手表连接教程">http://yoursite.com/2019/07/01/8.1 感知识别——智能手表连接教程/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 WiSys Lab</p>
