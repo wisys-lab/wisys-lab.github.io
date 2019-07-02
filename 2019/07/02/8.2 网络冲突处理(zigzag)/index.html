@@ -2,27 +2,26 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>网络冲突处理——ZigZag | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="网络冲突处理——ZigZag | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
+<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IoT Book">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.4 LoRa低功耗广域网/index.html">
+<meta property="og:title" content="网络冲突处理——ZigZag">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
+<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLPWAN.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLoRaArch.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CChirp.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CloraDecoder.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CloraPkt.png">
-<meta property="og:updated_time" content="2019-07-02T01:16:45.193Z">
+<meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/correlation.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision2.png">
+<meta property="og:updated_time" content="2019-07-02T07:41:37.774Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IoT Book">
-<meta name="twitter:description" content="LoRa低功耗广域网“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/02/8.4%20LoRa低功耗广域网/fig%5CLPWAN.png">
+<meta name="twitter:title" content="网络冲突处理——ZigZag">
+<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -130,19 +129,19 @@
     <nav id="title-list-nav">
         
         <a  class=""
-           href="/2019/07/02/8.4 LoRa低功耗广域网/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-02 13:33:36">2019/07/02</span>
-        </a>
-        
-        <a  class=""
            href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-02 13:33:36">2019/07/02</span>
+            <span class="post-title" title="网络冲突处理——ZigZag">网络冲突处理——ZigZag</span>
+            <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/07/01/8.4 LoRa低功耗广域网/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="LoRa低功耗广域网">LoRa低功耗广域网</span>
+            <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
         </a>
         
     </nav>
@@ -159,6 +158,8 @@
     <div class="pjax">
         <article id="post-8.2 网络冲突处理(zigzag)" class="article article-type-post" itemscope itemprop="blogPost">
     
+        <h1 class="article-title">网络冲突处理——ZigZag</h1>
+    
     <div class="article-meta">
         
         
@@ -167,7 +168,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-02 09:03:47'>2019-07-02 13:33</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-02 15:41:37'>2019-07-02 15:41</time>
         
     </div>
     <div class="article-meta">
@@ -186,17 +187,6 @@
             </span>
         </span>
         
-        
-        <span class="top-comment" title="跳转至评论区">
-            <a href="#comments">
-                评论:<span class="count-comment">
-                    <span class="spinner">
-                      <div class="cube1"></div>
-                      <div class="cube2"></div>
-                    </span>
-                </span>
-            </a>
-        </span>
         
     </div>
     
@@ -219,7 +209,7 @@
       
         <h1 id="ZigZag原理"><a href="#ZigZag原理" class="headerlink" title="ZigZag原理"></a>ZigZag原理</h1><p>ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。</p>
 <p>ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首次传输和重传时均发生冲突，由于随机重传延时的存在，$P_a$和$P_b$在两次冲突中将具有不同的时间错位（即图\ref{fig:zigzag}中$\Delta 1\neq \Delta 2$）。因此，在$P_a$或$P_b$中一定存在这样一段信号，它在一次冲突中与其他数据包互相干扰，而在另一次冲突中则完全不受其他数据包的影响（如图\ref{fig:zigzag}中的信号段$1$和$1’$）。</p>
-<p><img src="fig/zigzag_processing.png" alt="ZigZag冲突消除过程示意" title="ZigZag冲突消除过程示意"></p>
+<p><img src="/images/8.2/zigzag_processing.png" alt="ZigZag冲突消除过程示意" title="ZigZag冲突消除过程示意"></p>
 <p>ZigZag核心就是利用这一信号段，迭代地消除冲突数据包之间的干扰，最终还原出每一个冲突的数据包。如图1所示，$P_a$中的信号段1在第一次冲突中未受干扰，因此ZigZag首先从第一次冲突中提取信号段$1$，并在第二次冲突的相同位置构造并消去这段信号，从而还原出属于$P_b$的信号段$2$。信号段$2$和信号段$1$一样，也是在一次冲突中有干扰，而在另一次冲突中无干扰。因此，ZigZag可以重复迭代上述消去与还原的过程，直至$P_a$和$P_b$都被完整地还原。</p>
 <h1 id="ZigZag实现"><a href="#ZigZag实现" class="headerlink" title="ZigZag实现"></a>ZigZag实现</h1><p>本节将带领读者，深入ZigZag算法的实现细节，讨论其在实际实现过程中存在的挑战，并使用MATLAB和声音冲突信号模拟真实的冲突消除过程。</p>
 <p>\subsection{数据包检测}<br>解码冲突数据包之前，ZigZag需要检测每个数据包的准确开始时间，从而计算冲突数据包的时间错位，并启动冲突消除流程的第一段信号段。ZigZag的数据包检测依赖于Wi-Fi数据包固定的前导码（preamble）结构：所有Wi-Fi数据包都以一段结构相同的前导码为开头，因此ZigZag可以通过计算收到的信号与理想前导码的相关性，检测数据包的开头。如图\ref{fig:correlation}所示，ZigZag逐采样点移动理想前导码信号，计算其与收到的信号的相关性。当理想前导码与真实数据包完全对齐时，相关性结果将出现波峰。此时，通过搜索波峰出现的位置，ZigZag可以最终准确地检测每个冲突数据包的到达时间。</p>
@@ -271,37 +261,16 @@
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span></p>
+    <p><span>文章标题:</span>网络冲突处理——ZigZag</p>
     <p><span>文章字数:</span><span class="post-count">2.9k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
-    <p><span>发布时间:</span>2019-07-02, 13:33:36</p>
-    <p><span>最后更新:</span>2019-07-02, 09:03:47</p>
-    <span>原始链接:</span><a class="post-url" href="/2019/07/02/8.2 网络冲突处理(zigzag)/" title="">http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/</a>
+    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
+    <p><span>最后更新:</span>2019-07-02, 15:41:37</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/02/8.2 网络冲突处理(zigzag)/" title="网络冲突处理——ZigZag">http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
 </div>
-
-
-    <div id="comments"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-
-<script type="text/javascript">
-    $.getScript('/js/gitalk.js', function () {
-        var gitalk = new Gitalk({
-            clientID: 'dc7f8ca729fea878e59c',
-            clientSecret: '67417ddbb12eeebb0de47187099e92ace7bdf90e',
-            repo: 'yelog.github.io',
-            owner: 'yelog',
-            admin: ['yelog'],
-            id: location.pathname,
-            distractionFreeMode: 'true',
-            language: 'zh-CN',
-            perPage: parseInt('10',10)
-        })
-        gitalk.render('comments')
-    })
-</script>
 
 
 
