@@ -6,29 +6,30 @@
   <meta name="keywords" content>
   <meta name="description" content="8.2 网络冲突处理——ZigZag | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta name="description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8.2 网络冲突处理——ZigZag">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
+<meta property="og:title" content="8.4 LoRa低功耗广域网">
+<meta property="og:url" content="http://yoursite.com/2019/07/01/8.4 LoRa低功耗广域网/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta property="og:description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/correlation.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision1.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T08:25:20.662Z">
+<meta property="og:image" content="http://yoursite.com/images/8.4/LPWAN.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/LoRaArch.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/Chirp.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/loraDecoder.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/loraPkt.png">
+<meta property="og:updated_time" content="2019-07-02T08:33:50.951Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8.2 网络冲突处理——ZigZag">
-<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
-<meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
+<meta name="twitter:title" content="8.4 LoRa低功耗广域网">
+<meta name="twitter:description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
+<meta name="twitter:image" content="http://yoursite.com/images/8.4/LPWAN.png">
 
 
 <link rel="icon" href="/img/icon.jpg">
 
 <link href="/css/style.css?v=1" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1" rel="stylesheet">
+<link href="/css/hl_theme/atom-dark.css?v=1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -173,7 +174,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:2.8k</span>
+        <span>字数:2.9k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -232,21 +233,102 @@ Corr(A,B)=\sum_{k=1}^L A^* [k]\times B[k]</script><p>因此，理想前导码$s[
     = \sum_{k=1}^L |s[k]|\times e^{j2\pi \delta ft}</script><p>其中$\delta f$为收发端的中心频率偏差(CFO)，若不考虑CFO，则当$s[k]$与$y[k]$完全对齐时，相关性出现波峰，波峰高度等于报头信号能量。但由于实际信号中CFO的存在，$e^{j2\pi \delta ft}$ 在累加过程中符号连续变化。此时，即使$s[k]$与$y[k]$完全对齐，累加结果也不出现波峰。ZigZag在节点加入网络时估计其CFO，并在计算相关性时对CFO进行补偿消除。</p>
 <p>接下来，我们通过实验，更深刻地理解上述数据包检测过程。由于射频信号的需要通过专业设备进行生成和提取，本书使用声音信号对射频信号进行模拟。</p>
 <p>我们首先使用两个不同的声源同时向接收端的麦克风播放声音，从而在接收端形成冲突。为了精确地检测数据包的到达时间，我们仿照Wi-Fi数据包的结构，在每段声音之前附加一段格式固定的前导声波。随后，我们在接收端重新构造一段与前导声波格式相同的理想前导信号，并通过逐采样点计算理想前导信号与收到信号的相关性，估计数据包的准确到达时间。</p>
-<p>MATLAB提供了$dot()$函数，可以用于计算两个相同长度向量的相关性：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C = <span class="built_in">dot</span>(A,B)</span><br><span class="line">C = <span class="built_in">dot</span>(A,B,dim)</span><br></pre></td></tr></table></figure></p>
+<p>MATLAB提供了$dot()$函数，可以用于计算两个相同长度向量的相关性：</p>
+<pre><code class="lang-matlab">C = dot(A,B)
+C = dot(A,B,dim)
+</code></pre>
 <p>$C = dot(A,B)$ 返回 A 和 B 的标量点积:</p>
 <ul>
 <li>如果 A 和 B 是向量，则它们的长度必须相同。</li>
 <li>如果 A 和 B 为矩阵或多维数组，则它们必须具有相同大小。该函数计算对应向量沿大小不等于 1 的第一个数组维度的叉积。</li>
 </ul>
 <p>以下为通过计算相关性进行数据包检测的实现代码，使用一个长度固定的信号截取窗口，著采样点移动窗口起点，截取收到的信号与理想前导信号计算相关性。当相关性达到设定的阈值，则记录当前检测到的数据包的起始采样点编号。数据包检测函数最终返回每个冲突数据包准确的起始采样点。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dout</span> = <span class="title">pktDetect</span><span class="params">(datain, ideal_preamble, threshold)</span></span></span><br><span class="line"><span class="comment">%PKTDETECT using correlation for packet detection</span></span><br><span class="line"><span class="comment">%   Detailed explanation goes here</span></span><br><span class="line">  len_data = <span class="built_in">length</span>(datain);</span><br><span class="line">  len_preamble = <span class="built_in">length</span>(ideal_preamble);</span><br><span class="line">  dout = [];</span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:len_data - len_preamble</span><br><span class="line">    corr_set = datain(<span class="built_in">i</span> + (<span class="number">1</span>:len_preamble));</span><br><span class="line">    c = <span class="built_in">dot</span>(corr_set,ideal_preamble);</span><br><span class="line">    <span class="keyword">if</span> c &gt; threshold</span><br><span class="line">        dout = [dout; <span class="built_in">i</span>];</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<pre><code class="lang-matlab">function dout = pktDetect(datain, ideal_preamble, threshold)
+%PKTDETECT using correlation for packet detection
+%   Detailed explanation goes here
+  len_data = length(datain);
+  len_preamble = length(ideal_preamble);
+  dout = [];
+  for i = 1:len_data - len_preamble
+    corr_set = datain(i + (1:len_preamble));
+    c = dot(corr_set,ideal_preamble);
+    if c &gt; threshold
+        dout = [dout; i];
+    end
+  end
+end
+</code></pre>
 <h2 id="冲突消除"><a href="#冲突消除" class="headerlink" title="冲突消除"></a>冲突消除</h2><p>本节以两数据包冲突为例，介绍如何使用ZigZag算法实现冲突消除，并从冲突信号中还原出两个原始的数据包。</p>
 <p>对于两数据包的信号冲突，ZigZag冲突消除算法要求接收端收取时间错位相异的两组冲突信号。利用上一节介绍的数据包检测方法，我们可以获得每次冲突时、每个数据包的准确到达时间。根据冲突数据包的准确到达时间，ZigZag提取出第一段可以用于解码的信号段$BootChunk$。$BootChunk$需要满足两点特征，即在第一次冲突中为interference-free，而在第二次冲突中与另一数据包完全重叠。考虑在首次冲突和重传冲突中，两个数据包的到达顺序可能相同也可能不同，我们需要对两种情况分别设计$BootChunk$提取方法。通过比较冲突尾部interference-free信号段的内容，我们可以很容易地判断出两个数据包在两次冲突中到达的顺序是否相同。</p>
 <p><img src="/images/8.2/collision1.png" alt="图3. 冲突数据包的到达顺序相同" title="冲突数据包的到达顺序相同"><br><img src="/images/8.2/collision2.png" alt="图4. 冲突数据包的到达顺序不同" title="冲突数据包的到达顺序不同"></p>
-<p>若两个数据包在两次冲突中到达顺序相同（如图3），则$BootChunk$信号段就是$P_a$在两次冲突中interference-free段的差值，$BootChunk$长度等于$\Delta 1 - \Delta 2$。我们首先通过计算相关性，获得每个数据包的到达时间。对每次冲突，计算冲突头部interference-free信号段的长度，两段interference-free信号段长度的差值即为$BootChunk$的长度。最后直接从较长的interference-free信号段中提取$BootChunk$的内容。具体实现如下：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dout</span> = <span class="title">singleOrderBootChunk</span><span class="params">(datain1,datain2)</span></span></span><br><span class="line"><span class="comment">%SINGLEORDERBOOTCHUNK Summary of this function goes here</span></span><br><span class="line"><span class="comment">%   Detailed explanation goes here</span></span><br><span class="line">    pktList_1 = pktDetect(datain1);</span><br><span class="line">    delta_1 = pktList_1(<span class="number">2</span>) - pktList_1(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    pktList_2 = pktDetect(datain2);</span><br><span class="line">    delta_2 = pktList_2(<span class="number">2</span>) - pktList_2(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    len_boot_chunk = <span class="built_in">abs</span>(delta_1 - delta_2);</span><br><span class="line">    <span class="keyword">if</span> delta_1 &gt; delta_2</span><br><span class="line">        start_boot_chunk = pktList_1(<span class="number">1</span>) + delta_2;</span><br><span class="line">        dout = datain1(start_boot_chunk + (<span class="number">1</span>:len_boot_chunk));</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        start_boot_chunk = pktList_2(<span class="number">1</span>) + delta_1;</span><br><span class="line">        dout = datain2(start_boot_chunk + (<span class="number">1</span>:len_boot_chunk));</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<p>若两个数据包在两次冲突中到达顺序相同（如图3），则$BootChunk$信号段就是$P_a$在两次冲突中interference-free段的差值，$BootChunk$长度等于$\Delta 1 - \Delta 2$。我们首先通过计算相关性，获得每个数据包的到达时间。对每次冲突，计算冲突头部interference-free信号段的长度，两段interference-free信号段长度的差值即为$BootChunk$的长度。最后直接从较长的interference-free信号段中提取$BootChunk$的内容。具体实现如下：</p>
+<pre><code class="lang-matlab">function dout = singleOrderBootChunk(datain1,datain2)
+%SINGLEORDERBOOTCHUNK Summary of this function goes here
+%   Detailed explanation goes here
+    pktList_1 = pktDetect(datain1);
+    delta_1 = pktList_1(2) - pktList_1(1);
+
+    pktList_2 = pktDetect(datain2);
+    delta_2 = pktList_2(2) - pktList_2(1);
+
+    len_boot_chunk = abs(delta_1 - delta_2);
+    if delta_1 &gt; delta_2
+        start_boot_chunk = pktList_1(1) + delta_2;
+        dout = datain1(start_boot_chunk + (1:len_boot_chunk));
+    else
+        start_boot_chunk = pktList_2(1) + delta_1;
+        dout = datain2(start_boot_chunk + (1:len_boot_chunk));
+    end
+end
+</code></pre>
 <p>若两个数据包在两次冲突中到达顺序不同（如图4），则$BootChunk$信号段就是$P_a$在两次冲突中interference-free段的和，$BootChunk$长度等于$\Delta 1 + \Delta 2$。我们首先获得每个数据包的到达时间，根据到达时间提取每次冲突头部的interference-free信号段。考虑冲突数据包的两次到达顺序不同，两段interference-free信号段分别属于两个不同的数据包，且都满足$BootChunk$的条件，即在一次冲突中无干扰，在另一次冲突中有干扰。取任意一段interference-free信号，对齐到另一次冲突的相同位置并消去，则可以得到长度为$\Delta 1 + \Delta 2$的完整$BootChunk$。<br>具体实现如下：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dout</span> = <span class="title">flippedOrderBootChunk</span><span class="params">(datain1,datain2)</span></span></span><br><span class="line"><span class="comment">%FLIPPEDORDERBOOTCHUNK Summary of this function goes here</span></span><br><span class="line"><span class="comment">%   Detailed explanation goes here</span></span><br><span class="line">    pktList_1 = pktDetect(datain1);</span><br><span class="line">    pktList_2 = pktDetect(datain2);</span><br><span class="line">    </span><br><span class="line">    free_chunk_1 = datain1(pktList_1(<span class="number">1</span>):pktList_1(<span class="number">2</span>)<span class="number">-1</span>);</span><br><span class="line">    len_chunk_1 = <span class="built_in">length</span>(free_chunk_1);</span><br><span class="line">    free_chunk_2 = datain2(pktList_2(<span class="number">1</span>):pktList_2(<span class="number">2</span>)<span class="number">-1</span>);</span><br><span class="line">    inter_chunk = datain2(pktList_2(<span class="number">2</span>)+(<span class="number">0</span>:len_chunk_1<span class="number">-1</span>));</span><br><span class="line">    dout = free_chunk_2 + (inter_chunk - free_chunk_1);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>最后，使用$BootChunk$迭代地消去已知信号，得到新的$BootChunk$，直至还原出两个完整的冲突数据包。<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dout</span> = <span class="title">zDecoder</span><span class="params">(datain1,datain2)</span></span></span><br><span class="line"><span class="comment">%ZDECODER Summary of this function goes here</span></span><br><span class="line"><span class="comment">%   Detailed explanation goes here</span></span><br><span class="line">    pktList_1 = pktDetect(datain1);</span><br><span class="line">    pktList_2 = pktDetect(datain2);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> isFlippedOrder(datain1, datain2)</span><br><span class="line">        boot_chunk = flippedOrderBootChunk(datain1,datain2);</span><br><span class="line">        out_pkt1 = datain1(pktList_1(<span class="number">1</span>):pktList_1(<span class="number">2</span>)<span class="number">-1</span>);</span><br><span class="line">        out_pkt2 = boot_chunk;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        boot_chunk = singleOrderBootChunk(datain1,datain2);</span><br><span class="line">        out_pkt1 = datain1(pktList_1(<span class="number">1</span>):pktList_1(<span class="number">2</span>)<span class="number">-1</span>)</span><br><span class="line">        out_pkt1 = [];</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    point1 = pktList_1(<span class="number">2</span>);</span><br><span class="line">    point2 = pktList_2(<span class="number">2</span>) + <span class="built_in">length</span>(boot_chunk) - <span class="number">1</span>;</span><br><span class="line">    it = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> point1 &lt; <span class="built_in">length</span>(datain1) &amp;&amp; point2 &lt; <span class="built_in">length</span>(datain2)</span><br><span class="line">        <span class="keyword">if</span> it == <span class="number">1</span></span><br><span class="line">            boot_chunk = datain1(point1+(<span class="number">1</span>:chunk_size)) - boot_chunk;</span><br><span class="line">            out_pkt2 = [dout2;boot_chunk];</span><br><span class="line">            point1 = point1 + chunk_size;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            boot_chunk = datain2(point2+(<span class="number">1</span>:chunk_size)) - boot_chunk;</span><br><span class="line">            out_pkt1 = [dout1;boot_chunk];</span><br><span class="line">            point2 = point2 + chunk_size;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        it = <span class="built_in">mod</span>(it,<span class="number">2</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
+<pre><code class="lang-matlab">function dout = flippedOrderBootChunk(datain1,datain2)
+%FLIPPEDORDERBOOTCHUNK Summary of this function goes here
+%   Detailed explanation goes here
+    pktList_1 = pktDetect(datain1);
+    pktList_2 = pktDetect(datain2);
+
+    free_chunk_1 = datain1(pktList_1(1):pktList_1(2)-1);
+    len_chunk_1 = length(free_chunk_1);
+    free_chunk_2 = datain2(pktList_2(1):pktList_2(2)-1);
+    inter_chunk = datain2(pktList_2(2)+(0:len_chunk_1-1));
+    dout = free_chunk_2 + (inter_chunk - free_chunk_1);
+end
+</code></pre>
+<p>最后，使用$BootChunk$迭代地消去已知信号，得到新的$BootChunk$，直至还原出两个完整的冲突数据包。</p>
+<pre><code class="lang-matlab">function dout = zDecoder(datain1,datain2)
+%ZDECODER Summary of this function goes here
+%   Detailed explanation goes here
+    pktList_1 = pktDetect(datain1);
+    pktList_2 = pktDetect(datain2);
+
+    if isFlippedOrder(datain1, datain2)
+        boot_chunk = flippedOrderBootChunk(datain1,datain2);
+        out_pkt1 = datain1(pktList_1(1):pktList_1(2)-1);
+        out_pkt2 = boot_chunk;
+    else
+        boot_chunk = singleOrderBootChunk(datain1,datain2);
+        out_pkt1 = datain1(pktList_1(1):pktList_1(2)-1)
+        out_pkt1 = [];
+    end
+
+    point1 = pktList_1(2);
+    point2 = pktList_2(2) + length(boot_chunk) - 1;
+    it = 2;
+    while point1 &lt; length(datain1) &amp;&amp; point2 &lt; length(datain2)
+        if it == 1
+            boot_chunk = datain1(point1+(1:chunk_size)) - boot_chunk;
+            out_pkt2 = [dout2;boot_chunk];
+            point1 = point1 + chunk_size;
+        else
+            boot_chunk = datain2(point2+(1:chunk_size)) - boot_chunk;
+            out_pkt1 = [dout1;boot_chunk];
+            point2 = point2 + chunk_size;
+        end
+        it = mod(it,2) + 1;
+    end
+end
+</code></pre>
 <h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol>
 <li>环境噪声对ZigZag解码算法是否会产生影响？如果有影响，那又该如何消除？</li>
 <li>ZigZag的信号段迭代恢复策略可能会产生误差传导问题，即某一段信号段解码错误，将造成后续连续多个信号都产生错误。思考是否有办法解决该误差传递问题?</li>
@@ -263,7 +345,7 @@ Corr(A,B)=\sum_{k=1}^L A^* [k]\times B[k]</script><p>因此，理想前导码$s[
 
 <div class="article_copyright">
     <p><span>文章标题:</span>8.2 网络冲突处理——ZigZag</p>
-    <p><span>文章字数:</span><span class="post-count">2.8k</span></p>
+    <p><span>文章字数:</span><span class="post-count">2.9k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
     <p><span>最后更新:</span>2019-07-02, 16:25:20</p>

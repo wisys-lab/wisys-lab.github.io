@@ -6,29 +6,30 @@
   <meta name="keywords" content>
   <meta name="description" content="8.4 LoRa低功耗广域网 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta name="description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
 <meta property="og:type" content="article">
-<meta property="og:title" content="8.2 网络冲突处理——ZigZag">
-<meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
+<meta property="og:title" content="8.4 LoRa低功耗广域网">
+<meta property="og:url" content="http://yoursite.com/2019/07/01/8.4 LoRa低功耗广域网/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
+<meta property="og:description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/correlation.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision1.png">
-<meta property="og:image" content="http://yoursite.com/images/8.2/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T08:25:20.662Z">
+<meta property="og:image" content="http://yoursite.com/images/8.4/LPWAN.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/LoRaArch.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/Chirp.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/loraDecoder.png">
+<meta property="og:image" content="http://yoursite.com/images/8.4/loraPkt.png">
+<meta property="og:updated_time" content="2019-07-02T08:33:50.951Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8.2 网络冲突处理——ZigZag">
-<meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
-<meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
+<meta name="twitter:title" content="8.4 LoRa低功耗广域网">
+<meta name="twitter:description" content="“LoRa是什么？” 要想准确地回答这一问题，绝非一件易事。因为LoRa这个词所指代的并非一件单一的事物，恰恰相反，它包含了至少三层概念：  狭义上的LoRa指的是一种物理层的信号调制方式：它基于线性扩频技术（Chirp Spreading Spectrum，CSS），将射频信号调制为具有不同起始频率的chirp符号，以此编码不同的数据。 从系统角度看，LoRa也指由终端节点、网关、网络服务器、应">
+<meta name="twitter:image" content="http://yoursite.com/images/8.4/LPWAN.png">
 
 
 <link rel="icon" href="/img/icon.jpg">
 
 <link href="/css/style.css?v=1" rel="stylesheet">
 
-<link href="/css/hl_theme/sublime.css?v=1" rel="stylesheet">
+<link href="/css/hl_theme/atom-dark.css?v=1" rel="stylesheet">
 
 <link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
