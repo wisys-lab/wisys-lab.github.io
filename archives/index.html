@@ -8,23 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络冲突处理——ZigZag">
+<meta property="og:title" content="8.2 网络冲突处理——ZigZag">
 <meta property="og:url" content="http://yoursite.com/2019/07/02/8.2 网络冲突处理(zigzag)/index.html">
 <meta property="og:site_name" content="IoT Book">
 <meta property="og:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/correlation.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/02/8.2%20网络冲突处理(zigzag)/fig/collision2.png">
-<meta property="og:updated_time" content="2019-07-02T07:41:37.774Z">
+<meta property="og:image" content="http://yoursite.com/images/8.2/correlation.png">
+<meta property="og:image" content="http://yoursite.com/images/8.2/collision1.png">
+<meta property="og:image" content="http://yoursite.com/images/8.2/collision2.png">
+<meta property="og:updated_time" content="2019-07-02T08:04:31.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络冲突处理——ZigZag">
+<meta name="twitter:title" content="8.2 网络冲突处理——ZigZag">
 <meta name="twitter:description" content="ZigZag原理ZigZag作为一种积极的冲突消除算法，它利用冲突信号本身，对每一个受损的数据包进行还原和解码，从而有效地避免了CSMA、RTS/CTS等消极的冲突避免算法对网络吞吐率的影响。 ZigZag算法的实现基于802.11协议的两点性质：其一，对于未被确认的数据包，发送端将在计时器超时后进行重传；其二，重传数据包在发送前需要经过一段随机的时间延迟。若数据包$P_a$和数据包$P_b$在首">
 <meta name="twitter:image" content="http://yoursite.com/images/8.2/zigzag_processing.png">
 
 
-<link rel="icon" href="/img/avatar.jpg">
+<link rel="icon" href="/img/icon.jpg">
 
 <link href="/css/style.css?v=1" rel="stylesheet">
 
@@ -132,7 +132,7 @@
            href="/2019/07/02/8.2 网络冲突处理(zigzag)/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="网络冲突处理——ZigZag">网络冲突处理——ZigZag</span>
+            <span class="post-title" title="8.2 网络冲突处理——ZigZag">8.2 网络冲突处理——ZigZag</span>
             <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
         </a>
         
@@ -140,7 +140,7 @@
            href="/2019/07/01/8.4 LoRa低功耗广域网/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="LoRa低功耗广域网">LoRa低功耗广域网</span>
+            <span class="post-title" title="8.4 LoRa低功耗广域网">8.4 LoRa低功耗广域网</span>
             <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
         </a>
         
@@ -159,7 +159,7 @@
         <article class="index">
             <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -172,35 +172,22 @@
     }
 </style>
 </div>
-            # 前言
-物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。
-这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，
-1. 了解物联网的发展历史和出现的原因
-
-2. 知道物联网的基本技术
-
-3. 熟悉物联网主要的发展方向和国际前沿
-
-4. 熟练搭建物联网系统
-
-
-正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。
-
-几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。
-
-实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。
-麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。
-
-适合对象：
-愿意了解物联网基础
-有志于物联网领域深入研究
-有创业计划（不管是哪种形式的创业）
-
-
-致谢：
-
-
-
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
+<ol>
+<li><p>了解物联网的发展历史和出现的原因</p>
+</li>
+<li><p>知道物联网的基本技术</p>
+</li>
+<li><p>熟悉物联网主要的发展方向和国际前沿</p>
+</li>
+<li><p>熟练搭建物联网系统</p>
+</li>
+</ol>
+<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
+<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
+<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
+<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
+<p>致谢：</p>
 
         </article>
         
