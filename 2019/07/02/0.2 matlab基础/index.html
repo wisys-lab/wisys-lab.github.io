@@ -6,17 +6,17 @@
   <meta name="keywords" content>
   <meta name="description" content="0.2 matlab基础 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="IoTBook-sourceIoT Book 资源文件">
+<meta name="description" content="IoTBook-sourceIoT Book 资源文件 markdown文件(.md)请放置在根目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片路径) 要设置图片大小，可以使用html标签：&amp;lt;img src=&amp;quot;图片路径&amp;qu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IoT Book">
+<meta property="og:title" content="README">
 <meta property="og:url" content="http://yoursite.com/2019/07/03/README/index.html">
 <meta property="og:site_name" content="IoT Book">
-<meta property="og:description" content="IoTBook-sourceIoT Book 资源文件">
+<meta property="og:description" content="IoTBook-sourceIoT Book 资源文件 markdown文件(.md)请放置在根目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片路径) 要设置图片大小，可以使用html标签：&amp;lt;img src=&amp;quot;图片路径&amp;qu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-03T00:51:35.843Z">
+<meta property="og:updated_time" content="2019-07-03T01:55:54.275Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IoT Book">
-<meta name="twitter:description" content="IoTBook-sourceIoT Book 资源文件">
+<meta name="twitter:title" content="README">
+<meta name="twitter:description" content="IoTBook-sourceIoT Book 资源文件 markdown文件(.md)请放置在根目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片路径) 要设置图片大小，可以使用html标签：&amp;lt;img src=&amp;quot;图片路径&amp;qu">
 
 
 <link rel="icon" href="/img/icon.jpg">
@@ -31,7 +31,8 @@
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="/js/jquery.autocomplete.min.js?v=1"></script>
 
-<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.15.8/languages/matlab.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
@@ -82,7 +83,7 @@
     <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="11">
-<input type="hidden" id="yelog_site_word_count" value="16.8k">
+<input type="hidden" id="yelog_site_word_count" value="16.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -207,8 +208,8 @@
            href="/2019/07/03/README/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-03 08:51:35">2019/07/03</span>
+            <span class="post-title" title="README">README</span>
+            <span class="post-date" title="2019-07-03 16:07:32">2019/07/03</span>
         </a>
         
     </nav>
@@ -237,7 +238,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-02 18:57:56'>2019-07-02 15:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-03 09:45:25'>2019-07-02 15:41</time>
         
     </div>
     <div class="article-meta">
@@ -278,16 +279,16 @@
       
         <h1 id="Matlab-安装"><a href="#Matlab-安装" class="headerlink" title="Matlab 安装"></a>Matlab 安装</h1><p>请使用学校提供的正版matlab安装教程进行matlab软件的安装和激活</p>
 <h1 id="Matlab使用"><a href="#Matlab使用" class="headerlink" title="Matlab使用"></a>Matlab使用</h1><p>本章节我将以录音文件读取和展示为例为带大家进行简单的matlab操作。安装完成后，打开matlab界面，通过cd命令进入到工作目录。<br><img src="/images/0.2/5.png" alt title=" "><br>由于在命令行中输入命令每次修改都需要重新复制粘贴，为了方便修改和运行代码，我们可以创建”.m”脚本文件来进行代码的实现。点击应用左上方的新建按钮，选择脚本：<br><img src="/images/0.2/6.png" alt title=" "><br>然后编辑器中会出现一个Untitled.m 点击左上方的保存按钮，为这个脚本文件取名并保存在当前工作文件夹中，我将其命名为了“Hello.m”：<br><img src="/images/0.2/7.png" alt title=" "><br>为了方便处理录音文件，我们将在手机上录到的“.wav”文件拷贝到当前的matlab工作目录下。<br>在”Hello.m”中编写文件读取和展示的代码：</p>
-<pre><code class="lang-python">%#从录音文件receive.wav中读取数据和采样频率
+<pre><code class="lang-matlab">%从录音文件receive.wav中读取数据和采样频率
 [data, fs] = audioread(&#39;receive.wav&#39;);
-%#把数据展示到figure中
+%把数据展示到figure中
 figure;
 plot(data);
 </code></pre>
 <p>点击上方的运行按钮：<br><img src="/images/0.2/8.png" alt title=" "><br>Matlab绘制出了图形：<br><img src="/images/0.2/9.png" alt title=" "><br>横轴是采样点的序号，纵轴是采样点的值，代表声音的幅度。对局部放大之后如下图：<br><img src="/images/0.2/10.png" alt title=" "><br>我们观察可以发现图中画出的是两条数据，这是因为录音文件中存储的是手机的两个麦克风所录到的两路信号，在工作区中观察变量data会发现其为n*2的矩阵：<br><img src="/images/0.2/11.png" alt title=" "><br>双击其变量名可以在变量工作区中打开它，滚动屏幕就可以观察它的值：<br><img src="/images/0.2/12.png" alt title=" "><br>Matlab除了可以建脚本文件，还可以创建函数文件。点击新建-&gt;函数：<br><img src="/images/0.2/13.png" alt title=" "><br>编辑器中出现一个未命名的m文件，并且带有初始的函数结构。点击保存按钮保存这个文件并为函数取名，保存之后还需要对函数名和文件名进行统一：<br><img src="/images/0.2/14.png" alt title=" "><br>修改函数命名之后编辑器右侧的小方块将变成绿色，表示问题已修复。<br><img src="/images/0.2/15.png" alt title=" "><br> 接下来可以根据自己想要的功能修改函数的输入输出参数以及计算过程：</p>
-<pre><code class="lang-python">function [result] = getMax(a,b)
-%#getMax 此处显示有关此函数的摘要
-%# 输入参数是两个数a和b，返回这两个数中的最大值。
+<pre><code class="lang-matlab">function [result] = getMax(a,b)
+%getMax 此处显示有关此函数的摘要
+% 输入参数是两个数a和b，返回这两个数中的最大值。
 result= max(a,b);
 end
 </code></pre>
@@ -305,7 +306,7 @@ end
     <p><span>文章字数:</span><span class="post-count">722</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
-    <p><span>最后更新:</span>2019-07-02, 18:57:56</p>
+    <p><span>最后更新:</span>2019-07-03, 09:45:25</p>
     <span>原始链接:</span><a class="post-url" href="/2019/07/02/0.2 matlab基础/" title="0.2 matlab基础">http://yoursite.com/2019/07/02/0.2 matlab基础/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
