@@ -70,7 +70,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(12)</small></div></li>
+    <li><div class="all active">全部文章<small>(13)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -82,8 +82,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="29.6k">
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="32.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -162,6 +162,14 @@
            data-author="" >
             <span class="post-title" title="4.1 物联网基础概念">4.1 物联网基础概念</span>
             <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/06/12/4.1 滤波/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.1.2 基础概念（滤波）">4.1.2 基础概念（滤波）</span>
+            <span class="post-date" title="2019-06-12 20:41:32">2019/06/12</span>
         </a>
         
         <a id="top" class=""
@@ -292,10 +300,10 @@
 <h3 id="游标卡尺的原理"><a href="#游标卡尺的原理" class="headerlink" title="游标卡尺的原理"></a>游标卡尺的原理</h3><p>首先，我们考虑一个类似的间接提高分辨率的例子：游标卡尺。游标卡尺是一种用于精确测量长度的工具。一般而言，游标卡尺由两部分构成，一部分是主尺，另一部分是可滑动的游标，可以在主尺上自由滑动。主尺和游标上都有刻度，但是二者的刻度间距稍有不同。主尺的刻度一般都是整毫米的，而游标上的刻度一般与主尺上的刻度往往有着一个微小的差距（如0.9mm）。</p>
 <p><img src="/images/7.3/Vernier01.png" alt="游标卡尺示意图" title="游标卡尺示意图"></p>
 <p>对于常见的游标卡尺，其主尺刻度间隔为1mm，游标上的刻度间隔为0.9mm。如果我们要测量的距离为r，那么我们可以得到：</p>
-<script type="math/tex; mode=display">
-r-r'+0.9x=1.0x</script><p>其中，r’表示对r进行向下取整的结果，x表示游标的第多少个刻度，能够与主尺上的刻度互相对齐。经整理，得到：</p>
-<script type="math/tex; mode=display">
-r-r'=0.1x</script><p>由于游标每向右移动了一个刻度，其与主尺上的刻度上的差距就增加了0.1 mm。因此，利用这个原理就可以对长度进行更精确地测量。值得指出的是，游标卡尺的测量精度本质上并不是由游标和主尺上的刻度差值决定的，而是由二者的最大公约数决定的。</p>
+<p>$$<br>r-r’+0.9x=1.0x<br>$$</p>
+<p>其中，r’表示对r进行向下取整的结果，x表示游标的第多少个刻度，能够与主尺上的刻度互相对齐。经整理，得到：</p>
+<p>$$<br>r-r’=0.1x<br>$$</p>
+<p>由于游标每向右移动了一个刻度，其与主尺上的刻度上的差距就增加了0.1 mm。因此，利用这个原理就可以对长度进行更精确地测量。值得指出的是，游标卡尺的测量精度本质上并不是由游标和主尺上的刻度差值决定的，而是由二者的最大公约数决定的。</p>
 <h3 id="信号相位变化的测定"><a href="#信号相位变化的测定" class="headerlink" title="信号相位变化的测定"></a>信号相位变化的测定</h3><p>接下来，我们介绍一种类似游标卡尺原理的信号相位变化的测定方法。</p>
 <p>首先定义几个变量：</p>
 <p>LMP（Local Max Prefix）：在一个信号采样窗口中，我们规定第一个采样点的LMP为0。从第二个采样点开始，如果某一个点的值（就是该采样点的信号强度），既大于它的前一个值，又大于它的后一个值，那么这个点的LMP值为它的前一个点的LMP值加1，否则该点的LMP值等于其前一个点的LMP值。</p>
@@ -307,7 +315,7 @@ r-r'=0.1x</script><p>由于游标每向右移动了一个刻度，其与主尺�
 <p>当信号相位变化 2π / q时，LMPS增加1。也就是说，当p = 3、q = 13时，每当LMPS增加1，我们就可以说，信号的相位变换增加了 2π / 13。距离变化了 λ / 13。</p>
 <p>接下来，我们介绍该算法的实现。</p>
 <p>首先，我们需要一个计算窗口信号的LMP和LMPS的函数。（代码见./code/getLMPS.m）</p>
-<pre><code class="lang-matlab">function [ lmps ] = getLMPS( y )  %输入是窗口信号的强度，输出的该窗口信号的lmps
+<pre><code class="matlab">function [ lmps ] = getLMPS( y )  %输入是窗口信号的强度，输出的该窗口信号的lmps
 lmp = 0; 
 lmps = 0;
 for i=2:length(y)-1   %计算除首尾的采样点的lmp
@@ -316,10 +324,9 @@ for i=2:length(y)-1   %计算除首尾的采样点的lmp
     end  %如果该采样点是局部最大值，则lmp+1
     lmps = lmps +lmp;  %lmps是所有采样点的lmp的和
 end
-lmps = lmps + lmp;   %最后一个采样点的lmp一定与倒数第二个相同
-</code></pre>
+lmps = lmps + lmp;   %最后一个采样点的lmp一定与倒数第二个相同</code></pre>
 <p>该函数将计算某个窗口信号的LMPS值。然后通过比较信号的LMPS值的变化，我们就可以计算信号相位的变化情况。（代码见./code/vernier.m）</p>
-<pre><code class="lang-matlab">pi = 3.14;  %常量pi
+<pre><code class="matlab">pi = 3.14;  %常量pi
 
 x1 = 0: 6*pi/13: 6*pi;   %正弦信号的采样位置，p=3，q=13
 y1 = sin(x1);  %该正弦信号所有采样点的信号强度
@@ -329,14 +336,12 @@ x2 = d: 6*pi/13: 6*pi+d;    %经过偏移的正弦信号的采样位置
 y2 = sin(x2);    %经过偏移的正弦信号的采样点的信号强度
 
 lmps1 = getLMPS(y1)  %计算原信号的lmps
-lmps2 = getLMPS(y2)  %计算偏移信号的lmps
-</code></pre>
+lmps2 = getLMPS(y2)  %计算偏移信号的lmps</code></pre>
 <p>运行结果如下：</p>
 <pre><code>lmps1 =
     26
 lmps2 =
-    27
-</code></pre><p>代码执行的结果与前面推导的一致。</p>
+    27</code></pre><p>代码执行的结果与前面推导的一致。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>

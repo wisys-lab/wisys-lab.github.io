@@ -70,7 +70,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(12)</small></div></li>
+    <li><div class="all active">全部文章<small>(13)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -82,8 +82,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="29.6k">
+<input type="hidden" id="yelog_site_posts_number" value="13">
+<input type="hidden" id="yelog_site_word_count" value="32.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -162,6 +162,14 @@
            data-author="" >
             <span class="post-title" title="4.1 物联网基础概念">4.1 物联网基础概念</span>
             <span class="post-date" title="2019-07-02 15:41:32">2019/07/02</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/06/12/4.1 滤波/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.1.2 基础概念（滤波）">4.1.2 基础概念（滤波）</span>
+            <span class="post-date" title="2019-06-12 20:41:32">2019/06/12</span>
         </a>
         
         <a id="top" class=""
@@ -308,14 +316,9 @@
 </ul>
 <h1 id="LoRa物理层"><a href="#LoRa物理层" class="headerlink" title="LoRa物理层"></a>LoRa物理层</h1><p>LoRa物理层使用线性扩频技术，即通过信号调频，将信号调制为频率随时间线性变化的chirp符号。<br>根据频率随时间变化的趋势不同，chirp符号可以分为up-chirp和down-chirp，如图3所示。up-chirp从最低频率开始，随时间增加逐渐上升至最高频率。而down-chirp则与之相反，从最高频率逐渐下降至最低频率。LoRa定义最高频率和最低频率之间的差值为LoRa带宽，记作$BW$。chirp符号天然具有抗噪声、抗多径和抗多普勒效应等特点，因此LoRa信号可以支持远距离传输，在超低信噪比情况下也能被正常解码。</p>
 <p><img src="/images/9.4/Chirp.png" alt="图3. LoRa Chirp符号时频图，左为up-chirp，右为down-chirp" title="LoRa Chirp符号时频图，左为up-chirp，右为down-chirp"></p>
-<p>LoRa通过对基准up-chirp做循环频移来编码不同的数据。如图3所示，基准up-chirp的最低频率为$-\frac{BW}{2}$，最高频率为$\frac{BW}{2}$，信号长度为$T$。因此其频率可以表示为$f(t)=kt-\frac{BW}{2}$，其中$k=\frac{BW}{T}$表示扫频梯度。由此，基准up-chirp可以表示为：</p>
-<script type="math/tex; mode=display">
-C(t)=e^{j2\pi(-\frac{BW}{2}+kt)\times t}</script><p>当需要编码数据时，LoRa首先令基准up-chirp乘上一个固定频率的偏移分量，偏移后的信号可以表示为$C(t)e^{j2\pi ft}$。随后，LoRa将所有频率高于$\frac{BW}{2}$的信号段循环频移至$-\frac{BW}{2}$频率处，频移后的信号如图\ref{fig:decoder}(e)所示。LoRa定义了N种不同的偏移频率，因此通过对一个基准up-chirp进行循环频移，最多可以编码$SF=log_2N$比特数据。</p>
-<p>LoRa数据解码由频率解扩频和傅里叶变换两个步骤组成。对于一个收到的数据包，LoRa首先令数据包中每个编码的up-chirp与基准down-chirp相乘。与up-chirp类似，基准down-chirp可以表示为：</p>
-<script type="math/tex; mode=display">
-C^*(t)=e^{j2\pi(\frac{BW}{2}-kt)\times t}</script><p>显然$C^*(t)$是$C(t)$的共轭，因此编码up-chirp与基准down-chirp相乘的结果是一个单频信号，其频率等于编码up-chirp的频率偏移量：</p>
-<script type="math/tex; mode=display">
-C^*(t)\times C(t)e^{j2\pi ft}=e^{j2\pi ft}</script><p>随后，LoRa对式(2.3)得到的单频信号进行傅里叶变换，将时域信号转化为频域波峰，波峰的下标即对应信号编码的数据，LoRa解码流程如图4所示。</p>
+<p>LoRa通过对基准up-chirp做循环频移来编码不同的数据。如图3所示，基准up-chirp的最低频率为$-\frac{BW}{2}$，最高频率为$\frac{BW}{2}$，信号长度为$T$。因此其频率可以表示为$f(t)=kt-\frac{BW}{2}$，其中$k=\frac{BW}{T}$表示扫频梯度。由此，基准up-chirp可以表示为：<br>$$<br>C(t)=e^{j2\pi(-\frac{BW}{2}+kt)\times t}<br>$$</p>
+<p>当需要编码数据时，LoRa首先令基准up-chirp乘上一个固定频率的偏移分量，偏移后的信号可以表示为$C(t)e^{j2\pi ft}$。随后，LoRa将所有频率高于$\frac{BW}{2}$的信号段循环频移至$-\frac{BW}{2}$频率处，频移后的信号如图\ref{fig:decoder}(e)所示。LoRa定义了N种不同的偏移频率，因此通过对一个基准up-chirp进行循环频移，最多可以编码$SF=log_2N$比特数据。</p>
+<p>LoRa数据解码由频率解扩频和傅里叶变换两个步骤组成。对于一个收到的数据包，LoRa首先令数据包中每个编码的up-chirp与基准down-chirp相乘。与up-chirp类似，基准down-chirp可以表示为：<br>$$<br>C^<em>(t)=e^{j2\pi(\frac{BW}{2}-kt)\times t}<br>$$<br>显然$C^</em>(t)$是$C(t)$的共轭，因此编码up-chirp与基准down-chirp相乘的结果是一个单频信号，其频率等于编码up-chirp的频率偏移量：<br>$$<br>C^*(t)\times C(t)e^{j2\pi ft}=e^{j2\pi ft}<br>$$<br>随后，LoRa对式(2.3)得到的单频信号进行傅里叶变换，将时域信号转化为频域波峰，波峰的下标即对应信号编码的数据，LoRa解码流程如图4所示。</p>
 <p><img src="/images/9.4/loraDecoder.png" alt="图4. LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果" title="LoRa物理层解码示意图，左为基准up-chirp，右为编码后的up-chirp：第一行为信号时间-频率图，第二行为down-chirp前的时域信号，第三行为乘down-chirp后的时域信号，第四行为傅里叶变换结果"></p>
 <p>LoRa数据包的结构如图5所示，一个典型的LoRa数据包包括4个部分：$S_{pre}$个前导码(Preamble)，2个强制同步字(Mandatory Sync Word, MSW)，2.25个起始帧分界符(Start Frame Delimiter, SFD)和若干编码up-chirp(Data Payload)。<br>前导码由连续的基准up-chirp组成，主要用于数据包的检测和同步；<br>强制同步字编码了数据包的网络号信息，接收端根据该信息判断是否接收当前数据包；<br>起始帧分界符标志着数据段的开始，在分界符之后，就是连续的编码up-chirp。</p>
 <p><img src="/images/9.4/loraPkt.png" alt="图5. LoRa数据包结构" title="LoRa数据包结构"></p>
