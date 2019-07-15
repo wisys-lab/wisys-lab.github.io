@@ -297,11 +297,12 @@
 <h1 id="Android-studio-安装"><a href="#Android-studio-安装" class="headerlink" title="Android studio 安装"></a>Android studio 安装</h1><p>首先是android开发环境 Android Studio的安装。请按照官网给出的教程进行安装。教程链接：<a href="https://developer.android.com/studio/install" target="_blank" rel="noopener">https://developer.android.com/studio/install</a><br>友情提示：若在安装过程中遇到某些模块（例如，Android SDK）未成功安装的情况，请开启全局VPN。</p>
 <h1 id="声音的播放和接收应用的实现。"><a href="#声音的播放和接收应用的实现。" class="headerlink" title="声音的播放和接收应用的实现。"></a>声音的播放和接收应用的实现。</h1><p>要开发一个新应用，首先需要打开android studio欢迎界面：<br><img src="/images/3.1/1.png" alt title="android Studio 欢迎界面"><br>选择“Start a new Android Studio project”选项之后到达项目种类选择页面：<br><img src="/images/3.1/2.png" alt title=" "><br>在这里，我们选择“Empty Activity”。<br>为你的项目设置名称、存储位置、开发语言等参数：<br><img src="/images/3.1/3.png" alt title=" "><br>进入到开发界面：<br><img src="/images/3.1/4.png" alt title=" "> </p>
 <p>接下来是应用的实现部分：<br>首先在文件“AndroidManifest.xml”中为录音应用申请录音和存储许可：</p>
-<pre><code class="java">&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;
+<pre><code class="lang-java">&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;
 &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;</code></pre>
+&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;
+</code></pre>
 <p>在 android 6.0以上版本中还需要在运行时动态请求permission.需要实现函数GetPermission()，并在onCreate()函数中调用。</p>
-<pre><code class="java">private void GetPermission() {
+<pre><code class="lang-java">private void GetPermission() {
 
         /*在此处插入运行时权限获取的代码*/
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!=
@@ -318,9 +319,10 @@
                             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
         }
-    }</code></pre>
+    }
+</code></pre>
 <p>设计应用界面：<br>在activity_main.xml中添加两个按钮 “START RECORD” 和 “STOP RECORD”：<br><img src="/images/3.1/19.png" alt title=" "><br>activity_main.xml文件中会出现两个按钮对应的代码：</p>
-<pre><code class="java">   &lt;Button
+<pre><code class="lang-java">   &lt;Button
         android:id=&quot;@+id/start_record&quot;
         android:layout_width=&quot;wrap_content&quot;
         android:layout_height=&quot;wrap_content&quot;
@@ -340,16 +342,19 @@
         android:layout_marginTop=&quot;108dp&quot;
         android:text=&quot;stop record&quot;
         app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toBottomOf=&quot;@+id/start_record&quot; /&gt;</code></pre>
+        app:layout_constraintTop_toBottomOf=&quot;@+id/start_record&quot; /&gt;
+</code></pre>
 <p>可以借助android:id项指定按钮的id，以及利用android:text项指定按钮上展示的文字。按钮的布局方式以及位置也可以自行调整。<br>在MainActivity中定义两个相应的button变量来代表这两个按钮：</p>
-<pre><code class="java">Button StartRecord, StopRecord;</code></pre>
+<pre><code class="lang-java">Button StartRecord, StopRecord;
+</code></pre>
 <p>在 onCreate函数中讲这两个变量与两个按钮对应起来，并把stop record按钮设置为不可用：</p>
-<pre><code class="java">StartRecord = (Button)findViewById(R.id.start_record);
+<pre><code class="lang-java">StartRecord = (Button)findViewById(R.id.start_record);
 StopRecord = (Button)findViewById(R.id.stop_record);
 //在录音键被按下之前，不允许按停止键
-StopRecord.setEnabled(false);</code></pre>
+StopRecord.setEnabled(false);
+</code></pre>
 <p>为两个按钮添加点击响应函数：</p>
-<pre><code class="java">//完成每个按钮的功能
+<pre><code class="lang-java">//完成每个按钮的功能
 StartRecord.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -385,10 +390,11 @@ StopRecord.setOnClickListener(new View.OnClickListener() {
         StopRecord.setEnabled(false);
         StartRecord.setEnabled(true);
         }
-});</code></pre>
+});
+</code></pre>
 <p>实现录音功能：</p>
 <p>首先在MainActivity中设置用于控制录音继续和停止的全局变量，以及用于录音的参数</p>
-<pre><code class="java">//48K采样率
+<pre><code class="lang-java">//48K采样率
 int SamplingRate = 48000;
 //格式：双声道
 int channelConfiguration = AudioFormat.CHANNEL_IN_STEREO;
@@ -397,9 +403,10 @@ int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
 //是否在录制
 boolean isRecording = false;
 //每次从audiorecord输入流中获取到的buffer的大小
-int bufferSize = 0;</code></pre>
+int bufferSize = 0;
+</code></pre>
 <p>接下来我们详细来看录音函数的实现：</p>
-<pre><code class="java">//开始录音
+<pre><code class="lang-java">//开始录音
 public void StartRecord(String name) {
 
         //生成原始数据文件
@@ -442,9 +449,10 @@ public void StartRecord(String name) {
         } catch (Throwable t) {
                 Log.e(&quot;MainActivity&quot;, &quot;录音失败&quot;);
         }
-}</code></pre>
+}
+</code></pre>
 <p>接下来需要把录到的原始数据写入带格式的wav文件：</p>
-<pre><code class="java">    private void copyWaveFile(String inFileName, String outFileName)
+<pre><code class="lang-java">    private void copyWaveFile(String inFileName, String outFileName)
     {
         FileInputStream in = null;
         FileOutputStream out = null;
@@ -535,7 +543,8 @@ public void StartRecord(String name) {
         header[43] = (byte) ((totalAudioLen &gt;&gt; 24) &amp; 0xff);
         //把header写入wav文件
         out.write(header, 0, 44);
-    }</code></pre>
+    }
+</code></pre>
 <p>运行效果：<br>由于我在设置文件路径的时候把文件放在了文件夹“myrecorder”中，我们首先需要在手机的外部存储根目录下新建文件夹：<br><img src="/images/3.1/20.png" alt title=" "><br>如果你不怕文件再根目录下堆积太多的话也可以直接把文件写在根目录下。<br>接下来我们进行真机运行，首先把android手机用数据线连接到电脑上，并允许调试。在android Studio点击运行按钮：<br><img src="/images/3.1/17.png" alt title=" "><br>我们会在选择运行设备的界面看到这是一部三星手机：<br><img src="/images/3.1/18.png" alt title=" "><br>点击“OK”，代码就会加载到手机上。由于我把权限请求放在了onCreate函数中，所以程序启动之后首先会进行权限请求：<br><img src="/images/3.1/22.png" alt title=" "><br><img src="/images/3.1/23.png" alt title=" "><br>当然，你也可以把权限请求放在具体使用到某项权限时进行请求。<br>在应用洁面上我们可以看到只有start record按钮可用：<br><img src="/images/3.1/25.png" alt title=" "><br>点击start record,录音开始 stop record可用，start record不可用：<br><img src="/images/3.1/24.png" alt title=" "><br>点击stop record之后文件夹中会出现两个文件，一个是原始数据文件，一个是带格式信息的wav文件：<br><img src="/images/3.1/26.png" alt title=" "><br>到这里你已经成功的用自己实现的android应用录制到一个wav的声音文件了。下一个章节中，我们将探索如何用matlab读取并展示我们录到的声音。</p>
 
       

@@ -259,7 +259,7 @@
     </div>
     <div class="article-meta">
         
-        <span>字数:787</span>
+        <span>字数:785</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -298,16 +298,30 @@
 <p><img src="/images/7.1/Trilateration01.png" alt="图1. 三边定位示意图（理论）" title="三边定位示意图（理论）"></p>
 <p>如图所示，如果三个信标的坐标分别为(0, 0)、(2, 0)和(1, 1.732)。对于定位点，如果定位点到三个信标的距离均为1.155，则以三个信标为圆心分别做圆，三个圆交于一点。则该点即为对定位点的定位结果。</p>
 <p>假设待求的定位点坐标为(x, y)，n个信标中第i个信标的坐标为(x_i,y_i)，定位点到第i个信标的距离为d_i，则根据图1，有如下方程成立：</p>
-<p>$$<br>\begin{cases}<br>    (x-x_1)^2+(y-y_1)^2=d_1^2\<br>    \vdots\<br>    (x-x_n)^2+(y-y_n)^2=d_n^2<br>\end{cases}<br>$$</p>
-<p>求解上式，即可求得定位点的坐标(x, y)。</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+    (x-x_1)^2+(y-y_1)^2=d_1^2\\
+    \vdots\\
+    (x-x_n)^2+(y-y_n)^2=d_n^2
+\end{cases}</script><p>求解上式，即可求得定位点的坐标(x, y)。</p>
 <p><img src="/images/7.1/Trilateration02.png" alt title="三边定位示意图（实际）"></p>
 <p>但是通常来说，信标的定位圆并不会刚好交于一点。实际的测量结果通常如图所示。因此，在计算时，我们需要对其进行近似求解。常见方法有加权法、最小二乘法、质心法等。如果我们使用最小二乘法进行计算，需要在前面理论的基础上进一步进行计算。在式1的基础上，我们将前n-1个方程减去第n个方程，得到线性化方程：$AX=b$。其中：</p>
-<p>$$<br>A=\left[<br>    \begin{matrix}<br>        2(x_1-x_n) &amp; 2(y_1-y_n)\<br>        2(x_{n-1}-x_n) &amp; 2(y-{n-1}-y_n)<br>    \end{matrix}<br>\right],<br>$$</p>
-<p>$$<br>b=\left[<br>    \begin{matrix}<br>        x_1^2-x_n^2+y_1^2-y_n^2+d_n^2-d_1^2\<br>        x_{n-1}^2-x_n^2+y_{n-1}^2-y_n^2+d_n^2-d_{n-1}^2<br>    \end{matrix}<br>\right]<br>$$</p>
-<p>则，利用最小二乘法可以解得：</p>
-<p>$$<br>X=(A^TA)^{-1}A^Tb<br>$$</p>
-<p>相关代码如下（./code/trilateration.m）</p>
-<pre><code class="matlab">nodeNumber = 3;   %定位信标的数量
+<script type="math/tex; mode=display">
+A=\left[
+    \begin{matrix}
+        2(x_1-x_n) & 2(y_1-y_n)\\ 
+        2(x_{n-1}-x_n) & 2(y-{n-1}-y_n)
+    \end{matrix}
+\right],</script><script type="math/tex; mode=display">
+b=\left[
+    \begin{matrix}
+        x_1^2-x_n^2+y_1^2-y_n^2+d_n^2-d_1^2\\
+        x_{n-1}^2-x_n^2+y_{n-1}^2-y_n^2+d_n^2-d_{n-1}^2
+    \end{matrix}
+\right]</script><p>则，利用最小二乘法可以解得：</p>
+<script type="math/tex; mode=display">
+X=(A^TA)^{-1}A^Tb</script><p>相关代码如下（./code/trilateration.m）</p>
+<pre><code class="lang-matlab">nodeNumber = 3;   %定位信标的数量
 nodeList = [0, 0; 2, 0; 1, 1.732];   %三个定位信标的坐标
 disList = [1.155, 1.155, 1.155];    %定位目标点到三个定位信标的距离
 
@@ -324,7 +338,8 @@ for i=1:nodeNumber-1
     B = [B; xi * xi + yi *yi - xn * xn - yn * yn + dn * dn - di * di];
 end    %#计算线性方程组的参数A和B
 
-X = inv(A&#39;*A)*A&#39;*B   %#根据最小二乘法公式计算结果X</code></pre>
+X = inv(A&#39;*A)*A&#39;*B   %#根据最小二乘法公式计算结果X
+</code></pre>
 <p>代码中，nodeList表示信标的位置坐标，nodeNumber表示信标的数量，disList表示定位点到各信标的距离。则分别求得A和B以后，根据式2即可求得定位点的坐标X。<br>（延伸阅读：<a href="https://github.com/megagao/IndoorPos）" target="_blank" rel="noopener">https://github.com/megagao/IndoorPos）</a></p>
 <p>Some三边定位方法。</p>
 
@@ -337,7 +352,7 @@ X = inv(A&#39;*A)*A&#39;*B   %#根据最小二乘法公式计算结果X</code></
 
 <div class="article_copyright">
     <p><span>文章标题:</span>7.1 基于距离测量的定位</p>
-    <p><span>文章字数:</span><span class="post-count">787</span></p>
+    <p><span>文章字数:</span><span class="post-count">785</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
     <p><span>最后更新:</span>2019-07-11, 15:57:08</p>

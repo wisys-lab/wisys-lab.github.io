@@ -309,39 +309,43 @@
 <p><img src="/images/4.1/p2.png" alt="麦克风原理"></p>
 <p>不过大家要注意的是，这个时候电压在时间和大小上依然是连续的，也就是说任意的电压值都是有可能的，很显然，这样大数据在电脑上是无法保存的，保存的大小是无穷大。为了保存这样的数据，我们先要对数据进行处理。第一个处理就是连续的信号转化为离散的信号。这一步是通过采样来实现的。采样是指计算机设备定时的对信号电压进行采集，采样解决了连续信号到离散信号的问题，可是采样后的电压值仍然没有办法直接保存，因为电压值在可能的取值范围内是连续的，为了解决这个问题，就需要量化。量化简单的来说就是将无限的连续的电压取值转化为有限的离散的电压取值，这样采样后的结果就能够保存。我们平时说的模拟/数字转换器（Analog to Digital Converter，即ADC，与之对应的是数/模转换器,即DAC）其实也就是干的这样的事情。</p>
 <p>具体这个事情是怎么来实现的呢，我们首先通过简单的仿真实验来进行情况说明，然后我们再通过实际的信号让大家体会这一过程。假设存在一个正弦的声音信号，频率为5Hz，理想情况下这个信号是一个正弦波，这个信号在matlab下可以如下产生和画图出来。注意，matlab下产生的已经是离散的信号了。</p>
-<pre><code class="matlab">%% 信号的产生过程
+<pre><code class="lang-matlab">%% 信号的产生过程
 %% 产生一个频率为1000、时长为1s的信号；
 t = 0:1/200:1; % 1s内2000个采样点
 f = 5; % 频率f=1000
 y = sin(2*pi*f*t);
-plot(t, y);</code></pre>
+plot(t, y);
+</code></pre>
 <p><img src="/images/4.1/p3.png" alt="信号时域图"></p>
 <p>注意这里面有几个小的问题，当我们将信号频率稍微做一些修改好，画出来的图将变成下面这个样子。</p>
-<pre><code class="matlab">%% 信号的产生过程
+<pre><code class="lang-matlab">%% 信号的产生过程
 %% 产生一个频率为100、时长为1s的信号；
 t = 0:1/200:1; % 1s内150个采样点
 f = 100; % 频率f=1000
 y = sin(2*pi*f*t);
-plot(t, y);</code></pre>
+plot(t, y);
+</code></pre>
 <p><img src="/images/4.1/p4.png" alt="采样率不足"></p>
 <p>注意这个图已经完全不是我们想象中的正弦图像了，大家想想看看这个是什么原因。</p>
 <p>这里面有几个很有趣的问题，是不是连续的信号就无法用离散的信号表示出来，连续的信号是不是就得用无穷多的离散信号来表达？这里牵涉到了信号采样中的一个重要问题，我们将这个问题更加具体化，假设信号中的最大频率为f，那么应该以多大的采样频率对信号进行采样合理呢，显然不可能无限大的采样频率，这样在计算机上无法处理，实际上也非常不经济。这个问题也就变为信号的频率为f，那么最少的采样频率为多少。</p>
 <p>奈奎斯特采样定律告诉我们，对于这样的情形，需要的采样频率为2*f。采样过程所应遵循的规律，又称取样定理、抽样定理。采样定理说明采样频率与信号频谱之间的关系，是连续信号的基本依据。</p>
 <p>我们来看一个更加有意思的例子，如果信号的采样频率设置得不对会怎么样？</p>
-<pre><code class="matlab">%% 信号的产生过程
+<pre><code class="lang-matlab">%% 信号的产生过程
 %% 信号的产生过程
 %% 产生一个频率为100、时长为1s的信号；
 t = 0:1/10000:1; % 1s内10000个采样点
 f = 401; % 频率f=1000
 y = sin(2*pi*f*t);
-plot(t, y);</code></pre>
+plot(t, y);
+</code></pre>
 <p>这个例子中，信号是400Hz的，理论上来说，信号是如下这个样子的。<img src="/images/4.1/p5.png" alt="400Hz信号"></p>
-<pre><code class="matlab">%% 信号的产生过程
+<pre><code class="lang-matlab">%% 信号的产生过程
 %% 产生一个频率为100、时长为1s的信号；
 t = 0:1/402:1; % 1s内2000个采样点
 f = 401; % 频率f=1000
 y = sin(2*pi*f*t);
-plot(t, y);</code></pre>
+plot(t, y);
+</code></pre>
 <p>大家可以先来想象一下这个采样出来的结果会是怎么样的。</p>
 <p><img src="/images/4.1/p6.png" alt="低采样频率"></p>
 <p><strong>思考：</strong></p>
@@ -388,28 +392,29 @@ plot(t, y);</code></pre>
 <p>广义信道，按照其功能进行划分，可以分为调制信道和编码信道两类。</p>
 <p>调制信道是指信号从调制器的输出端传输到解调器的输入端经过的部分。对于调制和解调的研究者来说，信号在调制信道上经过的传输媒质和变换设备都对信号做出了某种形式的变换，研究者只关心这些变换的输入和输出的关系，并不关心实现这一系列变换的具体物理过程。这一系列变换的输入与输出之间的关系，通常用多端口时变网络作为调制信道的数学模型进行描述。</p>
 <p>编码信道是指数字信号由编码器输出端传输到译码器输入端经过的部分。对于编译码的研究者来说，编码器输出的数字序列经过编码信道上的一系列变换之后，在译码器的输入端成为另一组数字序列，研究者只关心这两组数字序列之间的变换关系，而并不关心这一系列变换发生的具体物理过程，甚至并不关心信号在调制信道上的具体变化。编码器输出的数字序列与到译码器输入的数字序列之间的关系，通常用多端口网络的转移概率作为编码信道的数学模型进行描述。</p>
-<img src="/images/4.1/cpt_channel.png" width="600px">
-
+<p><img src="/images/4.1/cpt_channel.png" width="600px"></p>
 <p><a href="https://zh.wikipedia.org/wiki/信道" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E4%BF%A1%E9%81%93</a></p>
 <h2 id="信道冲击响应-Channel-Impulse-Response"><a href="#信道冲击响应-Channel-Impulse-Response" class="headerlink" title="信道冲击响应(Channel Impulse Response)"></a>信道冲击响应(Channel Impulse Response)</h2><p>TODO 加个图</p>
 <p>通信信道会对经过的信号产生作用（例如减弱，改变频率等），不同的信道作用效果不一样。</p>
 <p>因为任何输入信号都可以分解成单位脉冲信号的线性叠加，研究信道对单位脉冲信号的响应是有意义的。信道冲击响应（Channel Impulse Response，CIR），顾名思义，即当输入一个单位脉冲信号时，信道输出端的响应输出信号。对于一个线性系统，输出信号可以用输出端对单位脉冲信号的响应的线性叠加表示。信道冲击响应反映了信道的基本特性。</p>
 <p><strong>因为物联网的主要通信技术为无线通信，下面介绍一些无线通信相关的基础观念。</strong></p>
 <h2 id="信噪比"><a href="#信噪比" class="headerlink" title="信噪比"></a>信噪比</h2><p>信噪比（Signal-to-noise ratio，SNR or S/N）用于衡量信号强度与背景噪声强度的关系，定义为信号功率与噪声功率之比。</p>
-<p>$$<br>SNR = \frac{P_{signal}}{P_{noise}} = \frac{A^2_{signal}}{A^2_{noise}}<br>$$</p>
-<p>SNR常使用分贝（dB）作为单位。<br>$$<br>SNR(dB) = 10\log_{10} \left(\frac{P_{signal}}{P_{noise}}\right) = 20\log_{10} \left(\frac{A_{signal}}{A_{noise}}\right)<br>$$<br>其中，$P_{signal}$为信号功率，$P_{noise}$为噪声功率，$A_{signal}$为信号振幅，$A_{noise}$为噪声振幅。</p>
-<pre><code class="matlab">fs = 100; % sampling frequency
+<script type="math/tex; mode=display">
+SNR = \frac{P_{signal}}{P_{noise}} = \frac{A^2_{signal}}{A^2_{noise}}</script><p>SNR常使用分贝（dB）作为单位。</p>
+<script type="math/tex; mode=display">
+SNR(dB) = 10\log_{10} \left(\frac{P_{signal}}{P_{noise}}\right) = 20\log_{10} \left(\frac{A_{signal}}{A_{noise}}\right)</script><p>其中，$P<em>{signal}$为信号功率，$P</em>{noise}$为噪声功率，$A<em>{signal}$为信号振幅，$A</em>{noise}$为噪声振幅。</p>
+<pre><code class="lang-matlab">fs = 100; % sampling frequency
 t = 0:1/fs:1;
 x = sin(2*pi*4*t);
 % Add white Gaussian noise to signal
 % snr = 10dB
 y = awgn(x, 10, &#39;measured&#39;);
 plot(t, [x, y]);
-legend(&#39;Original Signal&#39;, &#39;Signal with AWGN&#39;);</code></pre>
+legend(&#39;Original Signal&#39;, &#39;Signal with AWGN&#39;);
+</code></pre>
 <p><img src="/images/4.1/cpt_snr.pdf" alt></p>
 <h2 id="多径效应"><a href="#多径效应" class="headerlink" title="多径效应"></a>多径效应</h2><p>由于电磁信号所处环境的不同，传播过程中出现折射、反射、漫射、衍射等等现象，在接收端收到了来自多条路径的信号，分为视距路径（Line of Sight）和非视距路径（Not Line of Sight）。多径效应对无线系统又很大影响，常用的解决技术有时域均衡、正交频分复用（OFDM）、Rake接收机、分集接收技术等。</p>
-<img src="/images/4.1/cpt_multipath.jpg" width="600px">
-
+<p><img src="/images/4.1/cpt_multipath.jpg" width="600px"></p>
 <p><a href="https://en.wikipedia.org/wiki/Multipath_propagation#Interference" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Multipath_propagation#Interference</a></p>
 <p>Zheng Yang, Zimu Zhou, and Yunhao Liu. 2013. From RSSI to CSI: Indoor localization via channel response. <em>ACM Comput. Surv.</em> 46, 2, Article 25 (December 2013), 32 pages. DOI: <a href="https://doi.org/10.1145/2543581.2543592" target="_blank" rel="noopener">https://doi.org/10.1145/2543581.2543592</a></p>
 <h2 id="信号衰落"><a href="#信号衰落" class="headerlink" title="信号衰落"></a>信号衰落</h2><p>在无线通信领域，衰落是指由于信道的变化导致接收信号的幅度发生随机变化的现象，即信号衰落。导致信号衰落的信道被称作衰落信道。衰落可按时间、空间、频率，三个角度来分类。 </p>
@@ -438,7 +443,7 @@ legend(&#39;Original Signal&#39;, &#39;Signal with AWGN&#39;);</code></pre>
 </li>
 <li>按所采用的元器件分为无源和有源滤波器</li>
 </ol>
-<pre><code class="matlab">fs = 100; % sampling frequency
+<pre><code class="lang-matlab">fs = 100; % sampling frequency
 t = 0:1/fs:1;
 x = sin(2*pi*4*t);
 y = awgn(x, 10, &#39;measured&#39;); % snr = 10dB
@@ -449,7 +454,8 @@ a = 1;
 z = filter(b,a,y);
 
 plot(t, [y; z]);
-legend(&#39;Input Data&#39;,&#39;Filtered Data&#39;)</code></pre>
+legend(&#39;Input Data&#39;,&#39;Filtered Data&#39;)
+</code></pre>
 <p><img src="/images/4.1/cpt_filter.pdf" alt></p>
 <p><a href="http://www.baike.com/wiki/%E6%BB%A4%E6%B3%A2%E5%99%A8" target="_blank" rel="noopener">http://www.baike.com/wiki/%E6%BB%A4%E6%B3%A2%E5%99%A8</a></p>
 <h2 id="傅里叶变换-1"><a href="#傅里叶变换-1" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h2><p>傅里叶（Fourier，1768～1830）年轻时是一个很出色的数学学者，但他专致于当一个军官。因为他是一个裁缝的儿子而被拒绝任命，他便转谋教士职位。当他曾经就读的军事学校委之以教授职位时他便接受了，同时数学就变成了他终生的爱好。像他同时代的其他科学家一样，傅里叶从事热流动的研究，作为实际问题，在工业上是为了处理金属，作为科学问题，是企图确定地球内部的温度。1822年，傅里叶发表了数学的经典文献之一，《热的解析理论》。在这本书中，他在分离变量法求解热传导方程的过程中发现初始条件的函数可以表示为三角级数。他有些不严谨又富于创造性地断言任意周期函数都可以展开为三角级数，更进一步的，他指出非周期函数的表示——不是成谐波关系的三角函数的加权和，而是不全成谐波关系的三角函数的加权积分，即傅里叶变换（在数学物理方程中，傅里叶变换也是用于求解热传导方程的经典方法）。 </p>
