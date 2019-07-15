@@ -83,7 +83,7 @@
     <div></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="13">
-<input type="hidden" id="yelog_site_word_count" value="32.2k">
+<input type="hidden" id="yelog_site_word_count" value="33.3k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -254,12 +254,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-12 17:14:11'>2019-06-12 20:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-15 18:53:50'>2019-06-12 20:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.5k</span>
+        <span>字数:3.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -278,7 +278,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思考"><span class="toc-text">思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -293,11 +293,10 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在信号处理(Signal Processing, SP)领域，“滤波”是最古老、也是最经典的话题之一。“滤波”最早出现在模拟电路系统，电子工程师使用模拟滤波器(Analog Filter)消除信号的异常波动，使信号更加平滑。而在计算机领域，我们讨论更多的是“数字滤波”，即对离散的采样结果进行滤波。</p>
-<p>数字滤波器脱胎于模拟滤波器，两者的目标是类似的，都是在信号处理的过程中消除异常的波动。但后者面对的是离散信号点，因此在具体实现手段上有很大的不同。模拟滤波器一般使用电容、电感等模拟器件搭建的，主要依仗元器件的物理特性。而数字滤波器则通常通过软件或者数字芯片实现。本文主要讨论的是数字滤波器的原理及其实现方式。</p>
+        <p>在信号处理(Signal Processing, SP)领域，“滤波”是最古老、也是最经典的话题之一。“滤波”最早出现在模拟电路系统，电子工程师使用模拟滤波器(Analog Filter)消除信号的异常波动，使信号更加平滑。而在计算机领域，我们讨论更多的是“数字滤波”，即对离散的采样信号进行滤波，达到消除特定频率信号分量的目的。</p>
+<p>数字滤波器脱胎于模拟滤波器，两者的目标是类似的，都是在信号处理的过程中消除某些频率的信号分量（如低频信号中的高频噪声）。但模拟滤波器的作用对象是连续信号，而数字滤波器处理的是离散的采样点，因此两者在具体实现上有很大的不同。模拟滤波器通常由电容、电感等模拟电子器件组成，主要依仗器件的物理特性实现滤波效果。而数字滤波器则由软件或者数字芯片实现，使用特定的算法对离散采样信号进行处理。在本文中，我们主要讨论数字滤波器的原理及实现方式。</p>
 <p><img src="/images/4.1/滤波/filter.jpg" alt="模拟滤波器与数字滤波器示意"></p>
-<p>图1展示了模拟滤波器和数字滤波器效果示意，可以看到通过滤波处理后，原本抖动的信号包络变得平滑。根据傅里叶级数，任何信号都可以看作多个不同频率信号的叠加。因此如果我们将原信号看作频率较低的基信号与频率较高的噪声信号的叠加，则通过滤波器后，信号中的高频噪声完全被过滤了，只剩下低频的基信号。</p>
-<p>由此可见滤波器的定义：能够容许某些频率的信号通过，但减弱（或减少）另一些频率的信号通过的信号处理模块。</p>
+<p>图1展示了模拟滤波器和数字滤波器效果示意，可以看到通过滤波处理后，原本因包含噪声而抖动的信号包络变得平滑。根据傅里叶级数，任何信号都可以看作多个不同频率信号的叠加。因此如果我们将输入信号看作低频的原始信号与高频噪声的叠加，则通过滤波器后，输入信号中的高频噪声被完全过滤了，在输出中只剩下低频的原始信号。由此可得到滤波器的定义：滤波器是指能够容许某些频率的信号分量通过，但减弱（或阻止）另一些频率分量的信号处理模块。</p>
 <p>根据通过信号频率的不同，我们将滤波器分为低通、高通、带通和带阻四种类型：</p>
 <ul>
 <li>低通滤波器：允许信号中的低频或直流分量通过，抑制高频分量或干扰和噪声。</li>
@@ -306,24 +305,51 @@
 <li>带阻滤波器：抑制一定频段内的信号，允许该频段以外的信号通过。</li>
 </ul>
 <p>接下来，我们以一个简单的低通滤波器为例，说明滤波器的工作原理：</p>
-<p>简单来说，滤波器的工作就是对输入的数据使用滑动窗口计算平均的过程。考虑一组有限长度的非零输入，滤波器首先确定一个长度固定、用于计算平均的滑动窗口。以下表中的数据为例，当取滑动窗口的长度为5，则从第5个数开始，计算这个数与其前4个数的平均值（如下表中的27），作为第一个输出。然后移动滑动窗口，计算下一个数与其前4个数的平均值（如下表中的40.4），并作为第二个输出。以此类推，直至所有输入的数都参与过平均值计算。</p>
+<p>使用滑动窗口对输入的数据计算滑动平均，就是一个最简单的低通滤波器模型。考虑一组长度有限的非零输入，滤波器首先确定一个长度固定的滑动窗口。以下表中的数据为例，我们使用一个长度为5的滑动窗口，计算某桥梁在五分钟的跨度内，每分钟通过汽车数量的平均值。表格的第二列是每分钟实际通过汽车数，所以滑动平均操作就是从第5个数开始，计算这个数与其前4个数的平均值（如下表第三列的27），该平均值就是滑动平均算法的第一个输出。然后移动滑动窗口，计算下一个数与其前4个数的平均值（如下表第三列的第二个输出40.4）。以此类推，直至所有输入的数都参与过平均值计算。</p>
 <p><img src="/images/4.1/滤波/avg.jpg" alt="平均计算过程"></p>
-<p>使用滑动窗口计算平均的结果如下图所示，可以看到输入数据中存在的一些突变的值，在平均操作后都变得更加平滑了。考虑在时间序列中，突变的值对应较高的频率，则平均操作可以消除输入序列中的高频分量。因此，通过平均操作，我们实现了过滤高频分量、保留低频分量的目标，即实现了一个最简单的低通滤波器。</p>
+<p>MATLAB提供了<code>movmean()</code>函数用于计算滑动平均：</p>
+<p><code>M = movmean(A,k)</code> 返回由局部 <code>k</code> 个数据点的均值组成的数组，其中每个均值是基于 <code>A</code> 的相邻元素的长度为 <code>k</code> 的移动窗口计算得出。当 <code>k</code> 为奇数时，窗口以当前位置的元素为中心。当 <code>k</code> 为偶数时，窗口以当前元素及其前一个元素为中心。当没有足够的元素填满窗口时，窗口将自动在端点处截断。当窗口被截断时，只根据窗口内的元素计算平均值。<code>M</code> 与 <code>A</code> 的大小相同。</p>
+<p><code>movmean()</code>的第<code>n</code>个输出对应的窗口默认以第<code>n</code>个输入为中心，我们也可以指定第<code>n</code>个窗口在输入序列中的具体位置。<code>M = movmean(A,[kb kf])</code> 通过长度为 <code>kb+kf+1</code> 的窗口计算均值，其中包括当前位置的元素、后面的 <code>kb</code> 个元素和前面的 <code>kf</code> 个元素。</p>
+<pre><code class="lang-matlab">% computes a moving average by sliding a window of length len_win.
+datain = [10 22 24 42 37 77 89 22 63 9 0 0 0 0];
+len_win = 5;
+dataout = movmean(datain,[4 0]);
+% The First 4 Outputs are Meaningless
+dataout(1:4) = NaN;
+disp(dataout);
+% Display the Result of Slide Average
+figure;
+plot(1:length(dataout),[datain;dataout],&#39;-o&#39;);
+</code></pre>
+<p>使用滑动窗口计算平均的结果如下图所示，在输入数据中原本存在的许多突变的点，这些点在滑动平均操作后都变得更加平滑了。考虑在时间序列中，突变的点对应较高的频率，因此滑动平均操作可以消除输入序列中的高频分量。通过滑动平均操作，我们实现了过滤高频分量、保留低频分量的目标，即实现了一个最简单的低通滤波器。</p>
 <p><img src="/images/4.1/滤波/avgfig.jpg" alt="滑动窗口计算平均的结果"></p>
-<p>在上面的这个例子中，直到输入前五个点后，滑动窗口才在<strong>时刻5</strong>计算出了第一个输出，即</p>
+<p>在上面的这个例子中，直到输入前五个点后，滑动窗口才在<strong>时刻5</strong>输出了第一个滑动平均的结果，即</p>
 <script type="math/tex; mode=display">
-y_{avg}(5) = \frac{1}{5}[x(1)+x(2)+x(3)+x(4)+x(5)]</script><p>更一般的情况，对于<strong>时刻n</strong>的输出$y_{avg}(n)$，我们可以将其表示为：</p>
+y_{avg}(5) = \frac{1}{5}[x(1)+x(2)+x(3)+x(4)+x(5)]</script><p>对于更一般的情况，<strong>时刻n</strong>的输出$y_{avg}(n)$，我们可以将其表示为：</p>
 <script type="math/tex; mode=display">
 y_{avg}(n) = \frac{1}{5}[x(n-4)+x(n-3)+x(n-2)+x(n-1)+x(n)]=\frac{1}{5}\sum_{k=n-4}^{n}x(k)</script><p>从上式可以看出，每个滑动窗口内的平均计算，可以理解为对窗口内所有输入值求和后再除以窗口长度（如下图所示）。</p>
 <p><img src="/images/4.1/滤波/avg1.jpg" alt="求和后平均"></p>
-<p>但如果我们根据乘法分配律，将乘系数的操作移到求和之前，在滑动窗口内的平均计算就变成了对输入数据的加权求和。只不过在这个例子中，所有输入的权重都是相同的（即$\frac{1}{5}$）。</p>
+<p>如果我们根据乘法分配律，将乘系数的操作移到求和之前，在滑动窗口内的平均计算就变成了对输入数据的加权求和。只不过在这个例子中，所有输入的权重都是相同的（即$\frac{1}{5}$）。</p>
 <p><img src="/images/4.1/滤波/avg2.jpg" alt="加权求和"></p>
 <p>在实际的滤波器中，对输入数据加权求和时，每个输入的权重并不一定都要相同，即我们可以为窗口中不同的数据指派不同的权重。如果我们用$h(k)$表示窗口中第k个输入$x(n-k)$的权重，则<strong>时刻n</strong>的输出$y(n)$可以表示为：</p>
 <script type="math/tex; mode=display">
-y(n)=h(4)x(n-4)+h(3)x(n-3)+h(2)x(n-2)+h(1)x(n-1)+h(0)x(n)=\sum_{k=0}^4h(k)x(n-k)</script><p>更一般的情况，当滑动窗口的长度可以为任意值$M$，则时刻n的输出可以表示为：</p>
+y(n)=h(4)x(n-4)+h(3)x(n-3)+h(2)x(n-2)+h(1)x(n-1)+h(0)x(n)=\sum_{k=0}^4h(k)x(n-k)</script><p>更一般的，如果我们使用的滑动窗口的长度为$M$，则时刻n的输出为：</p>
 <script type="math/tex; mode=display">
-y(n)=\sum_{k=0}^{M}h(k)x(n-k)</script><p>我们称上述加权的系数为滤波器系数（Filter Coefficients）。在后面的介绍中我们会了解到，正是滤波器系数$h(k)$和窗口长度$M$共同决定了滤波器的最终工作效果。</p>
-<p><strong>(FIR的脉冲响应就是它的滤波器系数)</strong></p>
+y(n)=\sum_{k=0}^{M}h(k)x(n-k)</script><p>我们称上述加权的系数为滤波器系数（Filter Coefficients）。在后面的介绍中我们会了解到，正是滤波器系数$h(k)$和窗口长度$M$共同决定了滤波器的最终工作效果。接下来，我们先来看看我们通过滑动平均实现的低通滤波器实际工作效果究竟如何。</p>
+<p>为了简化后面的计算过程，我们直接观察连续信号滑动平均的结果。设输入信号为$x(t)$，滑动窗口的长度为$T_w$，则对其进行滑动平均后输出$y(t)$可以表示为：</p>
+<script type="math/tex; mode=display">
+y(t)=\frac{1}{T_{w}} \int_{t-T_{w} / 2}^{t+T_{w} / 2} x(t) d t</script><p>对于初始条件为零的系统，其频率响应函数$H(\omega)$等于输出$y(t)$和输入$x(t)$的傅里叶变换结果$Y(\omega)$,$X(\omega)$之比，即</p>
+<script type="math/tex; mode=display">
+H(\omega)=\frac{Y(\omega)}{X(\omega)}</script><p>设输入函数$x(t) = cos(\omega t) = cos(2\pi ft)$，则$x(t)$傅里叶变换的结果$X(\omega)=FFT(x(t))=1$，而$y(t)$傅里叶变换的结果：</p>
+<script type="math/tex; mode=display">
+Y(\omega)=\frac{\sin \omega T_{w} / 2}{\omega T_{w} / 2}=\frac{\left|\sin \pi f T_{w}\right|}{\pi f T_{w}}</script><p>因此频率响应函数为：</p>
+<script type="math/tex; mode=display">
+|H(\omega)|=\left|\frac{Y(\omega)}{X(\omega)}\right|=\frac{|Y(\omega)|}{1}=\frac{\left|\sin \omega T_{w} / 2\right|}{\omega T_{w} / 2}</script><p>显然$H(\omega)$是一个sinc函数。接下来，我们来看看滑动平均滤波器的截止频率$f_{co}$是多少。</p>
+<p>规定滤波器的截止增益为-3db，即衰减倍率为0.707，根据$sinc(x)$特性曲线，求解$sinc(x)=0.707$，可得$x = 1.3917$。代入到$H(w)$中，可得$x=\frac{\omega T<em>{w}}{2}=\pi f</em>{c o} T_{w}=1.3917$，即</p>
+<script type="math/tex; mode=display">
+T_w = \frac{0.443}{f_{co}}</script><p>其中$T_w$  为平均宽度，采样率已知的情况下，$T_w$的大小取决于窗口中采样点的数量$T_w = \frac{N}{f_s}$。由此，滑动平均滤波的点数与截止频率之间的关系可以表达为：</p>
+<script type="math/tex; mode=display">
+f_{co} = 0.443\times \frac{f_s}{N}</script><p><strong>(FIR的脉冲响应就是它的滤波器系数)</strong></p>
 <p>到现在，我们已经知道滤波器的基本工作方式，是使用滑动窗口对输入信号依次加权求，窗口的大小以及滤波器系数直接决定最终的滤波效果。现在的问题是，给定滤波要求，对任意一组输入，我们要如何确定窗口长度$M$和滤波器系数$h(k)$？</p>
 <p>仔细观察滑动窗口内加权求和的计算操作，我们可以发现上述求和过程实际上是输入向量$x(n)$与系数向量$h(k)$的卷积！即：</p>
 <script type="math/tex; mode=display">
@@ -339,6 +365,26 @@ y(n)=\sum_{k=0}^{M}h(k)x(n-k)=h(k)*x(n)</script><p>这一发现有很重要的�
 <p>在继续介绍滤波器实现之前，我们先来明确一组等价的概念：滤波器长度=滑动窗口长度=滤波抽头长度=滤波器系数向量长度，这几个看似不同的说法经常出现在各种与滤波器相关的资料中，但他们所表达的含义是一样的。给定一组真实信号输入，显然滤波器的长度是有限的。且考虑长度为n的滤波器会抽除输入信号头部n个数据点，因此滤波器长度应该要远小于输入信号的长度。</p>
 <p>实际滤波时，我们通常对理想滤波器逆傅里叶变换截取一段有限长度的结果，用作滤波器系数。如下图所示，随着滤波器系数长度的增加，其傅里叶变换的结果约接近理想滤波器。同时，我们也发现DFT结果中，接近频率阈值处存在振幅抖动，这就是我们常说的吉布斯效应。为了消除吉布斯效应，并使通频带外信号得到更好的抑制，学者们提出了许多不同的加窗策略，这又是另一个非常有趣的主题，有兴趣的同学可以在课后自行了解。</p>
 <p><img src="/images/4.1/滤波/filter-len.jpg" alt></p>
+<p>利用MATLAB自带的<code>filter()</code>函数对输入信号进行滤波：</p>
+<pre><code class="lang-matlab">fs = 100; % sampling frequency
+t = 0:1/fs:1;
+x = sin(2*pi*4*t);
+y = awgn(x, 10, &#39;measured&#39;); % snr = 10dB
+
+windowSize = 5; 
+b = (1/windowSize)*ones(1,windowSize);
+a = 1;
+z = filter(b,a,y);
+
+plot(t, [y; z]);
+legend(&#39;Input Data&#39;,&#39;Filtered Data&#39;)
+</code></pre>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol>
+<li>移动平均计算看似简单，但是却是一个十分耗时的计算，尤其平均点数较多后格外明显。请思考是否有办法提高移动平均计算的效率？</li>
+<li>如何在低通滤波器的基础上，实现高通滤波器、带通滤波器、带阻滤波器？</li>
+</ol>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] Understanding Digital Signal Processing, Third Edition, Richard G. Lyons, Pearson Education</p>
+<p>[2] 滑动平均滤波的截止频率与平均点数计算, <a href="https://www.cnblogs.com/pingwen/p/6670675.html" target="_blank" rel="noopener">https://www.cnblogs.com/pingwen/p/6670675.html</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
@@ -349,10 +395,10 @@ y(n)=\sum_{k=0}^{M}h(k)x(n-k)=h(k)*x(n)</script><p>这一发现有很重要的�
 
 <div class="article_copyright">
     <p><span>文章标题:</span>4.1.2 基础概念（滤波）</p>
-    <p><span>文章字数:</span><span class="post-count">2.5k</span></p>
+    <p><span>文章字数:</span><span class="post-count">3.6k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-06-12, 20:41:32</p>
-    <p><span>最后更新:</span>2019-07-12, 17:14:11</p>
+    <p><span>最后更新:</span>2019-07-15, 18:53:50</p>
     <span>原始链接:</span><a class="post-url" href="/2019/06/12/4.1 滤波/" title="4.1.2 基础概念（滤波）">http://yoursite.com/2019/06/12/4.1 滤波/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
