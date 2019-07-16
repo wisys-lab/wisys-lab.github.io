@@ -70,7 +70,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(13)</small></div></li>
+    <li><div class="all active">全部文章<small>(14)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -82,8 +82,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="13">
-<input type="hidden" id="yelog_site_word_count" value="33.3k">
+<input type="hidden" id="yelog_site_posts_number" value="14">
+<input type="hidden" id="yelog_site_word_count" value="34.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -173,11 +173,19 @@
         </a>
         
         <a id="top" class=""
-           href="/2019/07/09/4.2 编码方法及其声音实现/"
+           href="/2019/07/09/4.2 编码方法及其声音实现-2/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="4.2 编码方法及其声音实现">4.2 编码方法及其声音实现</span>
+            <span class="post-title" title="4.2.2 编码方法及其声音实现">4.2.2 编码方法及其声音实现</span>
             <span class="post-date" title="2019-07-09 17:00:00">2019/07/09</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2018/07/09/4.2 编码方法及其声音实现/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="4.2.1 编码方法及其声音实现">4.2.1 编码方法及其声音实现</span>
+            <span class="post-date" title="2018-07-09 17:00:00">2018/07/09</span>
         </a>
         
         <a id="top" class=""
@@ -254,12 +262,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-15 18:53:50'>2019-06-12 20:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-16 10:02:47'>2019-06-12 20:41</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.6k</span>
+        <span>字数:4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -349,7 +357,37 @@ Y(\omega)=\frac{\sin \omega T_{w} / 2}{\omega T_{w} / 2}=\frac{\left|\sin \pi f 
 <script type="math/tex; mode=display">
 T_w = \frac{0.443}{f_{co}}</script><p>其中$T_w$  为平均宽度，采样率已知的情况下，$T_w$的大小取决于窗口中采样点的数量$T_w = \frac{N}{f_s}$。由此，滑动平均滤波的点数与截止频率之间的关系可以表达为：</p>
 <script type="math/tex; mode=display">
-f_{co} = 0.443\times \frac{f_s}{N}</script><p><strong>(FIR的脉冲响应就是它的滤波器系数)</strong></p>
+f_{co} = 0.443\times \frac{f_s}{N}</script><!-- MATLAB仿真，观察滑动平均滤波的脉冲响应 -->
+<p>我们还可以使用MATLAB仿真，观察滑动平均滤波器的脉冲响应。理想情况下，脉冲信号包含所有频率的谐波分量，因此我们使用滑动平均滤波器对脉冲信号进行滤波，然后对滤波器的输出做傅里叶变换，在频域上观察滤波器的滤波效果：</p>
+<pre><code class="lang-matlab">%% 滑动平均滤波的脉冲响应
+% 构造单位脉冲信号
+din = zeros(1,1e4);
+din(5e3) = 1;
+figure;plot(din);
+% 脉冲信号包含所有频率的谐波分量
+z = fft(din,100*length(din));
+figure;
+    plot(abs(z));
+% 使用滑动平均滤波器对脉冲信号滤波    
+len_win = 5;
+dout = movmean(din,len_win);
+% 对滤波后结果做傅里叶变换，在频域上观察滤波效果
+z = fft(dout,100*length(dout));
+hold on
+    plot(abs(z));
+% 调整滑动窗口的大小
+len_win = 15;
+dout = movmean(din,len_win);
+z = fft(dout,100*length(dout));
+    plot(abs(z));
+xlabel(&#39;Frequency&#39;);
+ylabel(&#39;abs. FFT&#39;);
+grid on;
+grid minor
+box on
+</code></pre>
+<p><img src="/images/4.1/滤波/脉冲响应.png" alt="不同窗口长度下，滑动平均滤波器的脉冲响应"><br>通过滑动平均滤波，低频信号分量被保留下来，而高频分量得到了有效的抑制。由于滤波保留的低频信号包含正频率和负频率，而绘图时只绘制了$[0,f_s]$部分的频谱，因此波峰在图中被分成了两半。</p>
+<p><strong>(FIR的脉冲响应就是它的滤波器系数)</strong></p>
 <p>到现在，我们已经知道滤波器的基本工作方式，是使用滑动窗口对输入信号依次加权求，窗口的大小以及滤波器系数直接决定最终的滤波效果。现在的问题是，给定滤波要求，对任意一组输入，我们要如何确定窗口长度$M$和滤波器系数$h(k)$？</p>
 <p>仔细观察滑动窗口内加权求和的计算操作，我们可以发现上述求和过程实际上是输入向量$x(n)$与系数向量$h(k)$的卷积！即：</p>
 <script type="math/tex; mode=display">
@@ -395,10 +433,10 @@ legend(&#39;Input Data&#39;,&#39;Filtered Data&#39;)
 
 <div class="article_copyright">
     <p><span>文章标题:</span>4.1.2 基础概念（滤波）</p>
-    <p><span>文章字数:</span><span class="post-count">3.6k</span></p>
+    <p><span>文章字数:</span><span class="post-count">4k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
     <p><span>发布时间:</span>2019-06-12, 20:41:32</p>
-    <p><span>最后更新:</span>2019-07-15, 18:53:50</p>
+    <p><span>最后更新:</span>2019-07-16, 10:02:47</p>
     <span>原始链接:</span><a class="post-url" href="/2019/06/12/4.1 滤波/" title="4.1.2 基础概念（滤波）">http://yoursite.com/2019/06/12/4.1 滤波/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。

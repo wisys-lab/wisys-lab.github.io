@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>IoT Book</title>
+  <title>4.2.2 编码方法及其声音实现 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="IoT Book">
+  <meta name="description" content="4.2.2 编码方法及其声音实现 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IoTBook-source网站使用3hexo模板，markdown渲染引擎是hexo-renderer-kramed，语法及注意事项如下： markdown文件(.md)请放置在_post\目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片">
 <meta property="og:type" content="website">
@@ -53,7 +53,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -246,12 +246,47 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-4.2 编码方法及其声音实现-2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li></ol>
+        <h1 class="article-title">4.2.2 编码方法及其声音实现</h1>
+    
+    <div class="article-meta">
+        
+        <span class="top"><a href="javascript:">置顶</a></span>
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-07-16 10:06:25'>2019-07-09 17:00</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:1.3k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#相位编码"><span class="toc-text">相位编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BPSK"><span class="toc-text">BPSK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#QPSK"><span class="toc-text">QPSK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OQPSK"><span class="toc-text">OQPSK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在声音信号上实现OQPSK"><span class="toc-text">在声音信号上实现OQPSK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OFDM编码"><span class="toc-text">OFDM编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#载波调制"><span class="toc-text">载波调制</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -264,26 +299,99 @@
     }
 </style>
 </div>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>物联网的发展已经引起了人们的极大关注，但凡是创业公司创业项目，大家很愿意将自己跟物联网拉上关系，项目背景中集中了物联网、云计算、大数据等多种技术。诚然，物联网技术已经潜移默化的深入了生活和生产的方方面面，事实上现在很多公司的技术和产品中早已渗透了物联网技术，平时我们能看到的不同的产品，无不是结合了多种技术的一个载体。<br>这一门课程的目标就是希望能够通过这一门课程的学习使大家深入了解物联网的技术，</p>
-<ol>
-<li><p>了解物联网的发展历史和出现的原因</p>
-</li>
-<li><p>知道物联网的基本技术</p>
-</li>
-<li><p>熟悉物联网主要的发展方向和国际前沿</p>
-</li>
-<li><p>熟练搭建物联网系统</p>
-</li>
-</ol>
-<p>正如我们刚才说过的，物联网是一个广泛的概念，物联网的研究和物联网系统的搭建事实上也涉及到了计算机的方方面面，了解物联网熟悉物联网需要对网络、操作系统、计算机体系结构、编程语言、编译原理、系统开发等。</p>
-<p>几方面的研究相辅相成，一方面，希望通过网需要对网络、操作系统、大数据、计算机体系结构、编程语言、编译原理、系统开发的理解，不断加深自己对物联网的理解。另外一方面，通过自己对物联网的理解，不断加深自己对网络、操作系统、大数据，计算机体系结构、编程语言、编译原理、系统开发的理解。</p>
-<p>实践出真知，物联网是一个对我们计算机系统的缩影。当前市面上也有不少物联网相关类的书籍，为物联网学习提供了宝贵的资料，也成为大家了解物联网学习物联网知识的重要源泉。通过调研，我们也发现讲概念的较多，能让大家实际动手参与其中的还相对较少。这当然与物联网本身的特性有关，正如我们说过的，物联网设计的范围和知识较广，实际动手来做的话需要涉及的内容又较多，往往莫衷一是、难以取舍。通过了前面几个学期的教学以及团队一直以来的研究，通过追踪物联网前沿技术的发展，本课程也试图发展处一套大家都能够参与、能够体会的实验方法。课程的主要特色是结合实际物联网技术，让大家能够随时进行物联网技术的实验，能看到实验的效果，能体会实验的过程。课程主要依托于声波信号等较为简单但是适合同学们随时参与的载体，详细的学习物联网通信、定位、感知、系统搭建等不同方面的内容，大部分实验的内容利用手机或者简单的嵌入式设备即可完成，不需要专门的处理设备，解决了传统实验中实验设备较难准备的问题。<br>麻雀虽小，五脏俱全，虽然设备相对简单，所涉及的技术和知识面并没有任何的减少，通过能够直接参与的实验，促进对技术的深入理解。</p>
-<p>适合对象：<br>愿意了解物联网基础<br>有志于物联网领域深入研究<br>有创业计划（不管是哪种形式的创业）</p>
-<p>致谢：</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="相位编码"><a href="#相位编码" class="headerlink" title="相位编码"></a>相位编码</h2><p>前面我们介绍了幅度编码和频率编码，观察下图中的正弦函数公式，我们发现正弦信号除了幅度和频率特征，还有相位特征。本章节中，我们将介绍相位编码方法，也就是PSK（Phase shift keying）。<br><img src="\images\4.2\sine_wave.png" alt="正弦信号的特征" title=" ">  </p>
+<h3 id="BPSK"><a href="#BPSK" class="headerlink" title="BPSK"></a>BPSK</h3><p>相位编码，就是使用不同相位的信号来代表不同信息的编码方式。我们首先来看最简单的BPSK(Binary Phase Shift Keying),使用两种相位的信号来编码信息。为了使相位的区分度更高，我们使用相位相差为$\pi$的两种信号：<br><img src="\images\4.2\bpsk-basic.png" alt="相位为0和相位为$\pi$的信号" title=" "><br>有了基础的带有相位信息的信号，我们就可以根据输入的待编码的信息来选择不同相位的信号。当输入为0时，我们选择相位为0的信号，当输入为1时，我们选择相位为$\pi$的信号。输入信号和对应的生成的BPSK调制过的信号如下图所示。<br><img src="\images\4.2\bpsk-encode.png" alt="编码后的BPSK信号" title=" "><br>这种实现BPSK的方法叫做“键控”方法。此时数据和相位之间的映射关系是：<br>数据|相位<br>—|—<br>0 |0<br>1 | $\pi$<br>其星座映射图为：<br><img src="\images\4.2\bpsk-star.png" alt="BPSK星座图" title=" "></p>
+<h3 id="QPSK"><a href="#QPSK" class="headerlink" title="QPSK"></a>QPSK</h3><p>目前普遍使用的实现PSK的方法是IQ正交调制。其原理是使用两路正交的信号分别编码两路数据，每路数据单独调制，并将两路信号直接相加。正交的两路信号通常选用$sin(2\pi ft)$和$cos(2\pi ft)$。<br><img src="\images\4.2\qpsk-basic.png" alt="QPSK选用两路正交信号" title=" "><br>用$i$和$q$分别代表两路待调制的数据，使用IQ调制后的信号为：</p>
+<script type="math/tex; mode=display">
+s(t) = i*sin(2\pi ft) + q*cos(2\pi ft)</script><p>此时数据和相位之间的映射关系是：<br>数据| I|Q|s(t)|相位<br>—|—|—|—|—<br>00 |1|1|$sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{\pi}{4})$|$\frac{\pi}{4}$<br>01 |1|-1|$sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{7 \pi}{4})$| $\frac{7 \pi}{4}$<br>10 |-1|1|$-sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{3 \pi}{4})$|$\frac{3 \pi}{4}$<br>11 |-1|-1|$-sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{5 \pi}{4})$| $\frac{5 \pi}{4}$<br>其星座映射图为：<br><img src="\images\4.2\qpsk-star.png" alt="QPSK星座图" title=" "><br>我们可以看到这里一共用到了四种相位来编码数据，这就是QPSK(Quadrature Phase Shift Keying)</p>
+<p>为了使输出信号s(t)的振幅为1，我们需要对I和Q信号除以$\sqrt{2}$，因此，数据和I,Q对应关系应该是如下表所示：<br>数据| I|Q|<br>—|—|—<br>00 |$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>01 |$\frac{ \sqrt{2} }{2}$|-$\frac{ \sqrt{2} }{2}$|<br>10 |-$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>11 |-$\frac{ \sqrt{2} }{2}$|-$\frac{ \sqrt{2} }{2}$|</p>
+<p>下图展示了I、Q基带信号、分别调制了信息的两路信号以及叠加后的信号。图中对应的I路和Q路数据分别是：$I= {\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2}}$,$Q = { \frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2}}$<br><img src="\images\4.2\qpsk-encode.png" alt="IQ信号和编码后的QPSK信号" title=" "><br>在解码时，利用其正交特性，分别对两路信号进行积分运算，得到每路信号中编码的数据。<br>解码I路信号：</p>
+<script type="math/tex; mode=display">
+\begin{split}
+\int_{0}^{\frac{1}{f}}(s(t)* sin(2\pi ft)) &=  \int_{0}^{\frac{1}{f}}((i* sin(2\pi ft) + q* cos(2\pi ft))*sin(2\pi ft)) 
+&= 
+\int_{0}^{\frac{1}{f}}(i*sin(2\pi ft)^2 +q*cos(2\pi ft)*sin(2\pi ft) 
+&= 
+\int_{0}^{\frac{1}{f}}(i*\frac{1-cos(4 \pi ft)}{2} +q*sin(4\pi ft)) 
+&= 
+\int_{0}^{\frac{1}{f}}i*\frac{1}{2} - \int_{0}^{\frac{1}{f}}i*\frac{cos(4 \pi ft)}{2}) +\int_{0}^{\frac{1}{f}}q*sin(4\pi ft)) 
+&= 
+\frac{i}{2} -0 + 0 
+&=
+\frac{i}{2}
+\end{split}</script><p>对Q路信号的解码与之同理，这里就不进行重复展示了。<br>IQ调制的方法不仅可以实现4中相位的QPSK，还可以支持更多相位来实现更高的数据速率。当我们把QPSK的星座映射图中的坐标轴上也加上数据点，就可以得到8PSK的星座映射图：<br><img src="\images\4.2\8psk-star.png" alt="8PSK星座图" title=" "><br>为了使叠加的信号的相位满足星座映射图，数据和IQ之间的映射应该为：<br>数据| I|Q|<br>—|—|—<br>000 |$-\frac{ \sqrt{2} }{2}$|$-\frac{ \sqrt{2} }{2}$|<br>001 |-1|0|<br>010 |0|1|<br>011 |-$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>…||<br>当我们继续在星座映射图中增加数据点，就可以获得数据速率更高的相位编码方式，比如说下图中的16-QAM、32-QAM和64-QAM<br><img src="\images\4.2\16-32-64-QAM.png" alt="16-QAM、32-QAM和64-QAM的星座图" title=" "></p>
+<h3 id="OQPSK"><a href="#OQPSK" class="headerlink" title="OQPSK"></a>OQPSK</h3><p>观察QPSK的星座映射图，我们可以发现从00 到 11 和从10 到01之间的相位转变都是$\pi$。当信号通过低通滤波器时，大的相位翻转会导致大的幅值幅波动，如下图中红圈部分所示：<br><img src="\images\4.2\phase-shifts.png" alt="QPSK编码中会出现相位翻转为pi的情况" title=" "><br>这种大的相位翻转会影响解码的成功率。我们可以使用OQPSK(Offset QPSK)来解决这个问题。<br>OQPSK方法是基于QPSK的IQ调制方式，I路信号和QPSK相同，Q路数据向后错位半个周期。这样一来I路和Q路信号翻转的位置相差半个周期，也就是说I路数据和Q路数据不会出现同时的翻转，信号相位最大只能变化$\frac{\pi}{2}$。<br>下图分别展示了OQPSK的I、Q基带信号、分别调制了信息的两路信号以及叠加后的信号。<br><img src="\images\4.2\oqpsk-encode.png" alt="IQ信号和编码后的OQPSK信号" title=" "></p>
+<h3 id="在声音信号上实现OQPSK"><a href="#在声音信号上实现OQPSK" class="headerlink" title="在声音信号上实现OQPSK"></a>在声音信号上实现OQPSK</h3><h2 id="OFDM编码"><a href="#OFDM编码" class="headerlink" title="OFDM编码"></a>OFDM编码</h2><h2 id="载波调制"><a href="#载波调制" class="headerlink" title="载波调制"></a>载波调制</h2><p>上变频 下变频</p>
 
-        </article>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span>文章标题:</span>4.2.2 编码方法及其声音实现</p>
+    <p><span>文章字数:</span><span class="post-count">1.3k</span></p>
+    <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
+    <p><span>发布时间:</span>2019-07-09, 17:00:00</p>
+    <p><span>最后更新:</span>2019-07-16, 10:06:25</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/09/4.2 编码方法及其声音实现-2/" title="4.2.2 编码方法及其声音实现">http://yoursite.com/2019/07/09/4.2 编码方法及其声音实现-2/</a>
+    <p>
+        <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2016-2019 WiSys Lab</p>
