@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>3.1 安卓开发基础 | IoT Book</title>
+  <title>10.1 阿里云物联网平台介绍 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="3.1 安卓开发基础 | IoT Book">
+  <meta name="description" content="10.1 阿里云物联网平台介绍 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IoTBook-source网站使用3hexo模板，markdown渲染引擎是hexo-renderer-kramed，语法及注意事项如下： markdown文件(.md)请放置在_post\目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片">
 <meta property="og:type" content="website">
@@ -264,9 +264,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-3.1 android开发基础" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-10.1 阿里云物联网平台介绍" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">3.1 安卓开发基础</h1>
+        <h1 class="article-title">10.1 阿里云物联网平台介绍</h1>
     
     <div class="article-meta">
         
@@ -278,12 +278,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-15 16:47:13'>2019-07-02 15:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-23 08:48:28'>2019-07-09 17:00</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.1k</span>
+        <span>字数:1.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -302,7 +302,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-studio-安装"><span class="toc-text">Android studio 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#声音的播放和接收应用的实现。"><span class="toc-text">声音的播放和接收应用的实现。</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#阿里云物联网平台介绍"><span class="toc-text">阿里云物联网平台介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基于阿里云物联网平台的物联网系统架构"><span class="toc-text">基于阿里云物联网平台的物联网系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#物联网平台的搭建"><span class="toc-text">物联网平台的搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于物联网平台的应用开发"><span class="toc-text">基于物联网平台的应用开发</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -317,259 +317,34 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>因为本文档涉及到很多需要实际操作的声音相关的实验，所以需要利用Android应用来帮助我们将录音和播放的功能实现到手机上。</p>
-<h1 id="Android-studio-安装"><a href="#Android-studio-安装" class="headerlink" title="Android studio 安装"></a>Android studio 安装</h1><p>首先是android开发环境 Android Studio的安装。请按照官网给出的教程进行安装。教程链接：<a href="https://developer.android.com/studio/install" target="_blank" rel="noopener">https://developer.android.com/studio/install</a><br>友情提示：若在安装过程中遇到某些模块（例如，Android SDK）未成功安装的情况，请开启全局VPN。</p>
-<h1 id="声音的播放和接收应用的实现。"><a href="#声音的播放和接收应用的实现。" class="headerlink" title="声音的播放和接收应用的实现。"></a>声音的播放和接收应用的实现。</h1><p>要开发一个新应用，首先需要打开android studio欢迎界面：<br><img src="/images/3.1/1.png" alt title="android Studio 欢迎界面"><br>选择“Start a new Android Studio project”选项之后到达项目种类选择页面：<br><img src="/images/3.1/2.png" alt title=" "><br>在这里，我们选择“Empty Activity”。<br>为你的项目设置名称、存储位置、开发语言等参数：<br><img src="/images/3.1/3.png" alt title=" "><br>进入到开发界面：<br><img src="/images/3.1/4.png" alt title=" "> </p>
-<p>接下来是应用的实现部分：<br>首先在文件“AndroidManifest.xml”中为录音应用申请录音和存储许可：</p>
-<pre><code class="lang-java">&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;
-</code></pre>
-<p>在 android 6.0以上版本中还需要在运行时动态请求permission.需要实现函数GetPermission()，并在onCreate()函数中调用。</p>
-<pre><code class="lang-java">private void GetPermission() {
-
-        /*在此处插入运行时权限获取的代码*/
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!=
-                PackageManager.PERMISSION_GRANTED||
-        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
-                PackageManager.PERMISSION_GRANTED||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!=
-                        PackageManager.PERMISSION_GRANTED
-        )
-        {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.RECORD_AUDIO,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-        }
-    }
-</code></pre>
-<p>设计应用界面：<br>在activity_main.xml中添加两个按钮 “START RECORD” 和 “STOP RECORD”：<br><img src="/images/3.1/19.png" alt title=" "><br>activity_main.xml文件中会出现两个按钮对应的代码：</p>
-<pre><code class="lang-java">   &lt;Button
-        android:id=&quot;@+id/start_record&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_marginStart=&quot;152dp&quot;
-        android:layout_marginLeft=&quot;152dp&quot;
-        android:layout_marginTop=&quot;124dp&quot;
-        android:text=&quot;start record&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
-
-    &lt;Button
-        android:id=&quot;@+id/stop_record&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_marginStart=&quot;152dp&quot;
-        android:layout_marginLeft=&quot;152dp&quot;
-        android:layout_marginTop=&quot;108dp&quot;
-        android:text=&quot;stop record&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toBottomOf=&quot;@+id/start_record&quot; /&gt;
-</code></pre>
-<p>可以借助android:id项指定按钮的id，以及利用android:text项指定按钮上展示的文字。按钮的布局方式以及位置也可以自行调整。<br>在MainActivity中定义两个相应的button变量来代表这两个按钮：</p>
-<pre><code class="lang-java">Button StartRecord, StopRecord;
-</code></pre>
-<p>在 onCreate函数中讲这两个变量与两个按钮对应起来，并把stop record按钮设置为不可用：</p>
-<pre><code class="lang-java">StartRecord = (Button)findViewById(R.id.start_record);
-StopRecord = (Button)findViewById(R.id.stop_record);
-//在录音键被按下之前，不允许按停止键
-StopRecord.setEnabled(false);
-</code></pre>
-<p>为两个按钮添加点击响应函数：</p>
-<pre><code class="lang-java">//完成每个按钮的功能
-StartRecord.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        //恢复停止录音按钮，并禁用开始录音按钮
-        StopRecord.setEnabled(true);
-        StartRecord.setEnabled(false);
-        Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                //设置用于临时保存录音原始数据的文件的名字
-                String name = Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;/myrecorder/raw.wav&quot;;
-                //调用开始录音函数，并把原始数据保存在指定的文件中
-                StartRecord(name);
-                //获取此刻的时间
-                Date now = Calendar.getInstance().getTime();
-                //用此刻时间为最终的录音wav文件命名
-                String filepath =Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;/myrecorder/&quot;+now.toString()+&quot;.wav&quot;;
-                //把录到的原始数据写入到wav文件中。
-                copyWaveFile(name, filepath);
-                }
-        });
-        //开启线程
-        thread.start();
-        }
-});
-
-StopRecord.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        //停止录音
-        isRecording = false;
-        //恢复开始录音按钮，并禁用停止录音按钮
-        StopRecord.setEnabled(false);
-        StartRecord.setEnabled(true);
-        }
-});
-</code></pre>
-<p>实现录音功能：</p>
-<p>首先在MainActivity中设置用于控制录音继续和停止的全局变量，以及用于录音的参数</p>
-<pre><code class="lang-java">//48K采样率
-int SamplingRate = 48000;
-//格式：双声道
-int channelConfiguration = AudioFormat.CHANNEL_IN_STEREO;
-//16Bit
-int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
-//是否在录制
-boolean isRecording = false;
-//每次从audiorecord输入流中获取到的buffer的大小
-int bufferSize = 0;
-</code></pre>
-<p>接下来我们详细来看录音函数的实现：</p>
-<pre><code class="lang-java">//开始录音
-public void StartRecord(String name) {
-
-        //生成原始数据文件
-        file = new File(name);
-        //如果文件已经存在，就先删除再创建
-        if (file.exists())
-                file.delete();
-        try {
-                file.createNewFile();
-        } catch (IOException e) {
-                throw new IllegalStateException(&quot;未能创建&quot; + file.toString());
-        }
-        try {
-                //文件输出流
-                OutputStream os = new FileOutputStream(file);
-                BufferedOutputStream bos = new BufferedOutputStream(os);
-                DataOutputStream dos = new DataOutputStream(bos);
-                //获取在当前采样和信道参数下，每次读取到的数据buffer的大小
-                bufferSize = AudioRecord.getMinBufferSize(SamplingRate, channelConfiguration, audioEncoding);
-                //建立audioRecord实例
-                AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SamplingRate, channelConfiguration, audioEncoding, bufferSize);
-
-                //设置用来承接从audiorecord实例中获取的原始数据的数组
-                byte[] buffer = new byte[bufferSize];
-                //启动audioRecord
-                audioRecord.startRecording();
-                //设置正在录音的参数isRecording为true
-                isRecording = true;
-                //只要isRecording为true就一直从audioRecord读出数据，并写入文件输出流。
-                //当停止按钮被按下，isRecording会变为false，循环停止
-                while (isRecording) {
-                int bufferReadResult = audioRecord.read(buffer, 0, bufferSize);
-                for (int i = 0; i &lt; bufferReadResult; i++) {
-                        dos.write(buffer[i]);
-                }
-                }
-                //停止audioRecord，关闭输出流
-                audioRecord.stop();
-                dos.close();
-        } catch (Throwable t) {
-                Log.e(&quot;MainActivity&quot;, &quot;录音失败&quot;);
-        }
-}
-</code></pre>
-<p>接下来需要把录到的原始数据写入带格式的wav文件：</p>
-<pre><code class="lang-java">    private void copyWaveFile(String inFileName, String outFileName)
-    {
-        FileInputStream in = null;
-        FileOutputStream out = null;
-        long totalAudioLen = 0;
-        //wav文件比原始数据文件多出了44个字节，除去表头和文件大小的8个字节剩余文件长度比原始数据多36个字节
-        long totalDataLen = totalAudioLen + 36;
-        long longSampleRate = SamplingRate;
-        int channels = 2;
-        //每分钟录到的数据的字节数
-        long byteRate = 16 * SamplingRate * channels / 8;
-
-        byte[] data = new byte[bufferSize];
-        try
-        {
-            in = new FileInputStream(inFileName);
-            out = new FileOutputStream(outFileName);
-            //获取真实的原始数据长度
-            totalAudioLen = in.getChannel().size();
-            totalDataLen = totalAudioLen + 36;
-            //为wav文件写文件头
-            WriteWaveFileHeader(out, totalAudioLen, totalDataLen, longSampleRate, channels, byteRate);
-            //把原始数据写入到wav文件中。
-            while(in.read(data) != -1)
-            {
-                out.write(data);
-            }
-            in.close();
-            out.close();
-        } catch (FileNotFoundException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
-    private void WriteWaveFileHeader(FileOutputStream out, long totalAudioLen,
-                                     long totalDataLen, long longSampleRate, int channels, long byteRate)
-            throws IOException {
-        byte[] header = new byte[44];
-        header[0] = &#39;R&#39;; // RIFF/WAVE header
-        header[1] = &#39;I&#39;;
-        header[2] = &#39;F&#39;;
-        header[3] = &#39;F&#39;;
-        header[4] = (byte) (totalDataLen &amp; 0xff);
-        header[5] = (byte) ((totalDataLen &gt;&gt; 8) &amp; 0xff);
-        header[6] = (byte) ((totalDataLen &gt;&gt; 16) &amp; 0xff);
-        header[7] = (byte) ((totalDataLen &gt;&gt; 24) &amp; 0xff);
-        header[8] = &#39;W&#39;;
-        header[9] = &#39;A&#39;;
-        header[10] = &#39;V&#39;;
-        header[11] = &#39;E&#39;;
-        header[12] = &#39;f&#39;; // &#39;fmt &#39; chunk
-        header[13] = &#39;m&#39;;
-        header[14] = &#39;t&#39;;
-        header[15] = &#39; &#39;;
-        header[16] = 16;
-        header[17] = 0;
-        header[18] = 0;
-        header[19] = 0;
-        header[20] = 1; // WAV type format = 1
-        header[21] = 0;
-        header[22] = (byte) channels; //指示是单声道还是双声道
-        header[23] = 0;
-        header[24] = (byte) (longSampleRate &amp; 0xff); //采样频率
-        header[25] = (byte) ((longSampleRate &gt;&gt; 8) &amp; 0xff);
-        header[26] = (byte) ((longSampleRate &gt;&gt; 16) &amp; 0xff);
-        header[27] = (byte) ((longSampleRate &gt;&gt; 24) &amp; 0xff);
-        header[28] = (byte) (byteRate &amp; 0xff); //每分钟录到的字节数
-        header[29] = (byte) ((byteRate &gt;&gt; 8) &amp; 0xff);
-        header[30] = (byte) ((byteRate &gt;&gt; 16) &amp; 0xff);
-        header[31] = (byte) ((byteRate &gt;&gt; 24) &amp; 0xff);
-        header[32] = (byte) (2 * 16 / 8); // block align
-        header[33] = 0;
-        header[34] = 16; // bits per sample
-        header[35] = 0;
-        header[36] = &#39;d&#39;;
-        header[37] = &#39;a&#39;;
-        header[38] = &#39;t&#39;;
-        header[39] = &#39;a&#39;;
-        header[40] = (byte) (totalAudioLen &amp; 0xff); //真实数据的长度
-        header[41] = (byte) ((totalAudioLen &gt;&gt; 8) &amp; 0xff);
-        header[42] = (byte) ((totalAudioLen &gt;&gt; 16) &amp; 0xff);
-        header[43] = (byte) ((totalAudioLen &gt;&gt; 24) &amp; 0xff);
-        //把header写入wav文件
-        out.write(header, 0, 44);
-    }
-</code></pre>
-<p>运行效果：<br>由于我在设置文件路径的时候把文件放在了文件夹“myrecorder”中，我们首先需要在手机的外部存储根目录下新建文件夹：<br><img src="/images/3.1/20.png" alt title=" "><br>如果你不怕文件再根目录下堆积太多的话也可以直接把文件写在根目录下。<br>接下来我们进行真机运行，首先把android手机用数据线连接到电脑上，并允许调试。在android Studio点击运行按钮：<br><img src="/images/3.1/17.png" alt title=" "><br>我们会在选择运行设备的界面看到这是一部三星手机：<br><img src="/images/3.1/18.png" alt title=" "><br>点击“OK”，代码就会加载到手机上。由于我把权限请求放在了onCreate函数中，所以程序启动之后首先会进行权限请求：<br><img src="/images/3.1/22.png" alt title=" "><br><img src="/images/3.1/23.png" alt title=" "><br>当然，你也可以把权限请求放在具体使用到某项权限时进行请求。<br>在应用洁面上我们可以看到只有start record按钮可用：<br><img src="/images/3.1/25.png" alt title=" "><br>点击start record,录音开始 stop record可用，start record不可用：<br><img src="/images/3.1/24.png" alt title=" "><br>点击stop record之后文件夹中会出现两个文件，一个是原始数据文件，一个是带格式信息的wav文件：<br><img src="/images/3.1/26.png" alt title=" "><br>到这里你已经成功的用自己实现的android应用录制到一个wav的声音文件了。下一个章节中，我们将探索如何用matlab读取并展示我们录到的声音。</p>
+        <h1 id="阿里云物联网平台介绍"><a href="#阿里云物联网平台介绍" class="headerlink" title="阿里云物联网平台介绍"></a>阿里云物联网平台介绍</h1><p>阿里云物联网平台是阿里巴巴公司推出的专业物联网服务平台，其提供的详尽的文档和清晰的管理界面非常适合刚刚接触物联网平台的初学者，对物联网系统架构、管理等有一个整体上的把握。</p>
+<p><a href="https://help.aliyun.com/product/30520.html?spm=a2c4g.11186623.6.540.6c533f69OVkLwL" target="_blank" rel="noopener">阿里云物联网平台文档</a></p>
+<p><a href="https://iot.console.aliyun.com/lk/summary" target="_blank" rel="noopener">阿里云物联网管理平台可视化界面</a> （需要注册阿里云账户后才能使用）</p>
+<h2 id="基于阿里云物联网平台的物联网系统架构"><a href="#基于阿里云物联网平台的物联网系统架构" class="headerlink" title="基于阿里云物联网平台的物联网系统架构"></a>基于阿里云物联网平台的物联网系统架构</h2><p><img src="/images/10.1/system.png" alt="物联网架构图"></p>
+<p>基于阿里云物联网平台的物联网系统架构图如上图所示，整个系统可大致分为4层架构：</p>
+<ol>
+<li><p>边缘设备：物联网系统中的数据生产者，通常为传感器，一般认为没有计算能力。</p>
+</li>
+<li><p>边缘节点：边缘节点对下收集边缘设备产生的数据，对上将数据转发给物联网平台，通常为网关，具有数据转发和路由功能，同时具备一定的计算能力，边缘计算就在边缘节点上发生。</p>
+</li>
+<li><p>物联网平台：一个集管理、控制、部署等多个功能于一体的平台。</p>
+</li>
+<li><p>应用层：利用物联网平台提供的服务，可以在网页端的可视化界面查看平台运行情况，并通过平台发送管理指令，也可以利用平台提供的接口实现自己的应用，在服务器上进行数据的后续处理等。</p>
+</li>
+</ol>
+<h2 id="物联网平台的搭建"><a href="#物联网平台的搭建" class="headerlink" title="物联网平台的搭建"></a>物联网平台的搭建</h2><p>具体的搭建流程参考文档：<a href="https://help.aliyun.com/document_detail/73705.html?spm=a2c4g.11186623.6.554.e71e3f69rHJbYz" target="_blank" rel="noopener">平台搭建快速入门</a></p>
+<p>搭建的大致流程可分为以下几步：</p>
+<ol>
+<li>定义产品。“产品”是阿里云物联网平台中的一个专有名词，指的是平台管理的物理实体（这里不用“设备”一词，是因为“设备”也是专有名词）的一个抽象，类似于面向对象编程中“类”的概念，比如“温度计”或者“摄像头”，指的并不是一个具体的温度计或摄像头，而是一种类型。在阿里云物联网平台中，产品分为两类：网关和设备，其中网关对应边缘节点，设备对应边缘设备，搭建物联网平台需要定义至少这两种产品，根据实际需要，类型为“设备”的产品一般会有多种，对应多种不同的边缘设备。</li>
+<li>定义设备。“设备”是阿里云物联网平台中的一个专有名词，指的是平台管理的具体物理实体，类似于面向对象编程中“实例”的概念，因此一个产品可以对应一个或许多设备，说明这些设备均属于同一类型。</li>
+<li>定义物模型。“物模型”是阿里云物联网平台中的一个专有名词，指的是产品对应的数据模型。为特定产品定义物模型，相当于规定了该产品对应的设备要发送数据的类型、发送数据的格式等。</li>
+<li>连接平台与设备。连接分为两种：第一种是将边缘节点接入平台，第二种是将边缘设备连接到边缘节点。在边缘节点接入平台中，需要下载并安装阿里云平台的程序包[<a href="https://code.aliyun.com/linkkit/c-sdk/repository/archive.zip?ref=v3.0.1" target="_blank" rel="noopener">Link Kit SDK</a>]并开启服务。边缘设备连接到边缘节点具体参考文档：<a href="https://help.aliyun.com/document_detail/103247.html?spm=a2c4g.11186623.6.568.22b14144Icl0Jb" target="_blank" rel="noopener">设备接入</a>，里面涉及到“驱动”的概念。</li>
+<li>驱动开发。“驱动”是阿里云物联网平台中的一个专有名词，指的是一种实现边缘设备和边缘节点连接的程序。由于边缘设备多种多样，为了将边缘设备接入边缘节点，需要为不同类型的边缘设备开发不同的驱动程序。驱动开发参考文档：<a href="https://help.aliyun.com/document_detail/104444.html?spm=a2c4g.11186623.6.576.3c368f08jee9gK" target="_blank" rel="noopener">驱动开发</a></li>
+<li>部署。</li>
+</ol>
+<p>以上步骤完成后，就可以在阿里云提供的可视化管理界面上查看各种信息了。</p>
+<h2 id="基于物联网平台的应用开发"><a href="#基于物联网平台的应用开发" class="headerlink" title="基于物联网平台的应用开发"></a>基于物联网平台的应用开发</h2><p>利用阿里云物联网平台进行应用开发，需要了解该平台提供的各种程序接口，参考文档：<a href="https://help.aliyun.com/document_detail/69893.html?spm=a2c4g.11186623.6.686.34ee53c7yiogre" target="_blank" rel="noopener">云端API</a></p>
+<p>API的具体使用方式可以阿里云的<a href="https://api.aliyun.com/?spm=a2c4g.11186623.cwnn_jpze.545.67507eb7gXSFvi#/" target="_blank" rel="noopener">OpenAPI Explorer</a>，在其中有详细的调用说明和示例。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
@@ -579,12 +354,12 @@ public void StartRecord(String name) {
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>3.1 安卓开发基础</p>
-    <p><span>文章字数:</span><span class="post-count">2.1k</span></p>
+    <p><span>文章标题:</span>10.1 阿里云物联网平台介绍</p>
+    <p><span>文章字数:</span><span class="post-count">1.1k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
-    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
-    <p><span>最后更新:</span>2019-07-15, 16:47:13</p>
-    <span>原始链接:</span><a class="post-url" href="/2019/07/02/3.1 android开发基础/" title="3.1 安卓开发基础">http://yoursite.com/2019/07/02/3.1 android开发基础/</a>
+    <p><span>发布时间:</span>2019-07-09, 17:00:00</p>
+    <p><span>最后更新:</span>2019-07-23, 08:48:28</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/09/10.1 阿里云物联网平台介绍/" title="10.1 阿里云物联网平台介绍">http://yoursite.com/2019/07/09/10.1 阿里云物联网平台介绍/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

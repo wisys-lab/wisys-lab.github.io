@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>3.1 安卓开发基础 | IoT Book</title>
+  <title>8.2 智能手表数据处理与展示 | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="3.1 安卓开发基础 | IoT Book">
+  <meta name="description" content="8.2 智能手表数据处理与展示 | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IoTBook-source网站使用3hexo模板，markdown渲染引擎是hexo-renderer-kramed，语法及注意事项如下： markdown文件(.md)请放置在_post\目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片">
 <meta property="og:type" content="website">
@@ -264,9 +264,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-3.1 android开发基础" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-8.2 智能手表数据处理与展示" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">3.1 安卓开发基础</h1>
+        <h1 class="article-title">8.2 智能手表数据处理与展示</h1>
     
     <div class="article-meta">
         
@@ -278,12 +278,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-15 16:47:13'>2019-07-02 15:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-23 08:51:25'>2019-07-09 17:00</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.1k</span>
+        <span>字数:1.8k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -302,7 +302,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Android-studio-安装"><span class="toc-text">Android studio 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#声音的播放和接收应用的实现。"><span class="toc-text">声音的播放和接收应用的实现。</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据处理与展示"><span class="toc-text">数据处理与展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件结构"><span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码说明"><span class="toc-text">代码说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思考与扩展"><span class="toc-text">思考与扩展</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -317,259 +317,94 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>因为本文档涉及到很多需要实际操作的声音相关的实验，所以需要利用Android应用来帮助我们将录音和播放的功能实现到手机上。</p>
-<h1 id="Android-studio-安装"><a href="#Android-studio-安装" class="headerlink" title="Android studio 安装"></a>Android studio 安装</h1><p>首先是android开发环境 Android Studio的安装。请按照官网给出的教程进行安装。教程链接：<a href="https://developer.android.com/studio/install" target="_blank" rel="noopener">https://developer.android.com/studio/install</a><br>友情提示：若在安装过程中遇到某些模块（例如，Android SDK）未成功安装的情况，请开启全局VPN。</p>
-<h1 id="声音的播放和接收应用的实现。"><a href="#声音的播放和接收应用的实现。" class="headerlink" title="声音的播放和接收应用的实现。"></a>声音的播放和接收应用的实现。</h1><p>要开发一个新应用，首先需要打开android studio欢迎界面：<br><img src="/images/3.1/1.png" alt title="android Studio 欢迎界面"><br>选择“Start a new Android Studio project”选项之后到达项目种类选择页面：<br><img src="/images/3.1/2.png" alt title=" "><br>在这里，我们选择“Empty Activity”。<br>为你的项目设置名称、存储位置、开发语言等参数：<br><img src="/images/3.1/3.png" alt title=" "><br>进入到开发界面：<br><img src="/images/3.1/4.png" alt title=" "> </p>
-<p>接下来是应用的实现部分：<br>首先在文件“AndroidManifest.xml”中为录音应用申请录音和存储许可：</p>
-<pre><code class="lang-java">&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot;/&gt;
+        <h2 id="数据处理与展示"><a href="#数据处理与展示" class="headerlink" title="数据处理与展示"></a>数据处理与展示</h2><p>当使用智能手表并根据《智能手表数据采集》教程采集到惯性传感器数据后，使用<strong>matlab</strong>处理并展示数据</p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>代码文件夹包含<code>main.m</code>和<code>move.data</code>两个文件，其中<code>main.m</code>为处理手表数据的<strong>matlab</strong>源文件，<code>move.data</code>为从智能手表上采集到的惯性传感器数据文件</p>
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><p>首先使用<code>load</code>函数将<code>move.data</code>的内容提取为一个矩阵：</p>
+<pre><code class="lang-matlab">A = load(&#39;move.data&#39;);
 </code></pre>
-<p>在 android 6.0以上版本中还需要在运行时动态请求permission.需要实现函数GetPermission()，并在onCreate()函数中调用。</p>
-<pre><code class="lang-java">private void GetPermission() {
-
-        /*在此处插入运行时权限获取的代码*/
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!=
-                PackageManager.PERMISSION_GRANTED||
-        ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
-                PackageManager.PERMISSION_GRANTED||
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!=
-                        PackageManager.PERMISSION_GRANTED
-        )
-        {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.RECORD_AUDIO,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-        }
-    }
+<p>矩阵$A$共有114行，7列，通过文本编辑器打开<code>move.data</code>或者通过<strong>matlab</strong>的变量查询界面可以看到矩阵内容，每行代表一个时刻采集到的数据，列的含义见下表（选取<code>move.data</code>前2行作为示例）：</p>
+<p><img src="/images/8.2/dataTable.png" alt="数据文件含义"></p>
+<p>上表中，时间戳的具体含义为：从1970年1月1日00:00到当前系统时间（智能手表上的系统时间）经历的总毫秒数。手表的三个坐标轴示意图如下：</p>
+<p><img src="/images/8.2/watch.pdf" alt="手表三轴示意图"></p>
+<p>为了便于处理，把时间戳的开始时间固定为0，以后的时间戳是相对于第一条数据的时间偏移：</p>
+<pre><code class="lang-matlab">A(:, 1) = A(:, 1) - A(1, 1);
 </code></pre>
-<p>设计应用界面：<br>在activity_main.xml中添加两个按钮 “START RECORD” 和 “STOP RECORD”：<br><img src="/images/3.1/19.png" alt title=" "><br>activity_main.xml文件中会出现两个按钮对应的代码：</p>
-<pre><code class="lang-java">   &lt;Button
-        android:id=&quot;@+id/start_record&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_marginStart=&quot;152dp&quot;
-        android:layout_marginLeft=&quot;152dp&quot;
-        android:layout_marginTop=&quot;124dp&quot;
-        android:text=&quot;start record&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
-
-    &lt;Button
-        android:id=&quot;@+id/stop_record&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_marginStart=&quot;152dp&quot;
-        android:layout_marginLeft=&quot;152dp&quot;
-        android:layout_marginTop=&quot;108dp&quot;
-        android:text=&quot;stop record&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toBottomOf=&quot;@+id/start_record&quot; /&gt;
+<p>本程序中使用的智能手表其加速度计和陀螺仪的采样率是$50Hz$，可以通过查询手表的相关文档或者观察相邻数据时间戳间隔来获取，定义变量如下：</p>
+<pre><code class="lang-matlab">samplingRate = 50;
+samplingTime = 1000 / samplingRate;
 </code></pre>
-<p>可以借助android:id项指定按钮的id，以及利用android:text项指定按钮上展示的文字。按钮的布局方式以及位置也可以自行调整。<br>在MainActivity中定义两个相应的button变量来代表这两个按钮：</p>
-<pre><code class="lang-java">Button StartRecord, StopRecord;
-</code></pre>
-<p>在 onCreate函数中讲这两个变量与两个按钮对应起来，并把stop record按钮设置为不可用：</p>
-<pre><code class="lang-java">StartRecord = (Button)findViewById(R.id.start_record);
-StopRecord = (Button)findViewById(R.id.stop_record);
-//在录音键被按下之前，不允许按停止键
-StopRecord.setEnabled(false);
-</code></pre>
-<p>为两个按钮添加点击响应函数：</p>
-<pre><code class="lang-java">//完成每个按钮的功能
-StartRecord.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        //恢复停止录音按钮，并禁用开始录音按钮
-        StopRecord.setEnabled(true);
-        StartRecord.setEnabled(false);
-        Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                //设置用于临时保存录音原始数据的文件的名字
-                String name = Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;/myrecorder/raw.wav&quot;;
-                //调用开始录音函数，并把原始数据保存在指定的文件中
-                StartRecord(name);
-                //获取此刻的时间
-                Date now = Calendar.getInstance().getTime();
-                //用此刻时间为最终的录音wav文件命名
-                String filepath =Environment.getExternalStorageDirectory().getAbsolutePath()+&quot;/myrecorder/&quot;+now.toString()+&quot;.wav&quot;;
-                //把录到的原始数据写入到wav文件中。
-                copyWaveFile(name, filepath);
-                }
-        });
-        //开启线程
-        thread.start();
-        }
-});
+<p>从上表以及数据文件中都可以看出，有的数据时间戳是相同的，而相邻两条数据的时间戳间隔也不是定值，其中的原因需要从智能手表的惯性测量单元采集数据的原理说起。</p>
+<p>在$Android$应用开发中，采集加速度计或者陀螺仪的数据是通过监听“数据变化”这一事件来实现的。以加速度计为例，如果加速度计元件在此刻测量到的数据与上一次测量到的数据不同，则会触发“数据变化”这一事件，可以利用该事件携带的参数在程序中进行数据收集或处理。加速度计元件相邻两次测量之间的时间间隔由该元件的采样率决定，两者互为倒数。理论上来说，如果相邻两次测量测得的数据相同，则不会触发“数据变化”事件，导致某一时刻数据缺失，但是由于元件本身的噪声，两次测量数据相同的情况很少见。由于程序运行的时延、元件采样率本身不精确等因素带来的误差，相邻两次数据的时间戳间隔不一定恰好等于元件相邻两次测量之间的时间间隔。两条数据时间戳相同的情况则是由于加速度计和陀螺仪是两个不同的元件，在采集时可能在同一时刻触发了加速度计的“数据变化”事件和陀螺仪的“数据变化”事件，因此在同一时刻会将数据记录2次。</p>
+<p>既然时间戳间隔不均匀，为了将时间戳处理成均匀的以便根据加速度计算速度和位移，需要对数据进行平滑插值处理：</p>
+<pre><code class="lang-matlab">[~, I] = unique(A(:, 1), &#39;first&#39;);
+A = A(I, :);
 
-StopRecord.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        //停止录音
-        isRecording = false;
-        //恢复开始录音按钮，并禁用停止录音按钮
-        StopRecord.setEnabled(false);
-        StartRecord.setEnabled(true);
-        }
-});
+temA = [];
+temA(:, 1) = (A(1, 1) : samplingTime : A(end, 1))&#39;;
+for i = 2 : size(A, 2)
+    temA(:, i) = spline(A(:, 1), A(:, i), temA(:, 1));
+end
 </code></pre>
-<p>实现录音功能：</p>
-<p>首先在MainActivity中设置用于控制录音继续和停止的全局变量，以及用于录音的参数</p>
-<pre><code class="lang-java">//48K采样率
-int SamplingRate = 48000;
-//格式：双声道
-int channelConfiguration = AudioFormat.CHANNEL_IN_STEREO;
-//16Bit
-int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
-//是否在录制
-boolean isRecording = false;
-//每次从audiorecord输入流中获取到的buffer的大小
-int bufferSize = 0;
+<p><code>unique</code>函数取出一个向量中所有互不相同的值，即去重，<code>spline</code>函数为三次样条插值函数，调用方式为<code>spline(x,y,xx)</code>，即先通过参数<code>x</code>和<code>y</code>拟合一条三次曲线，然后将自变量取值<code>xx</code>对应的函数值返回。</p>
+<p>本程序仅展示2维情况下的数据，<code>move.data</code>文件也是手表在表盘所在平面内运动得到的数据，因此在本程序中，$Z$轴的加速度和3轴陀螺仪没有意义，只需要$X$轴和$Y$轴的加速度：</p>
+<pre><code class="lang-matlab">T = temA(:, 1);
+A = temA(:, 2 : 3);
 </code></pre>
-<p>接下来我们详细来看录音函数的实现：</p>
-<pre><code class="lang-java">//开始录音
-public void StartRecord(String name) {
-
-        //生成原始数据文件
-        file = new File(name);
-        //如果文件已经存在，就先删除再创建
-        if (file.exists())
-                file.delete();
-        try {
-                file.createNewFile();
-        } catch (IOException e) {
-                throw new IllegalStateException(&quot;未能创建&quot; + file.toString());
-        }
-        try {
-                //文件输出流
-                OutputStream os = new FileOutputStream(file);
-                BufferedOutputStream bos = new BufferedOutputStream(os);
-                DataOutputStream dos = new DataOutputStream(bos);
-                //获取在当前采样和信道参数下，每次读取到的数据buffer的大小
-                bufferSize = AudioRecord.getMinBufferSize(SamplingRate, channelConfiguration, audioEncoding);
-                //建立audioRecord实例
-                AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SamplingRate, channelConfiguration, audioEncoding, bufferSize);
-
-                //设置用来承接从audiorecord实例中获取的原始数据的数组
-                byte[] buffer = new byte[bufferSize];
-                //启动audioRecord
-                audioRecord.startRecording();
-                //设置正在录音的参数isRecording为true
-                isRecording = true;
-                //只要isRecording为true就一直从audioRecord读出数据，并写入文件输出流。
-                //当停止按钮被按下，isRecording会变为false，循环停止
-                while (isRecording) {
-                int bufferReadResult = audioRecord.read(buffer, 0, bufferSize);
-                for (int i = 0; i &lt; bufferReadResult; i++) {
-                        dos.write(buffer[i]);
-                }
-                }
-                //停止audioRecord，关闭输出流
-                audioRecord.stop();
-                dos.close();
-        } catch (Throwable t) {
-                Log.e(&quot;MainActivity&quot;, &quot;录音失败&quot;);
-        }
-}
+<p>有了时间戳均匀的加速度数据，可以据此计算速度和位移了。在这里，采用的运动模型为<strong>分段匀加速运动</strong>，即认为在此次采样和下次采样之间的这段时间，手表保持此次采样值对应的加速度不变，根据此运动模型计算得到不同时刻对应的速度和位移：</p>
+<pre><code class="lang-matlab">dt = samplingTime / 1000;
+dV = A * dt;
+V = cumsum(dV);
+dD = V * dt + A * dt ^ 2 / 2;
+D = cumsum(dD);
 </code></pre>
-<p>接下来需要把录到的原始数据写入带格式的wav文件：</p>
-<pre><code class="lang-java">    private void copyWaveFile(String inFileName, String outFileName)
-    {
-        FileInputStream in = null;
-        FileOutputStream out = null;
-        long totalAudioLen = 0;
-        //wav文件比原始数据文件多出了44个字节，除去表头和文件大小的8个字节剩余文件长度比原始数据多36个字节
-        long totalDataLen = totalAudioLen + 36;
-        long longSampleRate = SamplingRate;
-        int channels = 2;
-        //每分钟录到的数据的字节数
-        long byteRate = 16 * SamplingRate * channels / 8;
+<p><code>cumsum</code>对一个向量（或矩阵，默认按照第一个维度的方向）进行累加操作，返回所有累加的中间结果拼成的向量（或矩阵）</p>
+<p>下面可以根据时间戳和2个轴的加速度、速度和位移数据画图展示，第一个图展示的是2个轴、3个物理量对应的6张图的曲线，使用<code>subplot</code>函数可以将这6张图画到一起：</p>
+<pre><code class="lang-matlab">subplot(3, 2, 1);
+plot(T, A(:, 1));
+title(&#39;X轴加速度&#39;);
 
-        byte[] data = new byte[bufferSize];
-        try
-        {
-            in = new FileInputStream(inFileName);
-            out = new FileOutputStream(outFileName);
-            //获取真实的原始数据长度
-            totalAudioLen = in.getChannel().size();
-            totalDataLen = totalAudioLen + 36;
-            //为wav文件写文件头
-            WriteWaveFileHeader(out, totalAudioLen, totalDataLen, longSampleRate, channels, byteRate);
-            //把原始数据写入到wav文件中。
-            while(in.read(data) != -1)
-            {
-                out.write(data);
-            }
-            in.close();
-            out.close();
-        } catch (FileNotFoundException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+subplot(3, 2, 2);
+plot(T, A(:, 2));
+title(&#39;Y轴加速度&#39;);
 
+subplot(3, 2, 3);
+plot(T, V(:, 1));
+title(&#39;X轴速度&#39;);
 
-    private void WriteWaveFileHeader(FileOutputStream out, long totalAudioLen,
-                                     long totalDataLen, long longSampleRate, int channels, long byteRate)
-            throws IOException {
-        byte[] header = new byte[44];
-        header[0] = &#39;R&#39;; // RIFF/WAVE header
-        header[1] = &#39;I&#39;;
-        header[2] = &#39;F&#39;;
-        header[3] = &#39;F&#39;;
-        header[4] = (byte) (totalDataLen &amp; 0xff);
-        header[5] = (byte) ((totalDataLen &gt;&gt; 8) &amp; 0xff);
-        header[6] = (byte) ((totalDataLen &gt;&gt; 16) &amp; 0xff);
-        header[7] = (byte) ((totalDataLen &gt;&gt; 24) &amp; 0xff);
-        header[8] = &#39;W&#39;;
-        header[9] = &#39;A&#39;;
-        header[10] = &#39;V&#39;;
-        header[11] = &#39;E&#39;;
-        header[12] = &#39;f&#39;; // &#39;fmt &#39; chunk
-        header[13] = &#39;m&#39;;
-        header[14] = &#39;t&#39;;
-        header[15] = &#39; &#39;;
-        header[16] = 16;
-        header[17] = 0;
-        header[18] = 0;
-        header[19] = 0;
-        header[20] = 1; // WAV type format = 1
-        header[21] = 0;
-        header[22] = (byte) channels; //指示是单声道还是双声道
-        header[23] = 0;
-        header[24] = (byte) (longSampleRate &amp; 0xff); //采样频率
-        header[25] = (byte) ((longSampleRate &gt;&gt; 8) &amp; 0xff);
-        header[26] = (byte) ((longSampleRate &gt;&gt; 16) &amp; 0xff);
-        header[27] = (byte) ((longSampleRate &gt;&gt; 24) &amp; 0xff);
-        header[28] = (byte) (byteRate &amp; 0xff); //每分钟录到的字节数
-        header[29] = (byte) ((byteRate &gt;&gt; 8) &amp; 0xff);
-        header[30] = (byte) ((byteRate &gt;&gt; 16) &amp; 0xff);
-        header[31] = (byte) ((byteRate &gt;&gt; 24) &amp; 0xff);
-        header[32] = (byte) (2 * 16 / 8); // block align
-        header[33] = 0;
-        header[34] = 16; // bits per sample
-        header[35] = 0;
-        header[36] = &#39;d&#39;;
-        header[37] = &#39;a&#39;;
-        header[38] = &#39;t&#39;;
-        header[39] = &#39;a&#39;;
-        header[40] = (byte) (totalAudioLen &amp; 0xff); //真实数据的长度
-        header[41] = (byte) ((totalAudioLen &gt;&gt; 8) &amp; 0xff);
-        header[42] = (byte) ((totalAudioLen &gt;&gt; 16) &amp; 0xff);
-        header[43] = (byte) ((totalAudioLen &gt;&gt; 24) &amp; 0xff);
-        //把header写入wav文件
-        out.write(header, 0, 44);
-    }
+subplot(3, 2, 4);
+plot(T, V(:, 2));
+title(&#39;Y轴速度&#39;);
+
+subplot(3, 2, 5);
+plot(T, D(:, 1));
+title(&#39;X轴位移&#39;);
+
+subplot(3, 2, 6);
+plot(T, D(:, 2));
+title(&#39;Y轴位移&#39;);
 </code></pre>
-<p>运行效果：<br>由于我在设置文件路径的时候把文件放在了文件夹“myrecorder”中，我们首先需要在手机的外部存储根目录下新建文件夹：<br><img src="/images/3.1/20.png" alt title=" "><br>如果你不怕文件再根目录下堆积太多的话也可以直接把文件写在根目录下。<br>接下来我们进行真机运行，首先把android手机用数据线连接到电脑上，并允许调试。在android Studio点击运行按钮：<br><img src="/images/3.1/17.png" alt title=" "><br>我们会在选择运行设备的界面看到这是一部三星手机：<br><img src="/images/3.1/18.png" alt title=" "><br>点击“OK”，代码就会加载到手机上。由于我把权限请求放在了onCreate函数中，所以程序启动之后首先会进行权限请求：<br><img src="/images/3.1/22.png" alt title=" "><br><img src="/images/3.1/23.png" alt title=" "><br>当然，你也可以把权限请求放在具体使用到某项权限时进行请求。<br>在应用洁面上我们可以看到只有start record按钮可用：<br><img src="/images/3.1/25.png" alt title=" "><br>点击start record,录音开始 stop record可用，start record不可用：<br><img src="/images/3.1/24.png" alt title=" "><br>点击stop record之后文件夹中会出现两个文件，一个是原始数据文件，一个是带格式信息的wav文件：<br><img src="/images/3.1/26.png" alt title=" "><br>到这里你已经成功的用自己实现的android应用录制到一个wav的声音文件了。下一个章节中，我们将探索如何用matlab读取并展示我们录到的声音。</p>
+<p>结果如下图所示：</p>
+<p><img src="/images/8.2/data3axis.png" alt="X轴和Y轴的加速度、速度以及位移曲线"></p>
+<p>为了展示手表运动的动态效果，可以利用<code>pause</code>函数进行连续画点以实现动画效果：</p>
+<pre><code class="lang-matlab">w = max(max(abs(D))) + 0.05;
+figure(2);
+axis([-w, w, -w, w]);
+
+for i = 1 : size(D, 1)
+    hold on;
+    plot(D(i, 1), D(i, 2), &#39;ro&#39;);
+    pause(dt);
+end
+</code></pre>
+<p><code>axis</code>函数规定了图像$X$和$Y$轴的取值范围，手表的运动轨迹如下：</p>
+<p><img src="/images/8.2/trace.png" alt="trace"></p>
+<h3 id="思考与扩展"><a href="#思考与扩展" class="headerlink" title="思考与扩展"></a>思考与扩展</h3><ol>
+<li>本程序只展示了在2维平面内手表运动的情况，如何将该场景拓展至3维？此时需要陀螺仪的数据计算手表的旋转情况。注意：手表测量得到的加速度数据，其参照系为手表的加速度计元件，而需要恢复的手表运动轨迹其参照系为世界坐标系，两者需要转换。</li>
+<li>2维平面的另一个简化之处在于不需要考虑重力的影响（重力全部分布在$Z$轴，在本程序中不予考虑），如果扩展到3维，如何在手表运动的情况下去除重力？注意：由于手表坐标系相对于世界坐标系的变化，重力在手表参照系下不再是常量。</li>
+<li>在上面惯性测量单元采集数据的原理中提到，加速度计和陀螺仪在采集数据时均有误差，这种误差对于恢复轨迹能带来多大的影响？如何有效地去除这种误差？</li>
+<li>计算速度和位移时，本程序采用的<strong>分段匀加速运动</strong>模型是否合理？有没有更能拟合真实速度和位移的运动模型？</li>
+<li>本程序进行手表手势识别的思路是先恢复轨迹，再根据轨迹判断手势。在轨迹恢复不准的情况下，如何根据不准的结果进行不同手势的区分？</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。 </span>
@@ -579,12 +414,12 @@ public void StartRecord(String name) {
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>3.1 安卓开发基础</p>
-    <p><span>文章字数:</span><span class="post-count">2.1k</span></p>
+    <p><span>文章标题:</span>8.2 智能手表数据处理与展示</p>
+    <p><span>文章字数:</span><span class="post-count">1.8k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
-    <p><span>发布时间:</span>2019-07-02, 15:41:32</p>
-    <p><span>最后更新:</span>2019-07-15, 16:47:13</p>
-    <span>原始链接:</span><a class="post-url" href="/2019/07/02/3.1 android开发基础/" title="3.1 安卓开发基础">http://yoursite.com/2019/07/02/3.1 android开发基础/</a>
+    <p><span>发布时间:</span>2019-07-09, 17:00:00</p>
+    <p><span>最后更新:</span>2019-07-23, 08:51:25</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/09/8.2 智能手表数据处理与展示/" title="8.2 智能手表数据处理与展示">http://yoursite.com/2019/07/09/8.2 智能手表数据处理与展示/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

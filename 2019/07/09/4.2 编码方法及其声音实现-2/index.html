@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>4.2.2 编码方法及其声音实现 | IoT Book</title>
+  <title>4.2.2 编码方法及其声音实现(2) | IoT Book</title>
   <meta name="keywords" content>
-  <meta name="description" content="4.2.2 编码方法及其声音实现 | IoT Book">
+  <meta name="description" content="4.2.2 编码方法及其声音实现(2) | IoT Book">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="IoTBook-source网站使用3hexo模板，markdown渲染引擎是hexo-renderer-kramed，语法及注意事项如下： markdown文件(.md)请放置在_post\目录下 图片文件(.jpg .png .eps .pdf等)请放置在images\目录下对应的章节文件中 文章中插入图片时，图片路径请保证为\images\章节名\图片名，插入图片的语句为![图片标题](图片">
 <meta property="og:type" content="website">
@@ -70,7 +70,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(14)</small></div></li>
+    <li><div class="all active">全部文章<small>(16)</small></div></li>
     
 </ul>
 <div class="left-bottom">
@@ -82,8 +82,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="14">
-<input type="hidden" id="yelog_site_word_count" value="34.9k">
+<input type="hidden" id="yelog_site_posts_number" value="16">
+<input type="hidden" id="yelog_site_word_count" value="37.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -173,19 +173,19 @@
         </a>
         
         <a id="top" class=""
-           href="/2019/07/09/4.2 编码方法及其声音实现-2/"
+           href="/2019/07/09/4.2 编码方法及其声音实现/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="4.2.2 编码方法及其声音实现">4.2.2 编码方法及其声音实现</span>
+            <span class="post-title" title="4.2.1 编码方法及其声音实现">4.2.1 编码方法及其声音实现</span>
             <span class="post-date" title="2019-07-09 17:00:00">2019/07/09</span>
         </a>
         
         <a id="top" class=""
-           href="/2018/07/09/4.2 编码方法及其声音实现/"
+           href="/2019/07/09/4.2 编码方法及其声音实现-2/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="4.2.1 编码方法及其声音实现">4.2.1 编码方法及其声音实现</span>
-            <span class="post-date" title="2018-07-09 17:00:00">2018/07/09</span>
+            <span class="post-title" title="4.2.2 编码方法及其声音实现(2)">4.2.2 编码方法及其声音实现(2)</span>
+            <span class="post-date" title="2019-07-09 08:00:00">2019/07/09</span>
         </a>
         
         <a id="top" class=""
@@ -221,6 +221,14 @@
         </a>
         
         <a id="top" class=""
+           href="/2019/07/09/8.2 智能手表数据处理与展示/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="8.2 智能手表数据处理与展示">8.2 智能手表数据处理与展示</span>
+            <span class="post-date" title="2019-07-09 17:00:00">2019/07/09</span>
+        </a>
+        
+        <a id="top" class=""
            href="/2019/07/02/9.2 网络冲突处理(zigzag)/"
            data-tag=""
            data-author="" >
@@ -234,6 +242,14 @@
            data-author="" >
             <span class="post-title" title="9.4 LoRa低功耗广域网">9.4 LoRa低功耗广域网</span>
             <span class="post-date" title="2019-07-01 16:07:32">2019/07/01</span>
+        </a>
+        
+        <a id="top" class=""
+           href="/2019/07/09/10.1 阿里云物联网平台介绍/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="10.1 阿里云物联网平台介绍">10.1 阿里云物联网平台介绍</span>
+            <span class="post-date" title="2019-07-09 17:00:00">2019/07/09</span>
         </a>
         
     </nav>
@@ -250,7 +266,7 @@
     <div class="pjax">
         <article id="post-4.2 编码方法及其声音实现-2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">4.2.2 编码方法及其声音实现</h1>
+        <h1 class="article-title">4.2.2 编码方法及其声音实现(2)</h1>
     
     <div class="article-meta">
         
@@ -262,7 +278,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-07-16 10:06:25'>2019-07-09 17:00</time>
+        创建时间:<time class="date" title='更新时间: 2019-07-23 08:45:57'>2019-07-09 08:00</time>
         
     </div>
     <div class="article-meta">
@@ -302,11 +318,113 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="相位编码"><a href="#相位编码" class="headerlink" title="相位编码"></a>相位编码</h2><p>前面我们介绍了幅度编码和频率编码，观察下图中的正弦函数公式，我们发现正弦信号除了幅度和频率特征，还有相位特征。本章节中，我们将介绍相位编码方法，也就是PSK（Phase shift keying）。<br><img src="\images\4.2\sine_wave.png" alt="正弦信号的特征" title=" ">  </p>
-<h3 id="BPSK"><a href="#BPSK" class="headerlink" title="BPSK"></a>BPSK</h3><p>相位编码，就是使用不同相位的信号来代表不同信息的编码方式。我们首先来看最简单的BPSK(Binary Phase Shift Keying),使用两种相位的信号来编码信息。为了使相位的区分度更高，我们使用相位相差为$\pi$的两种信号：<br><img src="\images\4.2\bpsk-basic.png" alt="相位为0和相位为$\pi$的信号" title=" "><br>有了基础的带有相位信息的信号，我们就可以根据输入的待编码的信息来选择不同相位的信号。当输入为0时，我们选择相位为0的信号，当输入为1时，我们选择相位为$\pi$的信号。输入信号和对应的生成的BPSK调制过的信号如下图所示。<br><img src="\images\4.2\bpsk-encode.png" alt="编码后的BPSK信号" title=" "><br>这种实现BPSK的方法叫做“键控”方法。此时数据和相位之间的映射关系是：<br>数据|相位<br>—|—<br>0 |0<br>1 | $\pi$<br>其星座映射图为：<br><img src="\images\4.2\bpsk-star.png" alt="BPSK星座图" title=" "></p>
+<h3 id="BPSK"><a href="#BPSK" class="headerlink" title="BPSK"></a>BPSK</h3><p>相位编码，就是使用不同相位的信号来代表不同信息的编码方式。我们首先来看最简单的BPSK(Binary Phase Shift Keying),使用两种相位的信号来编码信息。为了使相位的区分度更高，我们使用相位相差为$\pi$的两种信号：<br><img src="\images\4.2\bpsk-basic.png" alt="相位为0和相位为Π的信号" title=" "><br>有了基础的带有相位信息的信号，我们就可以根据输入的待编码的信息来选择不同相位的信号。当输入为0时，我们选择相位为0的信号，当输入为1时，我们选择相位为$\pi$的信号。输入信号和对应的生成的BPSK调制过的信号如下图所示。<br><img src="\images\4.2\bpsk-encode.png" alt="编码后的BPSK信号" title=" "><br>这种实现BPSK的方法叫做“键控”方法。此时数据和相位之间的映射关系是：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>相位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>$\pi$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其星座映射图为：<br><img src="\images\4.2\bpsk-star.png" alt="BPSK星座图" title=" "></p>
 <h3 id="QPSK"><a href="#QPSK" class="headerlink" title="QPSK"></a>QPSK</h3><p>目前普遍使用的实现PSK的方法是IQ正交调制。其原理是使用两路正交的信号分别编码两路数据，每路数据单独调制，并将两路信号直接相加。正交的两路信号通常选用$sin(2\pi ft)$和$cos(2\pi ft)$。<br><img src="\images\4.2\qpsk-basic.png" alt="QPSK选用两路正交信号" title=" "><br>用$i$和$q$分别代表两路待调制的数据，使用IQ调制后的信号为：</p>
 <script type="math/tex; mode=display">
-s(t) = i*sin(2\pi ft) + q*cos(2\pi ft)</script><p>此时数据和相位之间的映射关系是：<br>数据| I|Q|s(t)|相位<br>—|—|—|—|—<br>00 |1|1|$sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{\pi}{4})$|$\frac{\pi}{4}$<br>01 |1|-1|$sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{7 \pi}{4})$| $\frac{7 \pi}{4}$<br>10 |-1|1|$-sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{3 \pi}{4})$|$\frac{3 \pi}{4}$<br>11 |-1|-1|$-sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{5 \pi}{4})$| $\frac{5 \pi}{4}$<br>其星座映射图为：<br><img src="\images\4.2\qpsk-star.png" alt="QPSK星座图" title=" "><br>我们可以看到这里一共用到了四种相位来编码数据，这就是QPSK(Quadrature Phase Shift Keying)</p>
-<p>为了使输出信号s(t)的振幅为1，我们需要对I和Q信号除以$\sqrt{2}$，因此，数据和I,Q对应关系应该是如下表所示：<br>数据| I|Q|<br>—|—|—<br>00 |$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>01 |$\frac{ \sqrt{2} }{2}$|-$\frac{ \sqrt{2} }{2}$|<br>10 |-$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>11 |-$\frac{ \sqrt{2} }{2}$|-$\frac{ \sqrt{2} }{2}$|</p>
+s(t) = i*sin(2\pi ft) + q*cos(2\pi ft)</script><p>此时数据和相位之间的映射关系是：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>I</th>
+<th>Q</th>
+<th>s(t)</th>
+<th>相位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>1</td>
+<td>1</td>
+<td>$sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{\pi}{4})$</td>
+<td>$\frac{\pi}{4}$</td>
+</tr>
+<tr>
+<td>01</td>
+<td>1</td>
+<td>-1</td>
+<td>$sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{7 \pi}{4})$</td>
+<td>$\frac{7 \pi}{4}$</td>
+</tr>
+<tr>
+<td>10</td>
+<td>-1</td>
+<td>1</td>
+<td>$-sin(2\pi ft) + cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{3 \pi}{4})$</td>
+<td>$\frac{3 \pi}{4}$</td>
+</tr>
+<tr>
+<td>11</td>
+<td>-1</td>
+<td>-1</td>
+<td>$-sin(2\pi ft) - cos(2\pi ft) = \sqrt{2}sin(2\pi ft+\frac{5 \pi}{4})$</td>
+<td>$\frac{5 \pi}{4}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其星座映射图为：<br><img src="\images\4.2\qpsk-star.png" alt="QPSK星座图" title=" "><br>我们可以看到这里一共用到了四种相位来编码数据，这就是QPSK(Quadrature Phase Shift Keying)</p>
+<p>为了使输出信号s(t)的振幅为1，我们需要对I和Q信号除以$\sqrt{2}$，因此，数据和I,Q对应关系应该是如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>I</th>
+<th>Q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>$\frac{ \sqrt{2} }{2}$</td>
+<td>$\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>$\frac{ \sqrt{2} }{2}$</td>
+<td>-$\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>-$\frac{ \sqrt{2} }{2}$</td>
+<td>$\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>-$\frac{ \sqrt{2} }{2}$</td>
+<td>-$\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>下图展示了I、Q基带信号、分别调制了信息的两路信号以及叠加后的信号。图中对应的I路和Q路数据分别是：$I= {\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2}}$,$Q = { \frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},-\frac{ \sqrt{2} }{2},\frac{ \sqrt{2} }{2}}$<br><img src="\images\4.2\qpsk-encode.png" alt="IQ信号和编码后的QPSK信号" title=" "><br>在解码时，利用其正交特性，分别对两路信号进行积分运算，得到每路信号中编码的数据。<br>解码I路信号：</p>
 <script type="math/tex; mode=display">
 \begin{split}
@@ -321,7 +439,50 @@ s(t) = i*sin(2\pi ft) + q*cos(2\pi ft)</script><p>此时数据和相位之间的
 \frac{i}{2} -0 + 0 
 &=
 \frac{i}{2}
-\end{split}</script><p>对Q路信号的解码与之同理，这里就不进行重复展示了。<br>IQ调制的方法不仅可以实现4中相位的QPSK，还可以支持更多相位来实现更高的数据速率。当我们把QPSK的星座映射图中的坐标轴上也加上数据点，就可以得到8PSK的星座映射图：<br><img src="\images\4.2\8psk-star.png" alt="8PSK星座图" title=" "><br>为了使叠加的信号的相位满足星座映射图，数据和IQ之间的映射应该为：<br>数据| I|Q|<br>—|—|—<br>000 |$-\frac{ \sqrt{2} }{2}$|$-\frac{ \sqrt{2} }{2}$|<br>001 |-1|0|<br>010 |0|1|<br>011 |-$\frac{ \sqrt{2} }{2}$|$\frac{ \sqrt{2} }{2}$|<br>…||<br>当我们继续在星座映射图中增加数据点，就可以获得数据速率更高的相位编码方式，比如说下图中的16-QAM、32-QAM和64-QAM<br><img src="\images\4.2\16-32-64-QAM.png" alt="16-QAM、32-QAM和64-QAM的星座图" title=" "></p>
+\end{split}</script><p>对Q路信号的解码与之同理，这里就不进行重复展示了。<br>IQ调制的方法不仅可以实现4中相位的QPSK，还可以支持更多相位来实现更高的数据速率。当我们把QPSK的星座映射图中的坐标轴上也加上数据点，就可以得到8PSK的星座映射图：<br><img src="\images\4.2\8psk-star.png" alt="8PSK星座图" title=" "><br>为了使叠加的信号的相位满足星座映射图，数据和IQ之间的映射应该为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>I</th>
+<th>Q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>$-\frac{ \sqrt{2} }{2}$</td>
+<td>$-\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+<tr>
+<td>001</td>
+<td>-1</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>010</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>011</td>
+<td>-$\frac{ \sqrt{2} }{2}$</td>
+<td>$\frac{ \sqrt{2} }{2}$</td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当我们继续在星座映射图中增加数据点，就可以获得数据速率更高的相位编码方式，比如说下图中的16-QAM、32-QAM和64-QAM<br><img src="\images\4.2\16-32-64-QAM.png" alt="16-QAM、32-QAM和64-QAM的星座图" title=" "></p>
 <h3 id="OQPSK"><a href="#OQPSK" class="headerlink" title="OQPSK"></a>OQPSK</h3><p>观察QPSK的星座映射图，我们可以发现从00 到 11 和从10 到01之间的相位转变都是$\pi$。当信号通过低通滤波器时，大的相位翻转会导致大的幅值幅波动，如下图中红圈部分所示：<br><img src="\images\4.2\phase-shifts.png" alt="QPSK编码中会出现相位翻转为pi的情况" title=" "><br>这种大的相位翻转会影响解码的成功率。我们可以使用OQPSK(Offset QPSK)来解决这个问题。<br>OQPSK方法是基于QPSK的IQ调制方式，I路信号和QPSK相同，Q路数据向后错位半个周期。这样一来I路和Q路信号翻转的位置相差半个周期，也就是说I路数据和Q路数据不会出现同时的翻转，信号相位最大只能变化$\frac{\pi}{2}$。<br>下图分别展示了OQPSK的I、Q基带信号、分别调制了信息的两路信号以及叠加后的信号。<br><img src="\images\4.2\oqpsk-encode.png" alt="IQ信号和编码后的OQPSK信号" title=" "></p>
 <h3 id="在声音信号上实现OQPSK"><a href="#在声音信号上实现OQPSK" class="headerlink" title="在声音信号上实现OQPSK"></a>在声音信号上实现OQPSK</h3><h2 id="OFDM编码"><a href="#OFDM编码" class="headerlink" title="OFDM编码"></a>OFDM编码</h2><h2 id="载波调制"><a href="#载波调制" class="headerlink" title="载波调制"></a>载波调制</h2><p>上变频 下变频</p>
 
@@ -333,12 +494,12 @@ s(t) = i*sin(2\pi ft) + q*cos(2\pi ft)</script><p>此时数据和相位之间的
 
 
 <div class="article_copyright">
-    <p><span>文章标题:</span>4.2.2 编码方法及其声音实现</p>
+    <p><span>文章标题:</span>4.2.2 编码方法及其声音实现(2)</p>
     <p><span>文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span>本文作者:</span><a href="javascript:void(0)" title="WiSys Lab">WiSys Lab</a></p>
-    <p><span>发布时间:</span>2019-07-09, 17:00:00</p>
-    <p><span>最后更新:</span>2019-07-16, 10:06:25</p>
-    <span>原始链接:</span><a class="post-url" href="/2019/07/09/4.2 编码方法及其声音实现-2/" title="4.2.2 编码方法及其声音实现">http://yoursite.com/2019/07/09/4.2 编码方法及其声音实现-2/</a>
+    <p><span>发布时间:</span>2019-07-09, 08:00:00</p>
+    <p><span>最后更新:</span>2019-07-23, 08:45:57</p>
+    <span>原始链接:</span><a class="post-url" href="/2019/07/09/4.2 编码方法及其声音实现-2/" title="4.2.2 编码方法及其声音实现(2)">http://yoursite.com/2019/07/09/4.2 编码方法及其声音实现-2/</a>
     <p>
         <span>版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
